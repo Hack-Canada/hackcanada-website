@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 
@@ -56,18 +56,57 @@ const bronzeBlocks: SponsorBlock[] = [
 ];
 
 export default function Sponsors() {
-  const [currentHighlight, setCurrentHighlight] = useState(0);
+  const [currentHighlight, setCurrentHighlight] = useState(1); // Start at 1 because we duplicate first slide
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  // Create infinite loop by duplicating slides
+  const infiniteSlides = [
+    sponsorHighlights[sponsorHighlights.length - 1], // Last slide at beginning
+    ...sponsorHighlights,
+    sponsorHighlights[0], // First slide at end
+  ];
+
+  useEffect(() => {
+    if (!isTransitioning) {
+      setIsTransitioning(true);
+    }
+  }, [currentHighlight]);
+
+  useEffect(() => {
+    const handleTransitionEnd = () => {
+      if (currentHighlight === 0) {
+        // Jump to real last slide (without transition)
+        setIsTransitioning(false);
+        setCurrentHighlight(sponsorHighlights.length);
+      } else if (currentHighlight === infiniteSlides.length - 1) {
+        // Jump to real first slide (without transition)
+        setIsTransitioning(false);
+        setCurrentHighlight(1);
+      }
+    };
+
+    const carousel = carouselRef.current;
+    if (carousel) {
+      carousel.addEventListener('transitionend', handleTransitionEnd);
+      return () => carousel.removeEventListener('transitionend', handleTransitionEnd);
+    }
+  }, [currentHighlight, infiniteSlides.length, sponsorHighlights.length]);
 
   const nextHighlight = () => {
-    setCurrentHighlight((prev) => (prev + 1) % sponsorHighlights.length);
+    if (currentHighlight < infiniteSlides.length - 1) {
+      setCurrentHighlight((prev) => prev + 1);
+    }
   };
 
   const prevHighlight = () => {
-    setCurrentHighlight((prev) => (prev - 1 + sponsorHighlights.length) % sponsorHighlights.length);
+    if (currentHighlight > 0) {
+      setCurrentHighlight((prev) => prev - 1);
+    }
   };
 
   const goToHighlight = (index: number) => {
-    setCurrentHighlight(index);
+    setCurrentHighlight(index + 1); // +1 because of duplicate at start
   };
 
   return (
@@ -95,7 +134,7 @@ export default function Sponsors() {
       />
       <div className="container mx-auto px-4 py-20 relative z-10">
         {/* Header */}
-        <div className="max-w-4xl mx-auto mb-16">
+        <div className="mx-auto mb-16" style={{ maxWidth: '1129px', width: '100%' }}>
           <h1 
             className="mb-6 text-center"
             style={{
@@ -109,13 +148,15 @@ export default function Sponsors() {
             Sponsors
           </h1>
           <p 
-            className="text-center max-w-4xl mx-auto"
+            className="text-center mx-auto"
             style={{
               fontFamily: 'var(--font-lato)',
               fontSize: '35px',
               lineHeight: '60px',
               fontWeight: 500,
               color: '#E7DAE6',
+              maxWidth: '1129px',
+              width: '100%',
             }}
           >
             A huge thank you to our sponsors for making Hack Canada possible! Your support helps us reach new heights across the tech landscape.
@@ -124,19 +165,37 @@ export default function Sponsors() {
 
         {/* Sponsor Highlights Carousel */}
         <div className="mb-20">
-          <h2 className="text-2xl font-semibold mb-8 text-center">Sponsor Highlights</h2>
+          <h2 
+            className="mb-8 text-center mx-auto"
+            style={{
+              fontFamily: 'var(--font-lato)',
+              fontStyle: 'italic',
+              fontWeight: 500,
+              fontSize: '32px',
+              lineHeight: '60px',
+              color: '#FBDCDC',
+              maxWidth: '1129px',
+              width: '100%',
+            }}
+          >
+            Sponsor Highlights
+          </h2>
           
-          <div className="relative max-w-[954.94px] mx-auto">
+          <div className="relative max-w-[954.94px] mx-auto px-4">
             {/* Carousel Container */}
-            <div className="relative overflow-hidden">
+            <div className="relative overflow-hidden" style={{ minHeight: '700px' }}>
               <div 
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentHighlight * 100}%)` }}
+                ref={carouselRef}
+                className="flex"
+                style={{ 
+                  transform: `translateX(-${currentHighlight * 100}%)`,
+                  transition: isTransitioning ? 'transform 0.5s ease-in-out' : 'none',
+                }}
               >
-                {sponsorHighlights.map((sponsor, index) => (
+                {infiniteSlides.map((sponsor, index) => (
                   <div
                     key={index}
-                    className="min-w-full flex justify-center"
+                    className="min-w-full flex justify-center px-4"
                   >
                     <div 
                       className="relative flex flex-col items-center w-full max-w-[953.54px] mx-auto"
@@ -150,6 +209,7 @@ export default function Sponsors() {
                         borderRadius: '20px',
                         transform: 'rotate(-179.87deg)',
                         transformStyle: 'preserve-3d',
+                        zIndex: index === currentHighlight ? 10 : 1,
                       }}
                     >
                       <div style={{ transform: 'rotate(179.87deg)', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px' }}>
@@ -210,33 +270,46 @@ export default function Sponsors() {
             {/* Navigation Arrows */}
             <button
               onClick={prevHighlight}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-card border border-border rounded-full p-3 shadow-lg hover:bg-muted transition-colors z-10"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white border-2 border-gray-300 rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors z-20"
               aria-label="Previous sponsor"
+              style={{ backgroundColor: '#FFFFFF', borderColor: '#D1D5DB' }}
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-6 h-6 text-gray-700" />
             </button>
             <button
               onClick={nextHighlight}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-card border border-border rounded-full p-3 shadow-lg hover:bg-muted transition-colors z-10"
+              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white border-2 border-gray-300 rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors z-20"
               aria-label="Next sponsor"
+              style={{ backgroundColor: '#FFFFFF', borderColor: '#D1D5DB' }}
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-6 h-6 text-gray-700" />
             </button>
 
             {/* Pagination Dots */}
-            <div className="flex justify-center gap-2 mt-6">
-              {sponsorHighlights.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => goToHighlight(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    index === currentHighlight
-                      ? 'bg-primary w-8'
-                      : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
-                  }`}
-                  aria-label={`Go to sponsor ${index + 1}`}
-                />
-              ))}
+            <div className="flex justify-center gap-2 mt-8 z-20 relative">
+              {sponsorHighlights.map((_, index) => {
+                // Map the infinite carousel index to the real index for pagination
+                const realIndex = currentHighlight === 0 
+                  ? sponsorHighlights.length - 1 
+                  : currentHighlight === infiniteSlides.length - 1 
+                  ? 0 
+                  : currentHighlight - 1;
+                return (
+                  <button
+                    key={index}
+                    onClick={() => goToHighlight(index)}
+                    className={`rounded-full transition-all ${
+                      index === realIndex
+                        ? 'bg-white w-8 h-2'
+                        : 'bg-white/50 w-2 h-2 hover:bg-white/75'
+                    }`}
+                    style={{
+                      backgroundColor: index === realIndex ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)',
+                    }}
+                    aria-label={`Go to sponsor ${index + 1}`}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
