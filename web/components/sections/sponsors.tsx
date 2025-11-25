@@ -44,9 +44,12 @@ const sponsorHighlights: SponsorHighlight[] = [
 ];
 
 // Sponsor blocks for the grid
-const sponsorBlocks: SponsorBlock[] = [
-  { name: 'Avalanche', logo: '/sponsors/avalanche.png' },
+const avalancheBlock: SponsorBlock = { name: 'Avalanche', logo: '/sponsors/avalanche.png' };
+const microsoftBlocks: SponsorBlock[] = [
   { name: 'Microsoft', logo: '/sponsors/microsoft.png' },
+  { name: 'Microsoft', logo: '/sponsors/microsoft.png' },
+];
+const bottomBlocks: SponsorBlock[] = [
   { name: 'NordVPN', logo: '/sponsors/nordvpn.png' },
   { name: '1Password', logo: '/sponsors/1password.png' },
   { name: 'Warp', logo: '/sponsors/warp.png' },
@@ -208,30 +211,132 @@ export default function Sponsors() {
         </div>
 
         {/* Sponsor Blocks Grid */}
-        <div>
-          <h2 className="text-2xl font-semibold mb-8 text-center">Our Sponsors</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
-            {sponsorBlocks.map((sponsor, index) => (
+        <div className="max-w-6xl mx-auto px-4">
+          {/* Avalanche - Large Single Block */}
+          <div className="flex justify-center mb-8">
+            <a
+              href={avalancheBlock.link || '#'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative flex items-center justify-center w-full max-w-[954px]"
+              style={{
+                height: '294px',
+                aspectRatio: '954/294',
+              }}
+            >
+              <div
+                className="w-full h-full flex items-center justify-center transition-all duration-300 hover:scale-105"
+                style={{
+                  background: '#FFFFFF',
+                  boxShadow: '8px 8px 0px rgba(0, 0, 0, 0.25)',
+                  borderRadius: '20px',
+                  transform: 'rotate(-179.87deg)',
+                  transformStyle: 'preserve-3d',
+                }}
+              >
+                {avalancheBlock.logo && (
+                  <div style={{ transform: 'rotate(179.87deg)' }}>
+                    <Image
+                      src={avalancheBlock.logo}
+                      alt={avalancheBlock.name}
+                      width={561}
+                      height={294}
+                      className="object-contain"
+                      style={{ 
+                        width: '561px',
+                        height: '294px',
+                        filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+            </a>
+          </div>
+
+          {/* Microsoft - Two Blocks Side by Side */}
+          <div className="flex flex-col md:flex-row justify-center gap-4 mb-8">
+            {microsoftBlocks.map((sponsor, index) => (
               <a
                 key={index}
-                href={sponsor.link}
+                href={sponsor.link || '#'}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-card border border-border rounded-lg p-6 hover:border-primary transition-all hover:shadow-lg flex items-center justify-center aspect-square"
+                className="relative flex items-center justify-center w-full md:w-[465px]"
+                style={{
+                  height: '258px',
+                  aspectRatio: '465/258',
+                }}
               >
-                {sponsor.logo ? (
-                  <Image
-                    src={sponsor.logo}
-                    alt={sponsor.name}
-                    width={120}
-                    height={120}
-                    className="object-contain max-w-full max-h-full"
-                  />
-                ) : (
-                  <span className="text-muted-foreground font-medium text-center">
-                    {sponsor.name}
-                  </span>
-                )}
+                <div
+                  className="w-full h-full flex items-center justify-center transition-all duration-300 hover:scale-105"
+                  style={{
+                    background: '#FFFFFF',
+                    boxShadow: '8px 8px 0px rgba(0, 0, 0, 0.25)',
+                    borderRadius: '20px',
+                    transform: 'matrix(-1, 0, 0, -1, 0, 0)',
+                    transformStyle: 'preserve-3d',
+                  }}
+                >
+                  {sponsor.logo && (
+                    <div style={{ transform: 'matrix(-1, 0, 0, -1, 0, 0)' }}>
+                      <Image
+                        src={sponsor.logo}
+                        alt={sponsor.name}
+                        width={200}
+                        height={200}
+                        className="object-contain"
+                        style={{ maxWidth: '80%', maxHeight: '80%', width: 'auto', height: 'auto' }}
+                      />
+                    </div>
+                  )}
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {/* Bottom Row - Three Blocks */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            {bottomBlocks.map((sponsor, index) => (
+              <a
+                key={index}
+                href={sponsor.link || '#'}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative flex items-center justify-center w-full sm:w-[291px]"
+                style={{
+                  height: '208px',
+                  aspectRatio: '291/208',
+                }}
+              >
+                <div
+                  className="w-full h-full flex items-center justify-center p-4 transition-all duration-300 hover:scale-105"
+                  style={{
+                    background: '#FFFFFF',
+                    boxShadow: '8px 8px 0px rgba(0, 0, 0, 0.25)',
+                    borderRadius: '20px',
+                    transform: 'matrix(-1, -0.01, 0, -1, 0, 0)',
+                    transformStyle: 'preserve-3d',
+                  }}
+                >
+                  {sponsor.logo && (
+                    <div style={{ transform: 'matrix(-1, -0.01, 0, -1, 0, 0)' }}>
+                      <Image
+                        src={sponsor.logo}
+                        alt={sponsor.name}
+                        width={237}
+                        height={161}
+                        className="object-contain"
+                        style={{ 
+                          maxWidth: '100%', 
+                          maxHeight: '100%', 
+                          width: 'auto', 
+                          height: 'auto',
+                        }}
+                      />
+                    </div>
+                  )}
+                </div>
               </a>
             ))}
           </div>
