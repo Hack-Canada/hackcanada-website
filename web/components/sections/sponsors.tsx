@@ -44,12 +44,12 @@ const sponsorHighlights: SponsorHighlight[] = [
 ];
 
 // Sponsor blocks for the grid
-const avalancheBlock: SponsorBlock = { name: 'Avalanche', logo: '/sponsors/avalanche.png' };
-const microsoftBlocks: SponsorBlock[] = [
+const goldBlock: SponsorBlock = { name: 'Avalanche', logo: '/sponsors/avalanche.png' };
+const silverBlocks: SponsorBlock[] = [
   { name: 'Microsoft', logo: '/sponsors/microsoft.png' },
   { name: 'Microsoft', logo: '/sponsors/microsoft.png' },
 ];
-const bottomBlocks: SponsorBlock[] = [
+const bronzeBlocks: SponsorBlock[] = [
   { name: 'NordVPN', logo: '/sponsors/nordvpn.png' },
   { name: '1Password', logo: '/sponsors/1password.png' },
   { name: 'Warp', logo: '/sponsors/warp.png' },
@@ -212,10 +212,10 @@ export default function Sponsors() {
 
         {/* Sponsor Blocks Grid */}
         <div className="max-w-6xl mx-auto px-4">
-          {/* Avalanche - Large Single Block */}
+          {/* Gold - Large Single Block */}
           <div className="flex justify-center mb-8">
             <a
-              href={avalancheBlock.link || '#'}
+              href={goldBlock.link || '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="relative flex items-center justify-center w-full max-w-[954px]"
@@ -234,11 +234,11 @@ export default function Sponsors() {
                   transformStyle: 'preserve-3d',
                 }}
               >
-                {avalancheBlock.logo && (
+                {goldBlock.logo && (
                   <div style={{ transform: 'rotate(179.87deg)' }}>
                     <Image
-                      src={avalancheBlock.logo}
-                      alt={avalancheBlock.name}
+                      src={goldBlock.logo}
+                      alt={goldBlock.name}
                       width={561}
                       height={294}
                       className="object-contain"
@@ -254,9 +254,9 @@ export default function Sponsors() {
             </a>
           </div>
 
-          {/* Microsoft - Two Blocks Side by Side */}
+          {/* Silver - Two Blocks Side by Side */}
           <div className="flex flex-col md:flex-row justify-center gap-4 mb-8">
-            {microsoftBlocks.map((sponsor, index) => (
+            {silverBlocks.map((sponsor, index) => (
               <a
                 key={index}
                 href={sponsor.link || '#'}
@@ -298,9 +298,9 @@ export default function Sponsors() {
             ))}
           </div>
 
-          {/* Bottom Row - Three Blocks */}
+          {/* Bronze - Three Blocks */}
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            {bottomBlocks.map((sponsor, index) => (
+            {bronzeBlocks.map((sponsor, index) => (
               <a
                 key={index}
                 href={sponsor.link || '#'}
@@ -327,14 +327,12 @@ export default function Sponsors() {
                       <Image
                         src={sponsor.logo}
                         alt={sponsor.name}
-                        width={237}
+                        width={174}
                         height={161}
                         className="object-contain"
                         style={{ 
-                          maxWidth: '100%', 
-                          maxHeight: '100%', 
-                          width: 'auto', 
-                          height: 'auto',
+                          width: '174px',
+                          height: '161px',
                         }}
                       />
                     </div>
