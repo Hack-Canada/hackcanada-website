@@ -28,18 +28,18 @@ const sponsorHighlights: SponsorHighlight[] = [
     linkText: 'Explore careers at Meta →',
   },
   {
-    name: 'Microsoft',
-    logo: '/sponsors/microsoft.png',
-    description: 'Microsoft\'s mission is to empower every person and every organization on the planet to achieve more. We build products and services that help people and businesses realize their full potential.',
-    link: 'https://careers.microsoft.com',
-    linkText: 'Explore careers at Microsoft →',
+    name: 'Meta',
+    logo: '/sponsors/meta.png',
+    description: "Meta's mission is to give people the power to build community and bring the world closer together. Through our family of apps and services, we're building a different kind of company that connects billions of people around the world, gives them ways to share what matters most to them, and helps bring people closer together. Whether we're creating new products or helping a small business expand its reach, people at Meta are builders at heart. Our global teams are constantly iterating, solving problems, and working together to empower people around the world to build community and connect in meaningful ways. Together, we can help people build stronger communities — we're just getting started.",
+    link: 'https://www.meta.com/careers',
+    linkText: 'Explore careers at Meta →',
   },
   {
-    name: 'Near',
-    logo: '/sponsors/near.png',
-    description: 'Near Protocol is building the infrastructure to power the next generation of decentralized applications and services.',
-    link: 'https://near.org',
-    linkText: 'Learn more about Near →',
+    name: 'Meta',
+    logo: '/sponsors/meta.png',
+    description: "Meta's mission is to give people the power to build community and bring the world closer together. Through our family of apps and services, we're building a different kind of company that connects billions of people around the world, gives them ways to share what matters most to them, and helps bring people closer together. Whether we're creating new products or helping a small business expand its reach, people at Meta are builders at heart. Our global teams are constantly iterating, solving problems, and working together to empower people around the world to build community and connect in meaningful ways. Together, we can help people build stronger communities — we're just getting started.",
+    link: 'https://www.meta.com/careers',
+    linkText: 'Explore careers at Meta →',
   },
 ];
 
@@ -126,9 +126,9 @@ export default function Sponsors() {
         <div className="mb-20">
           <h2 className="text-2xl font-semibold mb-8 text-center">Sponsor Highlights</h2>
           
-          <div className="relative max-w-4xl mx-auto">
+          <div className="relative max-w-[954.94px] mx-auto">
             {/* Carousel Container */}
-            <div className="relative overflow-hidden rounded-lg">
+            <div className="relative overflow-hidden">
               <div 
                 className="flex transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentHighlight * 100}%)` }}
@@ -136,40 +136,71 @@ export default function Sponsors() {
                 {sponsorHighlights.map((sponsor, index) => (
                   <div
                     key={index}
-                    className="min-w-full px-4"
+                    className="min-w-full flex justify-center"
                   >
-                    <div className="bg-card border border-border rounded-lg p-8 md:p-12 shadow-lg">
-                      <div className="flex items-center gap-4 mb-6">
-                        {sponsor.logo ? (
-                          <Image
-                            src={sponsor.logo}
-                            alt={sponsor.name}
-                            width={80}
-                            height={80}
-                            className="object-contain"
-                          />
-                        ) : (
-                          <div className="w-20 h-20 bg-muted rounded-lg flex items-center justify-center">
-                            <span className="text-2xl font-bold text-muted-foreground">
-                              {sponsor.name.charAt(0)}
-                            </span>
+                    <div 
+                      className="relative flex flex-col items-center w-full max-w-[953.54px] mx-auto"
+                      style={{
+                        width: '953.54px',
+                        height: '638.36px',
+                        maxWidth: '100%',
+                        aspectRatio: '953.54/638.36',
+                        background: '#FFFFFF',
+                        boxShadow: '8px 8px 0px rgba(0, 0, 0, 0.25)',
+                        borderRadius: '20px',
+                        transform: 'rotate(-179.87deg)',
+                        transformStyle: 'preserve-3d',
+                      }}
+                    >
+                      <div style={{ transform: 'rotate(179.87deg)', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px' }}>
+                        {sponsor.logo && (
+                          <div className="mb-8">
+                            <Image
+                              src={sponsor.logo}
+                              alt={sponsor.name}
+                              width={318}
+                              height={64}
+                              className="object-contain"
+                              style={{ 
+                                width: '318px',
+                                height: '64px',
+                                maxWidth: '100%',
+                              }}
+                            />
                           </div>
                         )}
-                        <h3 className="text-3xl font-bold">{sponsor.name}</h3>
-                      </div>
-                      <p className="text-muted-foreground mb-6 leading-relaxed">
-                        {sponsor.description}
-                      </p>
-                      {sponsor.link && (
-                        <a
-                          href={sponsor.link}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-primary hover:underline inline-flex items-center gap-2 font-medium"
+                        <p 
+                          className="text-center mb-8"
+                          style={{
+                            fontFamily: 'var(--font-lato)',
+                            fontWeight: 500,
+                            fontSize: '20px',
+                            lineHeight: '150%',
+                            color: '#282D5C',
+                            maxWidth: '708px',
+                            width: '100%',
+                          }}
                         >
-                          {sponsor.linkText || 'Learn more →'}
-                        </a>
-                      )}
+                          {sponsor.description}
+                        </p>
+                        {sponsor.link && (
+                          <a
+                            href={sponsor.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                              fontFamily: 'var(--font-lato)',
+                              fontWeight: 500,
+                              fontSize: '20px',
+                              lineHeight: '150%',
+                              color: '#282D5C',
+                              textDecoration: 'underline',
+                            }}
+                          >
+                            {sponsor.linkText || 'Learn more →'}
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}
