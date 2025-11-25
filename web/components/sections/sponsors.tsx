@@ -283,10 +283,13 @@ export default function Sponsors() {
                       <Image
                         src={sponsor.logo}
                         alt={sponsor.name}
-                        width={200}
-                        height={200}
+                        width={294}
+                        height={63}
                         className="object-contain"
-                        style={{ maxWidth: '80%', maxHeight: '80%', width: 'auto', height: 'auto' }}
+                        style={{ 
+                          width: '294px',
+                          height: '63px',
+                        }}
                       />
                     </div>
                   )}
