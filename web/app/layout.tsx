@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Baloo_Chettan_2, Lato } from "next/font/google";
+import { Geist, Geist_Mono, Baloo_Chettan_2, Lato, Outfit } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,6 +14,10 @@ const geistMono = Geist_Mono({
 
 const balooChettan = Baloo_Chettan_2({
   variable: "--font-baloo-chettan",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
@@ -23,7 +27,7 @@ const outfit = Outfit({
 const lato = Lato({
   variable: "--font-lato",
   subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["100", "300", "400", "700", "900"],
 });
 
 export const metadata: Metadata = {
@@ -39,8 +43,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${balooChettan.variable} ${lato.variable} antialiased`}
-        className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${balooChettan.variable} ${lato.variable} ${outfit.variable} antialiased`}
       >
         {children}
       </body>
