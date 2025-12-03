@@ -14,6 +14,8 @@ const geistMono = Geist_Mono({
 
 const balooChettan = Baloo_Chettan_2({
   variable: "--font-baloo-chettan",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
   weight: ["400"],
 });
@@ -38,6 +40,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${balooChettan.variable} ${lato.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased`}
       >
         {children}
       </body>
