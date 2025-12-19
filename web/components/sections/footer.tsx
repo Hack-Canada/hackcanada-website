@@ -13,52 +13,34 @@ import React from 'react';
  */
 export default function Footer() {
   return (
-    <footer className="w-full border-t border-border bg-muted/50">
+    <footer className="w-full bg-[#232323]">
       <div className="container mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h3 className="font-bold text-lg mb-4">HackCanada</h3>
-            <p className="text-muted-foreground text-sm">
-              Canada's premier hackathon event
-            </p>
+        <div className="flex flex-row justify-between gap-8">
+          <div className="flex flex-col gap-4">
+            <div className='flex items-center gap-4'>
+              <img src="beaver-footer.png" alt="beaver logo" className="h-12 mr-2" />
+              <div className='flex flex-col text-neutral-300'>
+                <h1 className='text-4xl font-bold'>Hack Canada</h1>
+                <p>Powered by Hackathons Canada</p>
+              </div>
+            </div>
+            <p className=" text-neutral-300">&copy; {new Date().getFullYear()} HackCanada. All rights reserved.</p>
           </div>
-          <div>
-            <h4 className="font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors">
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#sponsors" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Sponsors
-                </a>
-              </li>
-              <li>
-                <a href="#team" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Team
-                </a>
-              </li>
-              <li>
-                <a href="#faq" className="text-muted-foreground hover:text-foreground transition-colors">
-                  FAQ
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Contact</h4>
-            <p className="text-sm text-muted-foreground">
-              Email: info@hackcanada.ca
-            </p>
-            <div className="flex gap-4 mt-4">
-              {/* TODO: Add social media icons */}
+          <div className="flex flex-col gap-4 text-neutral-300">
+            <div className='flex gap-2 justify-end'>
+              <a href="" className="no-underline hover:underline transition-all duration-300 underline-offset-2">Apply as Mentor</a>
+              <a href="" className="no-underline hover:underline transition-all duration-300 underline-offset-2">Apply as Judge</a>
+            </div>
+            <div className='flex gap-4 justify-end'>
+              <a href="" className="no-underline hover:underline transition-all duration-300 underline-offset-2">Code of Conduct</a>
+              <a href="" className="no-underline hover:underline transition-all duration-300 underline-offset-2">Privacy Policy</a>
+              <a href="" className="no-underline hover:underline transition-all duration-300 underline-offset-2">Contact Us</a>
+            </div>
+            <div className='flex align-center items-center gap-4 justify-end'>
+              <img src="hackathonscanada.png" alt="hackathons canada logo" />
+              <p>A Hackathons Canada Initiative</p>
             </div>
           </div>
-        </div>
-        <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} HackCanada. All rights reserved.</p>
         </div>
       </div>
     </footer>
