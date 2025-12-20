@@ -50,7 +50,7 @@ export default function Hero() {
       <div 
         className="absolute inset-0 z-10"
         style={{
-          transform: `translateY(${scrollY * 0.2}px)`,
+          transform: `translateY(${300 + scrollY * 0.2}px)`,
         }}
       >
         <Image 
