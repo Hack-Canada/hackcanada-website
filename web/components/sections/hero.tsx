@@ -28,12 +28,12 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="hero" className="w-full min-h-screen flex items-center justify-center relative -mt-4">
+    <section id="hero" className="w-full min-h-[1400px] flex items-center justify-center relative overflow-hidden">
       {/* Background layer - slower parallax */}
       <div 
         className="absolute inset-0 z-0"
         style={{
-          transform: `translateY(${scrollY * 0.5}px)`,
+          transform: `translateY(${scrollY * 0.4}px)`,
         }}
       >
         <Image 
@@ -41,7 +41,7 @@ export default function Hero() {
           alt="Background" 
           width={1920}
           height={1080}
-          className="object-cover"
+          className="object-cover w-[1920px] h-[1080px]"
           priority
         />
       </div>
@@ -58,7 +58,7 @@ export default function Hero() {
           alt="Foreground" 
           width={1920}
           height={1080}
-          className="object-cover object-top"
+          className="object-cover object-top w-[1920px] h-[1080px]"
           priority
         />
       </div>
