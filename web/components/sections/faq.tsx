@@ -123,8 +123,7 @@ export default function FAQ() {
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage:
-            "url(https://www.figma.com/api/mcp/asset/4888bd39-fece-4294-94eb-954b372af4da)",
+          backgroundImage: "url('/faq.svg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
