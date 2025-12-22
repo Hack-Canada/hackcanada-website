@@ -22,7 +22,7 @@ export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className='fixed top-4 xl:top-12 left-4 right-64 xl:left-24 xl:right-64 z-50 flex border-1 border-white rounded-lg bg-white/50 backdrop-blur gap-8 items-center px-8 '>
+    <div className='fixed top-4 xl:top-12 left-4 right-32 xl:left-24 md:right-64 z-50 flex border-1 border-white rounded-lg bg-white/50 backdrop-blur gap-8 items-center px-8 '>
       {/* logo */}
       <img src="beaver.png" alt="beaver logo" className="h-16" />
       <div className='hidden lg:flex gap-8 justify-between items-center flex-1'>
