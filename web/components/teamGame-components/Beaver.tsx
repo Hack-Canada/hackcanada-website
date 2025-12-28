@@ -14,7 +14,8 @@ const Beaver = forwardRef<HTMLDivElement, BeaverProps>(function Beaver(
   ref
 ) {
   const beaverSize = 80;
-  const beaverX = 110;
+  const beaverX = typeof window !== 'undefined' && window.innerWidth < 640 ? 30 : 110;
+
 
   const [walkFrame, setWalkFrame] = useState<1 | 2>(1);
 

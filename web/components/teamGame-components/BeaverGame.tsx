@@ -19,6 +19,19 @@ type ObstacleState = {
   x: number;
 };
 
+function useIsMobile(breakpoint = 640) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < breakpoint);
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 export default function BeaverGame() {
   const [gameState, setGameState] = useState<GameState>({
     isPlaying: false,
@@ -27,6 +40,8 @@ export default function BeaverGame() {
     highScore: 0,
     speed: 6,
   });
+
+  const isMobile = useIsMobile(640);
 
   const [hitMember, setHitMember] = useState<TeamMember | null>(null);
   const [metMembers, setMetMembers] = useState<string[]>([]);
@@ -58,20 +73,20 @@ export default function BeaverGame() {
   const jumpingRef = useRef(false);
 
   const obstaclesRef = useRef<ObstacleState[]>([]);
-
   const nextWaveRef = useRef(0);
   const pendingClusterRef = useRef(0);
   const nextInClusterRef = useRef(0);
 
-  const padX = '14vw';
-  const laneTop = '34%';
-  const laneHeightPx = 240;
+  // Responsive numeric layout values
+  const padX = isMobile ? '5vw' : '14vw';
+  const laneTop = isMobile ? '38%' : '34%';
+  const laneHeightPx = isMobile ? 200 : 240;
   const groundH = 12;
 
-  const obstacleSize = 55;
+  const obstacleSize = isMobile ? 52 : 55;
   const spawnPad = 120;
 
-  const BASE_SPEED_PX_PER_MS = 0.62;
+  const BASE_SPEED_PX_PER_MS = 0.45;
   const JUMP_SPEED = 0.62;
   const GRAVITY = 0.00255;
 
@@ -82,12 +97,14 @@ export default function BeaverGame() {
     lastTimeRef.current = null;
     scoreAccRef.current = 0;
     speedScaleRef.current = 1;
+
     yRef.current = 0;
     vyRef.current = 0;
     jumpingRef.current = false;
 
     obstaclesRef.current = [];
     setObstacles([]);
+
     setBeaverBottom(0);
     setYVelocity(0);
     setIsJumping(false);
@@ -134,46 +151,44 @@ export default function BeaverGame() {
   }, []);
 
   const endGame = useCallback(
-  (member: TeamMember) => {
-    if (!isPlayingRef.current) return;
+    (member: TeamMember) => {
+      if (!isPlayingRef.current) return;
 
-    isPlayingRef.current = false;
+      isPlayingRef.current = false;
+      markMet(member.id);
 
-    markMet(member.id);
+      setGameState(prev => {
+        const newHighScore = Math.max(prev.score, prev.highScore);
+        localStorage.setItem('highScore', newHighScore.toString());
+        return { ...prev, isPlaying: false, isGameOver: true, highScore: newHighScore };
+      });
 
-    setGameState(prev => {
-      const newHighScore = Math.max(prev.score, prev.highScore);
-      localStorage.setItem('highScore', newHighScore.toString());
-      return { ...prev, isPlaying: false, isGameOver: true, highScore: newHighScore };
-    });
+      setHitMember(member);
 
-    setHitMember(member);
+      jumpingRef.current = false;
+      vyRef.current = 0;
+      setIsJumping(false);
+      setYVelocity(0);
 
-    
-    jumpingRef.current = false;
-    vyRef.current = 0;
-    setIsJumping(false);
-    setYVelocity(0);
-
-    
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    rafRef.current = null;
-    lastTimeRef.current = null;
-  },
-  [markMet]
-);
-
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+      lastTimeRef.current = null;
+    },
+    [markMet]
+  );
 
   const boxesOverlap = (a: DOMRect, b: DOMRect) =>
     a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
 
   const checkCollision = useCallback(() => {
     if (jumpingRef.current) return;
+
     const beaverEl = beaverRef.current;
     if (!beaverEl) return;
 
     const b0 = beaverEl.getBoundingClientRect();
     const shrink = 14;
+
     const b = new DOMRect(
       b0.x + shrink,
       b0.y + shrink,
@@ -220,8 +235,8 @@ export default function BeaverGame() {
 
         setGameState(prev => {
           const nextScore = prev.score + steps;
-          const nextSpeed = Math.min(18, 6 + Math.floor(nextScore / 85));
-          speedScaleRef.current = 1 + (nextSpeed - 6) * 0.085;
+          const nextSpeed = Math.min(18, 6 + Math.floor(nextScore / 140));
+          speedScaleRef.current = 1 + (nextSpeed - 6) * 0.06;
           return { ...prev, score: nextScore, speed: nextSpeed };
         });
       }
@@ -280,15 +295,14 @@ export default function BeaverGame() {
 
           const waveMin = 700;
           const waveMax = 1500;
-          const nextWave = randBetween(waveMin, waveMax) / Math.max(1, speedScale);
-          nextWaveRef.current = nextWave;
+          nextWaveRef.current = randBetween(waveMin, waveMax) / Math.max(1, speedScale);
         }
       }
 
       checkCollision();
       rafRef.current = requestAnimationFrame(updateLoop);
     },
-    [checkCollision, spawnOne]
+    [checkCollision, spawnOne, obstacleSize]
   );
 
   const jump = useCallback(() => {
@@ -297,7 +311,6 @@ export default function BeaverGame() {
 
     jumpingRef.current = true;
     vyRef.current = JUMP_SPEED;
-
     setIsJumping(true);
     setYVelocity(vyRef.current);
   }, []);
@@ -313,19 +326,21 @@ export default function BeaverGame() {
       if (!isPlayingRef.current) return;
 
       const target = e.target as Node | null;
+
+      // don't jump when interacting with met bar or modal
       if (metBarRef.current && target && metBarRef.current.contains(target)) return;
+      if (selectedMember) return;
 
       jump();
     };
 
     window.addEventListener('keydown', onKey);
     window.addEventListener('click', onClick);
-
     return () => {
       window.removeEventListener('keydown', onKey);
       window.removeEventListener('click', onClick);
     };
-  }, [jump]);
+  }, [jump, selectedMember]);
 
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => {
@@ -343,6 +358,7 @@ export default function BeaverGame() {
 
     resetSim();
     setHitMember(null);
+    setSelectedMember(null);
 
     isPlayingRef.current = true;
 
@@ -383,9 +399,10 @@ export default function BeaverGame() {
 
   return (
     <div className="relative w-full h-[80vh] bg-black overflow-hidden font-rubik">
+      {/* Modal */}
       {selectedMember && (
         <div
-          className="fixed inset-0 z-[999] flex items-center justify-center bg-black/60"
+          className="fixed inset-0 z-[999] flex items-center justify-center bg-black/60 px-4"
           onClick={() => setSelectedMember(null)}
         >
           <div
@@ -421,50 +438,113 @@ export default function BeaverGame() {
         </div>
       )}
 
-      <div className="absolute top-10 left-12 z-30">
-        {!gameState.isGameOver ? (
-          <div>
-            <h1 className="text-6xl text-white mb-2 font-luckiest">Meet our Team</h1>
-            <p className="text-xl text-white">Made with 💜 by @hackcanada / @hackathonscanada</p>
-          </div>
-        ) : (
-          <div>
-            <h1 className="text-6xl text-white mb-2 font-luckiest">
-              YOU&apos;VE HIT {hitMember?.name.toUpperCase()}!
-            </h1>
-            <p className="text-xl text-white">
-              {hitMember?.role} | Team {hitMember?.team}
-            </p>
-          </div>
-        )}
-      </div>
-
-      <div className="absolute top-10 right-12 z-30 text-white font-mono text-2xl">
-        <span>HI {displayHigh}</span>
-        <span className="ml-8">{displayScore}</span>
-      </div>
-
-      <div className="absolute inset-0 flex items-center justify-center z-30 pointer-events-none">
-        {!gameState.isPlaying && !gameState.isGameOver && (
-          <button
-            onClick={startGame}
-            className="px-8 py-4 bg-white text-black text-2xl font-bold rounded-lg hover:bg-gray-200 transition-colors pointer-events-auto"
+      {/* Header (responsive) */}
+<div className="absolute z-30 left-0 right-0 top-0 px-4 sm:px-12 pt-4 sm:pt-10">
+  <div className="flex items-start justify-between gap-4">
+    <div className="min-w-0">
+      {!gameState.isGameOver ? (
+        <>
+          <h1
+            className="
+              text-[28px] leading-[0.95] sm:text-6xl sm:leading-none
+              text-white font-luckiest
+              whitespace-normal
+            "
+            style={{
+              maxWidth: isMobile ? '72vw' : 'none', // keeps it from colliding with score on mobile
+            }}
           >
-            TAP TO START
-          </button>
-        )}
+            Meet our Team
+          </h1>
 
-        {gameState.isGameOver && (
-          <button
-            onClick={startGame}
-            className="px-8 py-4 bg-white text-black text-2xl font-bold rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-3 pointer-events-auto"
+          <p className="hidden sm:block text-xl text-white mt-2">
+            Made with 💗 by @hackcanada / @hackathonscanada
+          </p>
+
+          <p className="sm:hidden text-xs text-white/80 mt-2">
+            Tap/click to jump
+          </p>
+        </>
+      ) : (
+        <>
+          <h1
+            className="
+              text-[28px] leading-[0.95] sm:text-6xl sm:leading-none
+              text-white font-luckiest
+              whitespace-normal
+            "
+            style={{ maxWidth: isMobile ? '72vw' : 'none' }}
           >
-            <span className="text-3xl">↻</span>
-            RESTART
-          </button>
-        )}
+            YOU HIT {hitMember?.name.toUpperCase()}!
+          </h1>
+          <p className="text-sm sm:text-xl text-white/90 mt-2">
+            {hitMember?.role} · Team {hitMember?.team}
+          </p>
+        </>
+      )}
+    </div>
+
+    {/* Score */}
+    <div className="shrink-0 text-white font-mono text-lg sm:text-2xl whitespace-nowrap">
+      <span className="opacity-80 mr-4">HI {displayHigh}</span>
+      <span className="tracking-wider">{displayScore}</span>
+    </div>
+  </div>
+</div>
+
+
+      {/* Start / Restart */}
+      <div className="absolute inset-0 z-30 pointer-events-none">
+        {/* MOBILE */}
+        <div className="sm:hidden">
+          {!gameState.isPlaying && !gameState.isGameOver && (
+            <div className="mt-[22vh] px-4">
+              <button
+                onClick={startGame}
+                className="w-full px-6 py-3 bg-white text-black text-xl font-bold rounded-xl hover:bg-gray-200 transition-colors pointer-events-auto"
+              >
+                TAP TO START
+              </button>
+            </div>
+          )}
+
+          {gameState.isGameOver && (
+            <div className="mt-[16vh] px-4">
+              <button
+                onClick={startGame}
+                className="w-full max-w-[520px] mx-auto px-6 py-3 bg-white text-black text-xl font-bold rounded-xl hover:bg-gray-200 transition-colors flex items-center justify-center gap-3 pointer-events-auto"
+              >
+                <span className="text-2xl">↻</span>
+                RESTART
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* DESKTOP */}
+        <div className="hidden sm:flex absolute inset-0 items-center justify-center">
+          {!gameState.isPlaying && !gameState.isGameOver && (
+            <button
+              onClick={startGame}
+              className="px-8 py-4 bg-white text-black text-2xl font-bold rounded-xl hover:bg-gray-200 transition-colors pointer-events-auto"
+            >
+              TAP TO START
+            </button>
+          )}
+
+          {gameState.isGameOver && (
+            <button
+              onClick={startGame}
+              className="px-10 py-5 bg-white text-black text-2xl font-bold rounded-xl hover:bg-gray-200 transition-colors flex items-center gap-3 pointer-events-auto"
+            >
+              <span className="text-3xl">↻</span>
+              RESTART
+            </button>
+          )}
+        </div>
       </div>
 
+      {/* Lane */}
       <div className="absolute left-0 w-full z-10" style={{ top: laneTop, height: `${laneHeightPx}px` }}>
         <div
           ref={laneRef}
@@ -477,28 +557,27 @@ export default function BeaverGame() {
           }}
         >
           {(gameState.isPlaying || gameState.isGameOver) && (
-  <Beaver
-    ref={beaverRef as any}
-    bottom={beaverBottom}
-    isJumping={isJumping}
-    yVelocity={yVelocity}
-    isGameOver={gameState.isGameOver}
-  />
-)}
-
+            <Beaver
+              ref={beaverRef as any}
+              bottom={beaverBottom}
+              isJumping={isJumping}
+              yVelocity={yVelocity}
+              isGameOver={gameState.isGameOver}
+            />
+          )}
 
           {obstacles.map(o => (
-  <Obstacle
-    key={o.id}
-    ref={el => {
-      obstacleRefs.current[o.id] = el;
-    }}
-    member={o.member}
-    x={o.x}
-    size={obstacleSize}
-    groundOffsetPx={groundH}
-  />
-))}
+            <Obstacle
+              key={o.id}
+              ref={el => {
+                obstacleRefs.current[o.id] = el;
+              }}
+              member={o.member}
+              x={o.x}
+              size={obstacleSize}
+              groundOffsetPx={groundH}
+            />
+          ))}
 
           <div className="absolute left-0 bottom-0 w-full" style={{ height: `${groundH}px` }}>
             <div className="absolute top-0 left-0 w-full h-full" style={groundStyle} />
@@ -506,26 +585,27 @@ export default function BeaverGame() {
         </div>
       </div>
 
+      {/* Met bar */}
       <div
         ref={metBarRef}
-        className="absolute bottom-8 left-12 z-50 text-white w-[calc(100%-6rem)] pointer-events-auto"
+        className="absolute z-50 text-white pointer-events-auto left-4 right-4 bottom-2 sm:left-12 sm:right-12 sm:bottom-8"
       >
-        <div className="text-xl mb-3">
+        <div className="text-sm sm:text-xl mb-2 sm:mb-3">
           Team Members Met: {metMembers.length}/{teamMembers.length}
         </div>
 
         <div
           className="overflow-x-auto overflow-y-visible scrollbar-hide"
           style={{
-            height: 112,
-            paddingTop: 22,
-            paddingBottom: 22,
-            paddingLeft: 28,
-            paddingRight: 28,
+            height: isMobile ? 96 : 112,
+            paddingTop: 18,
+            paddingBottom: 18,
+            paddingLeft: 34,
+            paddingRight: 22,
           }}
         >
           <div className="flex flex-nowrap gap-3 items-center">
-            {teamMembers.map(member => {
+            {teamMembers.map((member, idx) => {
               const isMet = metMembers.includes(member.id);
               const isHovered = hoveredMember === member.id;
 
@@ -533,9 +613,13 @@ export default function BeaverGame() {
                 <div
                   key={member.id}
                   className="relative flex-shrink-0"
+                  style={{ marginLeft: idx === 0 ? 6 : 0 }}
                   onMouseEnter={() => setHoveredMember(member.id)}
                   onMouseLeave={() => setHoveredMember(null)}
-                  onClick={() => openMemberModal(member.id)}
+                  onClick={e => {
+                    e.stopPropagation();
+                    openMemberModal(member.id);
+                  }}
                 >
                   <img
                     src={member.photo}
