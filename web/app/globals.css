@@ -117,18 +117,28 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 1; }
-a {
-  font-family: 'Baloo Chettan 2', serif;
-}
 
-h1 {
-  font-family: 'Baloo Chettan 2', serif;
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  a {
+    font-family: 'Baloo Chettan 2', serif;
+  }
+
+  h1 {
+    font-family: 'Baloo Chettan 2', serif;
+  }
 }
