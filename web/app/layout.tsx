@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import {
-  Geist,
-  Geist_Mono,
   Baloo_Chettan_2,
   Lato,
   Outfit,
@@ -35,6 +33,8 @@ const lato = Lato({
   variable: "--font-lato",
   subsets: ["latin"],
   weight: ["100", "300", "400", "700", "900"],
+});
+
 const luckiestGuy = Luckiest_Guy({
   weight: "400",
   variable: "--font-luckiest-guy",
@@ -60,7 +60,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${balooChettan.variable} ${lato.variable} ${outfit.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${balooChettan.variable} ${lato.variable} ${outfit.variable} ${luckiestGuy.variable} ${rubik.variable} antialiased`}
       >
         <a
           id="mlh-trust-badge"
