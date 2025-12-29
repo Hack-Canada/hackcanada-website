@@ -1,4 +1,7 @@
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 
 /**
  * Hero Section Component
@@ -13,26 +16,58 @@ import React from 'react';
  * TODO: Add hero content, images, and CTAs
  */
 export default function Hero() {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section id="hero" className="w-full min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-muted/20">
-      <div className="container mx-auto px-4 py-20 text-center">
-        <h1 className="text-5xl md:text-7xl font-bold mb-6">
-          Welcome to HackCanada
-        </h1>
-        <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-          Join Canada's premier hackathon event. Build, innovate, and connect with developers from across the country.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors">
-            Register Now
-          </button>
-          <button className="px-8 py-3 border border-border rounded-lg font-semibold hover:bg-muted transition-colors">
-            Learn More
-          </button>
-        </div>
-        <div className="mt-12 text-muted-foreground">
-          <p className="text-lg">Date: TBD</p>
-          <p className="text-lg">Location: TBD</p>
+    <section id="hero" className="w-full min-h-[1400px] flex items-center justify-center relative overflow-hidden">
+      {/* Background layer - slower parallax */}
+      <div 
+        className="absolute inset-0 z-0"
+        style={{
+          transform: `translateY(${scrollY * 0.4}px)`,
+        }}
+      >
+        <Image 
+          src="/background.png" 
+          alt="Background" 
+          width={1920}
+          height={1080}
+          className="object-cover w-[1920px] h-[1080px]"
+          priority
+        />
+      </div>
+
+      {/* Foreground layer - faster parallax */}
+      <div 
+        className="absolute inset-0 z-10"
+        style={{
+          transform: `translateY(${300 + scrollY * 0.2}px)`,
+        }}
+      >
+        <Image 
+          src="/foreground.png" 
+          alt="Foreground" 
+          width={1920}
+          height={1080}
+          className="object-cover object-top w-[1920px] h-[1080px]"
+          priority
+        />
+      </div>
+
+      <div className="z-20 flex flex-col items-center text-center px-4 mb-[30vh] md:ml-[40vw] md:mb-[45vh] backdrop-blur-md mx-10 bg-white/20 rounded-lg py-6 md:backdrop-blur-none md:bg-transparent md:py-0">
+        <h1 className='text-6xl md:text-8xl font-bold text-[#441E0A]'>Hack Canada</h1>
+        <p className='text-[#441E0A] text md:text-2xl mt-2 md:mt-0'>Feb 30-32, 2025 | In-Person Event | Unofficial MLH Partner</p>
+        <div className='bg-[#441E0A] text-white px-8 md:px-10 py-2 md:py-3 rounded-lg mt-4 md:mt-6 hover:bg-[#5C2E0F] transition'>
+          <a href="" className='font-bold text-lg md:text-2xl'>Apply Now!</a>
         </div>
       </div>
     </section>

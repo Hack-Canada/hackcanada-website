@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400..800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -124,4 +125,10 @@
 @keyframes twinkle {
   0%, 100% { opacity: 0.2; }
   50% { opacity: 1; }
+a {
+  font-family: 'Baloo Chettan 2', serif;
+}
+
+h1 {
+  font-family: 'Baloo Chettan 2', serif;
 }
