@@ -43,6 +43,12 @@ const stats: StatItem[] = [
   },
 ];
 
+// Format percentage with consistent precision to avoid hydration mismatches
+const formatPercent = (val: number): string => {
+  const rounded = Math.round(val * 10000) / 10000;
+  return `${rounded}%`;
+};
+
 export default function Stats() {
   const stars = useMemo(() => {
     return Array.from({ length: 200 }).map((_, i) => {
@@ -54,8 +60,9 @@ export default function Stats() {
       const seedDelay = (i * 3307) % 10000 / 10000;
       const seedSize = (i * 8147) % 10000 / 10000;
       
-      const x = ((seedX1 + Math.sin(seedX2 * Math.PI * 2) * 0.3) * 100) % 100;
-      const y = ((seedY1 + Math.cos(seedY2 * Math.PI * 2) * 0.3) * 100) % 100;
+      // Round to 4 decimal places to ensure server/client consistency
+      const x = Math.round(((seedX1 + Math.sin(seedX2 * Math.PI * 2) * 0.3) * 100) % 100 * 10000) / 10000;
+      const y = Math.round(((seedY1 + Math.cos(seedY2 * Math.PI * 2) * 0.3) * 100) % 100 * 10000) / 10000;
       
       let size;
       if (seedSize > 0.92) size = 5;
@@ -65,11 +72,15 @@ export default function Stats() {
       else if (seedSize > 0.25) size = 2.5;
       else size = 2;
       
+      // Round opacity and delay to ensure consistency
+      const opacity = Math.round((0.4 + (seedOpacity * 0.6)) * 100000) / 100000;
+      const delay = Math.round((1.5 + (seedDelay * 4)) * 10000) / 10000;
+      
       return {
-        left: `${x}%`,
-        top: `${y}%`,
-        opacity: 0.4 + (seedOpacity * 0.6),
-        delay: 1.5 + (seedDelay * 4),
+        left: formatPercent(x),
+        top: formatPercent(y),
+        opacity: opacity,
+        delay: delay,
         size: size,
       };
     });
