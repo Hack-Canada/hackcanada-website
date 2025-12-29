@@ -6,6 +6,7 @@ import {
   Lato,
   Outfit,
 } from "next/font/google";
+import { Geist, Geist_Mono, Luckiest_Guy, Rubik } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -34,6 +35,15 @@ const lato = Lato({
   variable: "--font-lato",
   subsets: ["latin"],
   weight: ["100", "300", "400", "700", "900"],
+const luckiestGuy = Luckiest_Guy({
+  weight: "400",
+  variable: "--font-luckiest-guy",
+  subsets: ["latin"],
+});
+
+const rubik = Rubik({
+  variable: "--font-rubik",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
