@@ -152,3 +152,52 @@
     font-family: 'Baloo Chettan 2', serif;
   }
 }
+/* ---------- Meteor shower (top-right -> bottom-left) ---------- */
+
+.meteor-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.meteor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: var(--alpha, 0.6);
+  transform: translate3d(0, 0, 0) scale(var(--scale, 1));
+  animation: meteor-move var(--dur, 7s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  will-change: transform, opacity;
+}
+
+/* The streak itself */
+.meteor-streak {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 170px;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0));
+  filter: blur(0.2px);
+  /* Mirror of 22.6° direction but going down-left:
+     180 - 22.6 = 157.4deg */
+  transform: rotate(157deg);
+}
+
+/* Move down-left (x decreases, y increases) */
+@keyframes meteor-move {
+  0% {
+    transform: translate3d(0, 0, 0) scale(var(--scale, 1));
+    opacity: var(--alpha, 0.6);
+  }
+  85% {
+    opacity: calc(var(--alpha, 0.6) * 0.6);
+  }
+  100% {
+    transform: translate3d(-140vw, 140vh, 0) scale(var(--scale, 1));
+    opacity: 0;
+  }
+}
