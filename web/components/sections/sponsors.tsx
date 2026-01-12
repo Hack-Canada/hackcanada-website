@@ -113,33 +113,38 @@ export default function Sponsors() {
     <section 
       id="sponsors" 
       className="w-full relative overflow-hidden"
-      style={{ minHeight: '2585px' }}
+      style={{ minHeight: 'clamp(800px, 100vh, 2585px)' }}
     >
-      {/* Background Image */}
+      {/* Full Background */}
       <div 
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: 'url(/sponsors/Rectangle%20351.svg)',
+          backgroundImage: 'url(/sponsors/asdfasdfasdfasdfadsf%201.svg)',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
         }}
       />
-      {/* Gradient Overlay */}
+      {/* Mountains Overlay - Sits on top of background */}
       <div 
-        className="absolute inset-0 z-0"
+        className="absolute inset-0"
         style={{
-          background: 'linear-gradient(179.99deg, rgba(7, 7, 8, 0.4) 0.01%, rgba(67, 30, 61, 0.4) 30.77%, rgba(26, 16, 38, 0.4) 96.62%)',
+          backgroundImage: 'url(/sponsors/asdfasfasdfasfasd%201.svg)',
+          backgroundSize: 'contain',
+          backgroundPosition: 'bottom center',
+          backgroundRepeat: 'no-repeat',
+          height: '100%',
+          zIndex: 1,
         }}
       />
-      <div className="container mx-auto px-4 py-20 relative z-10">
+      <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16 lg:py-20 relative z-10">
         {/* Header */}
         <div className="mx-auto mb-16" style={{ maxWidth: '1129px', width: '100%' }}>
           <h1 
-            className="mb-6 text-center"
+            className="mb-6 text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
             style={{
               fontFamily: 'var(--font-baloo-chettan)',
-              fontSize: '96px',
+              fontSize: 'clamp(48px, 8vw, 96px)',
               lineHeight: '96%',
               fontWeight: 400,
               color: '#DBDAF3',
@@ -148,11 +153,11 @@ export default function Sponsors() {
             Sponsors
           </h1>
           <p 
-            className="text-center mx-auto"
+            className="text-center mx-auto text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl px-4"
             style={{
               fontFamily: 'var(--font-lato)',
-              fontSize: '35px',
-              lineHeight: '60px',
+              fontSize: 'clamp(18px, 3vw, 35px)',
+              lineHeight: 'clamp(28px, 4vw, 60px)',
               fontWeight: 500,
               color: '#E7DAE6',
               maxWidth: '1129px',
@@ -166,13 +171,13 @@ export default function Sponsors() {
         {/* Sponsor Highlights Carousel */}
         <div className="mb-20">
           <h2 
-            className="mb-8 text-center mx-auto"
+            className="mb-8 text-center mx-auto text-xl sm:text-2xl md:text-3xl lg:text-4xl px-4"
             style={{
               fontFamily: 'var(--font-lato)',
               fontStyle: 'italic',
               fontWeight: 500,
-              fontSize: '32px',
-              lineHeight: '60px',
+              fontSize: 'clamp(20px, 3vw, 32px)',
+              lineHeight: 'clamp(32px, 4vw, 60px)',
               color: '#FBDCDC',
               maxWidth: '1129px',
               width: '100%',
@@ -183,7 +188,7 @@ export default function Sponsors() {
           
           <div className="relative max-w-[954.94px] mx-auto px-4">
             {/* Carousel Container */}
-            <div className="relative overflow-hidden" style={{ minHeight: '700px' }}>
+            <div className="relative overflow-hidden" style={{ minHeight: 'clamp(400px, 50vw, 700px)' }}>
               <div 
                 ref={carouselRef}
                 className="flex"
@@ -206,12 +211,10 @@ export default function Sponsors() {
                         aspectRatio: '953.54/638.36',
                         background: '#FFFFFF',
                         borderRadius: '20px',
-                        transform: 'rotate(-179.87deg)',
-                        transformStyle: 'preserve-3d',
                         zIndex: index === currentHighlight ? 10 : 1,
                       }}
                     >
-                      <div style={{ transform: 'rotate(179.87deg)', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px' }}>
+                      <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 'clamp(20px, 4vw, 40px)' }}>
                         {sponsor.logo && (
                           <div className="mb-8">
                             <Image
@@ -220,20 +223,20 @@ export default function Sponsors() {
                               width={318}
                               height={64}
                               className="object-contain"
-                              style={{ 
-                                width: '318px',
-                                height: '64px',
-                                maxWidth: '100%',
-                              }}
+                      style={{ 
+                        width: 'clamp(200px, 30vw, 318px)',
+                        height: 'auto',
+                        maxWidth: '100%',
+                      }}
                             />
                           </div>
                         )}
                         <p 
-                          className="text-center mb-8"
+                          className="text-center mb-8 text-sm sm:text-base md:text-lg lg:text-xl px-4"
                           style={{
                             fontFamily: 'var(--font-lato)',
                             fontWeight: 500,
-                            fontSize: '20px',
+                            fontSize: 'clamp(14px, 2vw, 20px)',
                             lineHeight: '150%',
                             color: '#282D5C',
                             maxWidth: '708px',
@@ -247,10 +250,11 @@ export default function Sponsors() {
                             href={sponsor.link}
                             target="_blank"
                             rel="noopener noreferrer"
+                            className="text-sm sm:text-base md:text-lg lg:text-xl"
                             style={{
                               fontFamily: 'var(--font-lato)',
                               fontWeight: 500,
-                              fontSize: '20px',
+                              fontSize: 'clamp(14px, 2vw, 20px)',
                               lineHeight: '150%',
                               color: '#282D5C',
                               textDecoration: 'underline',
@@ -316,14 +320,14 @@ export default function Sponsors() {
         {/* Sponsor Blocks Grid */}
         <div className="max-w-6xl mx-auto px-4">
           {/* Gold - Large Single Block */}
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center mb-4 sm:mb-6 md:mb-8">
             <a
               href={goldBlock.link || '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="relative flex items-center justify-center w-full max-w-[954px]"
               style={{
-                height: '294px',
+                height: 'clamp(180px, 25vw, 294px)',
                 aspectRatio: '954/294',
               }}
             >
@@ -331,7 +335,7 @@ export default function Sponsors() {
                 className="w-full h-full flex items-center justify-center transition-all duration-300 hover:scale-105"
                 style={{
                   background: '#FFFFFF',
-                  borderRadius: '20px',
+                  borderRadius: 'clamp(12px, 2vw, 20px)',
                   transform: 'rotate(-179.87deg)',
                   transformStyle: 'preserve-3d',
                 }}
@@ -345,8 +349,9 @@ export default function Sponsors() {
                       height={294}
                       className="object-contain"
                       style={{ 
-                        width: '561px',
-                        height: '294px',
+                        width: 'clamp(200px, 35vw, 400px)',
+                        height: 'auto',
+                        maxWidth: '100%',
                       }}
                     />
                   </div>
@@ -356,7 +361,7 @@ export default function Sponsors() {
           </div>
 
           {/* Silver - Two Blocks Side by Side */}
-          <div className="flex flex-col md:flex-row justify-center gap-4 mb-8">
+          <div className="flex flex-col md:flex-row justify-center gap-3 sm:gap-4 mb-4 sm:mb-6 md:mb-8">
             {silverBlocks.map((sponsor, index) => (
               <a
                 key={index}
@@ -365,7 +370,7 @@ export default function Sponsors() {
                 rel="noopener noreferrer"
                 className="relative flex items-center justify-center w-full md:w-[465px]"
                 style={{
-                  height: '258px',
+                  height: 'clamp(140px, 20vw, 258px)',
                   aspectRatio: '465/258',
                 }}
               >
@@ -373,7 +378,7 @@ export default function Sponsors() {
                   className="w-full h-full flex items-center justify-center transition-all duration-300 hover:scale-105"
                   style={{
                     background: '#FFFFFF',
-                    borderRadius: '20px',
+                    borderRadius: 'clamp(12px, 2vw, 20px)',
                     transform: 'matrix(-1, 0, 0, -1, 0, 0)',
                     transformStyle: 'preserve-3d',
                   }}
@@ -387,8 +392,9 @@ export default function Sponsors() {
                         height={63}
                         className="object-contain"
                         style={{ 
-                          width: '294px',
-                          height: '63px',
+                          width: 'clamp(120px, 20vw, 200px)',
+                          height: 'auto',
+                          maxWidth: '100%',
                         }}
                       />
                     </div>
@@ -399,7 +405,7 @@ export default function Sponsors() {
           </div>
 
           {/* Bronze - Three Blocks */}
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
+          <div className="grid grid-cols-2 sm:flex sm:flex-row justify-center gap-2 sm:gap-4 max-w-4xl mx-auto">
             {bronzeBlocks.map((sponsor, index) => (
               <a
                 key={index}
@@ -408,15 +414,15 @@ export default function Sponsors() {
                 rel="noopener noreferrer"
                 className="relative flex items-center justify-center w-full sm:w-[291px]"
                 style={{
-                  height: '208px',
+                  height: 'clamp(100px, 25vw, 208px)',
                   aspectRatio: '291/208',
                 }}
               >
                 <div
-                  className="w-full h-full flex items-center justify-center p-4 transition-all duration-300 hover:scale-105"
+                  className="w-full h-full flex items-center justify-center p-1.5 sm:p-3 md:p-4 transition-all duration-300 hover:scale-105"
                   style={{
                     background: '#FFFFFF',
-                    borderRadius: '20px',
+                    borderRadius: 'clamp(10px, 2vw, 20px)',
                     transform: 'matrix(-1, -0.01, 0, -1, 0, 0)',
                     transformStyle: 'preserve-3d',
                   }}
@@ -430,8 +436,9 @@ export default function Sponsors() {
                         height={161}
                         className="object-contain"
                         style={{ 
-                          width: '174px',
-                          height: '161px',
+                          width: 'clamp(60px, 12vw, 140px)',
+                          height: 'auto',
+                          maxWidth: '100%',
                         }}
                       />
                     </div>
