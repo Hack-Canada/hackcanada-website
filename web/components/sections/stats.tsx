@@ -15,31 +15,31 @@ const stats: StatItem[] = [
     number: '400+',
     label: 'hackers',
     cartImage: '/stat-images/cart1.svg',
-    position: { top: '33%', left: '39%' },
+    position: { top: '31%', left: '39%' },
   },
   {
     number: '$15K+',
     label: 'in prizes',
     cartImage: '/stat-images/cart2.svg',
-    position: { top: '48%', left: '83%' },
+    position: { top: '55%', left: '86%' },
   },
   {
     number: '36',
     label: 'Hours of Hacking',
     cartImage: '/stat-images/cart3.svg',
-    position: { top: '63%', left: '12%' },
+    position: { top: '69%', left: '9%' },
   },
   {
     number: '20+',
     label: 'sponsors',
     cartImage: '/stat-images/cart4.svg',
-    position: { top: '102%', left: '37%' },
+    position: { top: '112%', left: '37%' },
   },
   {
     number: '85+',
     label: 'projects',
     cartImage: '/stat-images/cart5.svg',
-    position: { top: '85%', left: '85%' },
+    position: { top: '100%', left: '85%' },
   },
 ];
 
@@ -77,7 +77,8 @@ export default function Stats() {
 
   return (
     <section id="stats" className="w-full relative overflow-hidden">
-      <div className="relative w-full min-h-screen bg-gradient-to-b from-[#1a1a3e] via-[#2d1b4e] to-[#1a1a3e]">
+      <div className="relative w-full h-screen bg-gradient-to-b from-[#17153D] via-[#4C40B3] to-[#5346C5]">
+        {/* Stars background */}
         <div className="absolute inset-0 overflow-hidden z-0">
           {stars.map((star, i) => (
             <div
@@ -96,94 +97,277 @@ export default function Stats() {
           ))}
         </div>
 
-        <div className="relative w-full min-h-screen flex items-center justify-center py-8">
-          <div className="relative w-full max-w-[1100px] aspect-[0.93]">
-            
-
-            <div className="absolute top-[10%] left-1/2 -translate-x-1/2 z-30 w-full px-4">
-              <svg 
-                viewBox="0 0 1200 200" 
-                className="w-full max-w-6xl mx-auto"
-                style={{ overflow: 'visible' }}
-                preserveAspectRatio="xMidYMid meet"
-              >
-                <defs>
-                  <path 
-                    id="curve" 
-                    d="M 50 150 Q 600 -200 1150 150" 
-                    fill="transparent"
-                  />
-                  <filter id="glow">
-                    <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
-                    <feMerge>
-                      <feMergeNode in="coloredBlur"/>
-                      <feMergeNode in="SourceGraphic"/>
-                    </feMerge>
-                  </filter>
-                </defs>
-                <text 
-                  className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold"
-                  style={{ 
-                    fontFamily: '"Trebuchet MS", "Arial Rounded MT Bold", Verdana, sans-serif',
-                    fill: '#d8b4fe',
-                    filter: 'url(#glow)',
-                    letterSpacing: '0.02em',
-                    fontSize: '85px'
-                  }}
+        {/* LAPTOP VIEW - hidden on mobile */}
+        <div className="hidden md:block relative w-full h-full">
+          <div className="relative w-full h-full flex items-center justify-center">
+            <div className="relative w-full h-full max-w-7xl mx-auto px-4">
+              
+              {/* Title text */}
+              <div className="absolute top-[15%] left-1/2 -translate-x-1/2 z-30 w-full max-w-4xl">
+                <svg 
+                  viewBox="0 0 1200 200" 
+                  className="w-full"
+                  style={{ overflow: 'visible' }}
+                  preserveAspectRatio="xMidYMid meet"
                 >
-                  <textPath href="#curve" startOffset="50%" textAnchor="middle">
-                    Last year we had...
-                  </textPath>
-                </text>
-              </svg>
-            </div>
+                  <defs>
+                    <path 
+                      id="curve" 
+                      d="M 50 150 Q 600 -200 1150 150" 
+                      fill="transparent"
+                    />
+                    <filter id="glow">
+                      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <text 
+                    className="font-bold"
+                    style={{ 
+                      fontFamily: '"Trebuchet MS", "Arial Rounded MT Bold", Verdana, sans-serif',
+                      fill: '#d8b4fe',
+                      filter: 'url(#glow)',
+                      letterSpacing: '0.02em',
+                      fontSize: '85px'
+                    }}
+                  >
+                    <textPath href="#curve" startOffset="50%" textAnchor="middle">
+                      Last year we had...
+                    </textPath>
+                  </text>
+                </svg>
+              </div>
 
-            <div className="absolute top-[-22%] left-1/2 -translate-x-1/2 z-20 w-[140%]">
+              {/* Ferris wheel */}
+              <div className="absolute top-[59%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[75%] max-w-[750px]">
+                <Image
+                  src="/stat-images/ferris_wheel.svg"
+                  alt="Ferris wheel"
+                  width={1100}
+                  height={1100}
+                  className="w-full h-auto drop-shadow-[0_0_35px_rgba(147,197,253,0.5)]"
+                  priority
+                />
+              </div>
+
+              {/* Cart stats */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75%] max-w-[750px] h-[75vh] max-h-[750px] z-50">
+                {stats.map((stat, index) => (
+                  <div
+                    key={index}
+                    className="absolute"
+                    style={{
+                      top: stat.position.top,
+                      left: stat.position.left,
+                      transform: 'translate(-50%, -50%)',
+                    }}
+                  >
+                    <div className="relative w-52 sm:w-60 md:w-72 lg:w-80">
+                      <Image
+                        src={stat.cartImage}
+                        alt={`${stat.label} stat cart`}
+                        width={520}
+                        height={520}
+                        className="w-full h-auto drop-shadow-[0_0_20px_rgba(196,181,253,0.5)]"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+            </div>
+            
+            {/* City skyline */}
+            <div className="absolute bottom-0 left-0 right-0 z-0 w-full">
               <Image
-                src="/stat-images/ferris_wheel.svg"
-                alt="Ferris wheel"
-                width={1100}
-                height={1100}
-                className="w-full h-auto drop-shadow-[0_0_35px_rgba(147,197,253,0.5)]"
+                src="/stat-images/city.svg"
+                alt="City skyline"
+                width={1920}
+                height={600}
+                className="w-full h-auto object-contain object-bottom"
                 priority
               />
             </div>
-
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="absolute z-30"
-                style={{
-                  top: stat.position.top,
-                  left: stat.position.left,
-                  transform: 'translate(-50%, -50%)',
-                }}
-              >
-                <div className="relative w-64 sm:w-72 md:w-80 lg:w-96 xl:w-[26rem]">
-                  <Image
-                    src={stat.cartImage}
-                    alt={`${stat.label} stat cart`}
-                    width={520}
-                    height={520}
-                    className="w-full h-auto drop-shadow-[0_0_20px_rgba(196,181,253,0.5)]"
-                  />
-                </div>
-              </div>
-            ))}
-
-          </div>
-          
-          <div className="absolute bottom-0 left-0 right-0 z-10 h-[100vh]">
-            <Image
-              src="/stat-images/city.svg"
-              alt="City skyline"
-              width={1920}
-              height={600}
-              className="w-full h-full object-contain object-bottom"
-              priority
-            />
           </div>
         </div>
+
+        {/* MOBILE VIEW - hidden on laptop */}
+        <div className="block md:hidden relative w-full h-full">
+          <div className="relative w-full h-full flex items-center justify-center">
+            <div className="relative w-full h-full mx-auto px-2">
+              
+              {/* Title text - mobile */}
+              <div className="absolute top-[35%] left-1/2 -translate-x-1/2 z-30 w-full">
+                <svg 
+                  viewBox="0 0 1200 200" 
+                  className="w-full"
+                  style={{ overflow: 'visible' }}
+                  preserveAspectRatio="xMidYMid meet"
+                >
+                  <defs>
+                    <path 
+                      id="curve-mobile" 
+                      d="M 50 150 Q 600 -150 1150 150" 
+                      fill="transparent"
+                    />
+                    <filter id="glow-mobile">
+                      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
+                  <text 
+                    className="font-bold"
+                    style={{ 
+                      fontFamily: '"Trebuchet MS", "Arial Rounded MT Bold", Verdana, sans-serif',
+                      fill: '#d8b4fe',
+                      filter: 'url(#glow-mobile)',
+                      letterSpacing: '0.02em',
+                      fontSize: '110px'
+                    }}
+                  >
+                    <textPath href="#curve-mobile" startOffset="50%" textAnchor="middle">
+                      Last year we had...
+                    </textPath>
+                  </text>
+                </svg>
+              </div>
+
+              {/* Ferris wheel - mobile */}
+              <div className="absolute top-[70%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[110%]">
+                <Image
+                  src="/stat-images/ferris_wheel.svg"
+                  alt="Ferris wheel"
+                  width={1100}
+                  height={1100}
+                  className="w-full h-auto drop-shadow-[0_0_25px_rgba(147,197,253,0.5)]"
+                  priority
+                />
+              </div>
+
+              {/* Cart stats - mobile */}
+              <div className="absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] h-[85vh] z-50">
+                {/* Cart 1 - 400+ hackers */}
+                <div
+                  className="absolute"
+                  style={{
+                    top: '55%',
+                    left: '39%',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                >
+                  <div className="relative w-50">
+                    <Image
+                      src="/stat-images/cart1.svg"
+                      alt="hackers stat cart"
+                      width={520}
+                      height={520}
+                      className="w-full h-auto drop-shadow-[0_0_15px_rgba(196,181,253,0.5)]"
+                    />
+                  </div>
+                </div>
+
+                {/* Cart 2 - $15K+ in prizes */}
+                <div
+                  className="absolute"
+                  style={{
+                    top: '70%',
+                    left: '95%',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                >
+                  <div className="relative w-50">
+                    <Image
+                      src="/stat-images/cart2.svg"
+                      alt="prizes stat cart"
+                      width={520}
+                      height={520}
+                      className="w-full h-auto drop-shadow-[0_0_15px_rgba(196,181,253,0.5)]"
+                    />
+                  </div>
+                </div>
+
+                {/* Cart 3 - 36 Hours of Hacking */}
+                <div
+                  className="absolute"
+                  style={{
+                    top: '75%',
+                    left: '8%',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                >
+                  <div className="relative w-50">
+                    <Image
+                      src="/stat-images/cart3.svg"
+                      alt="hours stat cart"
+                      width={520}
+                      height={520}
+                      className="w-full h-auto drop-shadow-[0_0_15px_rgba(196,181,253,0.5)]"
+                    />
+                  </div>
+                </div>
+
+                {/* Cart 4 - 20+ sponsors */}
+                <div
+                  className="absolute"
+                  style={{
+                    top: '106%',
+                    left: '37%',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                >
+                  <div className="relative w-50">
+                    <Image
+                      src="/stat-images/cart4.svg"
+                      alt="sponsors stat cart"
+                      width={520}
+                      height={520}
+                      className="w-full h-auto drop-shadow-[0_0_15px_rgba(196,181,253,0.5)]"
+                    />
+                  </div>
+                </div>
+
+                {/* Cart 5 - 85+ projects */}
+                <div
+                  className="absolute"
+                  style={{
+                    top: '97%',
+                    left: '85%',
+                    transform: 'translate(-50%, -50%)',
+                  }}
+                >
+                  <div className="relative w-50">
+                    <Image
+                      src="/stat-images/cart5.svg"
+                      alt="projects stat cart"
+                      width={520}
+                      height={520}
+                      className="w-full h-auto drop-shadow-[0_0_15px_rgba(196,181,253,0.5)]"
+                    />
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            
+            {/* City skyline - mobile */}
+            <div className="absolute bottom-0 left-0 right-0 z-0 w-full">
+              <Image
+                src="/stat-images/city.svg"
+                alt="City skyline"
+                width={1920}
+                height={600}
+                className="w-full h-auto object-contain object-bottom"
+              />
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   );
