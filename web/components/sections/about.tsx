@@ -2,42 +2,106 @@
 
 import Image from "next/image";
 import MeteorShower from "@/components/effects/MeteorShower";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 export default function About() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const beaverWrapRef = useRef<HTMLDivElement | null>(null);
   const collageRef = useRef<HTMLDivElement | null>(null);
   const candleRef = useRef<HTMLImageElement | null>(null);
+  const titleRef = useRef<HTMLDivElement | null>(null);
+  const rightTextRef = useRef<HTMLDivElement | null>(null);
   const [hoveredImage, setHoveredImage] = useState<number | null>(null);
   const [isInCollage, setIsInCollage] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  
+  // Smooth interpolation for beaver position - both start at 0 (top)
+  const currentBeaverPos = useRef(0);
+  const targetBeaverPos = useRef(0);
+  const beaverInitialized = useRef(false);
+  const animationFrameRef = useRef<number | null>(null);
 
-  // Candle follows mouse within collage area - using ref for instant updates
+  // Intersection observer for scroll-reveal animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.15, rootMargin: "-50px" }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Candle follows mouse within collage area - smooth tracking
   useEffect(() => {
     const collage = collageRef.current;
     const candle = candleRef.current;
     if (!collage || !candle) return;
 
+    let targetX = 200;
+    let targetY = 200;
+    let currentX = 200;
+    let currentY = 200;
+    let rafId: number;
+
+    const lerp = (start: number, end: number, factor: number) => 
+      start + (end - start) * factor;
+
+    const animate = () => {
+      // Smooth interpolation - higher value = more responsive
+      currentX = lerp(currentX, targetX, 0.35);
+      currentY = lerp(currentY, targetY, 0.35);
+      
+      candle.style.transform = `translate3d(${currentX - 20}px, ${currentY - 60}px, 0)`;
+      rafId = requestAnimationFrame(animate);
+    };
+
     const onMouseMove = (e: MouseEvent) => {
       const rect = collage.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      // Direct DOM manipulation for instant cursor tracking
-      candle.style.left = `${x - 20}px`;
-      candle.style.top = `${y - 60}px`;
+      targetX = e.clientX - rect.left;
+      targetY = e.clientY - rect.top;
     };
 
     const onMouseEnter = () => setIsInCollage(true);
     const onMouseLeave = () => setIsInCollage(false);
 
+    rafId = requestAnimationFrame(animate);
     collage.addEventListener("mousemove", onMouseMove);
     collage.addEventListener("mouseenter", onMouseEnter);
     collage.addEventListener("mouseleave", onMouseLeave);
+    
     return () => {
+      cancelAnimationFrame(rafId);
       collage.removeEventListener("mousemove", onMouseMove);
       collage.removeEventListener("mouseenter", onMouseEnter);
       collage.removeEventListener("mouseleave", onMouseLeave);
     };
+  }, []);
+
+  // Smooth beaver animation with interpolation
+  const animateBeaver = useCallback(() => {
+    const beaverWrap = beaverWrapRef.current;
+    if (!beaverWrap) return;
+
+    // On first frame, snap to initial position (no lerp delay)
+    if (!beaverInitialized.current) {
+      currentBeaverPos.current = targetBeaverPos.current;
+      beaverInitialized.current = true;
+    } else {
+      // Smooth lerp towards target - 0.01 = slow and gentle
+      const diff = targetBeaverPos.current - currentBeaverPos.current;
+      currentBeaverPos.current += diff * 0.05;
+    }
+    
+    beaverWrap.style.transform = `translate3d(0, ${currentBeaverPos.current}px, 0)`;
+    animationFrameRef.current = requestAnimationFrame(animateBeaver);
   }, []);
 
   // Beaver drops while scrolling through About (stays INSIDE About)
@@ -51,48 +115,60 @@ export default function About() {
 
     const onScroll = () => {
       const rect = section.getBoundingClientRect();
-      const progress = clamp(
-        (window.innerHeight - rect.top) / (rect.height + window.innerHeight),
-        0,
-        1
-      );
-
-      const maxDrop = 740; // keep drop inside About
-      beaverWrap.style.transform = `translateY(${progress * maxDrop}px)`;
+      // Start animation only when section enters viewport
+      const rawProgress = (window.innerHeight - rect.top) / (rect.height + window.innerHeight);
+      const progress = clamp(rawProgress, 0, 1);
+      
+      // Linear progress - no easing so it starts at true 0
+      const maxDrop = 740;
+      targetBeaverPos.current = progress * maxDrop;
     };
 
     onScroll();
+    animationFrameRef.current = requestAnimationFrame(animateBeaver);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [animateBeaver]);
 
   return (
     <section
       ref={sectionRef}
       id="about"
-      className="relative w-full overflow-hidden text-white -mt-28 pt-28"
-      style={{ backgroundColor: "#0B1030" }}
+      className="relative w-full overflow-hidden text-white -mt-[120px] pt-[120px]"
+      style={{ backgroundColor: "transparent" }}
     >
-      {/* Background */}
+      {/* Dark blue background - starts below the wavy edge */}
+      <div 
+        className="absolute top-[100px] left-0 right-0 bottom-0 -z-40"
+        style={{ backgroundColor: "#0B1030" }}
+      />
+      
+      {/* Background wavy pattern - positioned to show the edge */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/rect-387.svg"
         alt=""
-        className="absolute inset-0 -z-30 h-full w-full object-cover object-top"
+        className="absolute top-0 left-0 w-full h-auto -z-30 object-cover object-top"
+        style={{ minHeight: "100%" }}
       />
 
       {/* ✅ Meteors (behind content, above background) */}
       <MeteorShower className="absolute inset-0 z-0" count={14} />
 
-      {/* Blend with previous section */}
-      <div className="pointer-events-none absolute top-0 left-0 right-0 h-24 -z-10 bg-gradient-to-b from-black/40 to-transparent" />
       {/* Fill bottom so no seams */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-transparent to-[#0B1030]" />
 
-      {/* Beaver (facing RIGHT) */}
+      {/* Beaver (facing RIGHT) - GPU accelerated */}
       <div
         ref={beaverWrapRef}
-        className="pointer-events-none absolute right-[-40px] top-2 z-50 will-change-transform"
+        className="pointer-events-none absolute right-[250px] -top-12 z-50"
+        style={{ willChange: "transform", transform: "translate3d(0, 0, 0)" }}
       >
         <Image
           src="/beaver.svg"
@@ -182,13 +258,22 @@ export default function About() {
       <div className="container mx-auto px-4">
         {/* Keep About self-contained so images don't overlap next section */}
         <div className="relative min-h-[940px] pt-24 pb-28">
-          {/* Left title + paragraph */}
-          <div className="absolute left-[103px] top-[100px] max-w-[640px]">
+          {/* Left title + paragraph - with scroll reveal */}
+          <div 
+            ref={titleRef}
+            className={`absolute left-[103px] top-[100px] max-w-[640px] transition-all duration-700 ease-out
+              ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+          >
             <h2 className="text-5xl md:text-6xl font-semibold tracking-tight">
               About Hack Canada
             </h2>
 
-            <p className="mt-6 max-w-[620px] text-base md:text-lg leading-relaxed text-white/80">
+            <p 
+              className={`mt-6 max-w-[620px] text-base md:text-lg leading-relaxed text-white/80 transition-all duration-700 ease-out
+                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+              style={{ transitionDelay: "150ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+            >
               Join us at Hack Canada this February, where innovators from around
               the world will come together to create and connect in a dynamic
               and supportive environment. Experience hands-on workshops, expert
@@ -197,8 +282,13 @@ export default function About() {
             </p>
           </div>
 
-          {/* Right paragraph (same spot) */}
-          <div className="absolute right-20 top-[390px] max-w-[420px] text-white/80 leading-relaxed">
+          {/* Right paragraph - with staggered scroll reveal */}
+          <div 
+            ref={rightTextRef}
+            className={`absolute right-20 top-[390px] max-w-[420px] text-white/80 leading-relaxed transition-all duration-700 ease-out
+              ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+            style={{ transitionDelay: "300ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+          >
             <p className="text-base md:text-lg">
               We are a Canadian-focused hackathon, aiming to solve national
               problems using the amazing hacker minds to help and focus on
@@ -222,7 +312,9 @@ export default function About() {
           >
             {/* TOP IMAGE (rect-403.svg) - top center */}
             <div 
-              className="absolute left-[120px] top-[0px] w-[360px] h-[280px] rotate-[2deg] z-10"
+              className={`absolute left-[120px] top-[0px] w-[360px] h-[280px] rotate-[2deg] z-10 transition-all duration-500
+                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+              style={{ transitionDelay: "400ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
               onMouseEnter={() => setHoveredImage(0)}
               onMouseLeave={() => setHoveredImage(null)}
             >
@@ -235,18 +327,25 @@ export default function About() {
               />
               {/* Photo inside the frame - centered with padding */}
               <Image
-                src="/rect-403.svg"
+                src="/8Q3A2207.JPG.jpg"
                 alt="Hack Canada photo"
                 width={240}
                 height={165}
-                className={`absolute top-[58px] left-[60px] w-[240px] h-[165px] transition-all duration-400 ease-out
-                  ${hoveredImage === 0 ? 'blur-0 opacity-100 scale-[1.02]' : 'blur-[2px] opacity-60'}`}
+                className="absolute top-[58px] left-[60px] w-[240px] h-[165px]"
+                style={{
+                  filter: hoveredImage === 0 ? 'blur(0px)' : 'blur(2px)',
+                  opacity: hoveredImage === 0 ? 1 : 0.6,
+                  transform: hoveredImage === 0 ? 'scale(1.02)' : 'scale(1)',
+                  transition: 'filter 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms cubic-bezier(0.16, 1, 0.3, 1), transform 350ms cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
               />
             </div>
 
             {/* LEFT IMAGE (hackc-1071.svg) - bottom left */}
             <div 
-              className="absolute left-[0px] top-[220px] w-[380px] h-[295px] rotate-[-5deg] z-20"
+              className={`absolute left-[0px] top-[220px] w-[380px] h-[295px] rotate-[-5deg] z-20 transition-all duration-500
+                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+              style={{ transitionDelay: "550ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
               onMouseEnter={() => setHoveredImage(1)}
               onMouseLeave={() => setHoveredImage(null)}
             >
@@ -259,18 +358,25 @@ export default function About() {
               />
               {/* Photo inside the frame */}
               <Image
-                src="/hackc-1071.svg"
+                src="/HackC_399.JPG.jpg"
                 alt="Hack Canada photo"
-                width={260}
-                height={180}
-                className={`absolute top-[58px] left-[60px] w-[260px] h-[180px] transition-all duration-400 ease-out
-                  ${hoveredImage === 1 ? 'blur-0 opacity-100 scale-[1.02]' : 'blur-[2px] opacity-70'}`}
+                width={257}
+                height={175}
+                className="absolute top-[58px] left-[60px] w-[257px] h-[175px]"
+                style={{
+                  filter: hoveredImage === 1 ? 'blur(0px)' : 'blur(2px)',
+                  opacity: hoveredImage === 1 ? 1 : 0.7,
+                  transform: hoveredImage === 1 ? 'scale(1.02)' : 'scale(1)',
+                  transition: 'filter 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms cubic-bezier(0.16, 1, 0.3, 1), transform 350ms cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
               />
             </div>
 
             {/* RIGHT IMAGE (hackc-1078.svg) - bottom right */}
             <div 
-              className="absolute left-[340px] top-[280px] w-[360px] h-[280px] rotate-[4deg] z-30"
+              className={`absolute left-[340px] top-[280px] w-[360px] h-[280px] rotate-[4deg] z-30 transition-all duration-500
+                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+              style={{ transitionDelay: "700ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
               onMouseEnter={() => setHoveredImage(2)}
               onMouseLeave={() => setHoveredImage(null)}
             >
@@ -283,25 +389,34 @@ export default function About() {
               />
               {/* Photo inside the frame */}
               <Image
-                src="/hackc-1078.svg"
+                src="/HackC_573.JPG.jpg"
                 alt="Hack Canada photo"
                 width={240}
                 height={165}
-                className={`absolute top-[58px] left-[60px] w-[240px] h-[165px] transition-all duration-400 ease-out
-                  ${hoveredImage === 2 ? 'blur-0 opacity-100 scale-[1.02]' : 'blur-[2px] opacity-70'}`}
+                className="absolute top-[58px] left-[60px] w-[240px] h-[165px]"
+                style={{
+                  filter: hoveredImage === 2 ? 'blur(0px)' : 'blur(2px)',
+                  opacity: hoveredImage === 2 ? 1 : 0.7,
+                  transform: hoveredImage === 2 ? 'scale(1.02)' : 'scale(1)',
+                  transition: 'filter 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms cubic-bezier(0.16, 1, 0.3, 1), transform 350ms cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
               />
             </div>
 
-            {/* Candle cursor - follows mouse instantly */}
+            {/* Candle cursor - smooth following with GPU acceleration */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               ref={candleRef}
               src="/group-66.svg"
               alt="candle cursor"
-              className={`pointer-events-none absolute w-20 h-auto z-[9999] transition-opacity duration-150 ${
-                isInCollage ? 'opacity-100' : 'opacity-0 pointer-events-none'
-              }`}
-              style={{ left: '200px', top: '200px' }}
+              className="pointer-events-none absolute w-20 h-auto z-[9999]"
+              style={{ 
+                left: 0, 
+                top: 0,
+                opacity: isInCollage ? 1 : 0,
+                transition: 'opacity 250ms cubic-bezier(0.16, 1, 0.3, 1)',
+                willChange: 'transform, opacity'
+              }}
             />
           </div>
         </div>
