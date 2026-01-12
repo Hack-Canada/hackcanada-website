@@ -205,7 +205,6 @@ export default function Sponsors() {
                         maxWidth: '100%',
                         aspectRatio: '953.54/638.36',
                         background: '#FFFFFF',
-                        boxShadow: '8px 8px 0px rgba(0, 0, 0, 0.25)',
                         borderRadius: '20px',
                         transform: 'rotate(-179.87deg)',
                         transformStyle: 'preserve-3d',
@@ -332,7 +331,6 @@ export default function Sponsors() {
                 className="w-full h-full flex items-center justify-center transition-all duration-300 hover:scale-105"
                 style={{
                   background: '#FFFFFF',
-                  boxShadow: '8px 8px 0px rgba(0, 0, 0, 0.25)',
                   borderRadius: '20px',
                   transform: 'rotate(-179.87deg)',
                   transformStyle: 'preserve-3d',
@@ -349,7 +347,6 @@ export default function Sponsors() {
                       style={{ 
                         width: '561px',
                         height: '294px',
-                        filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))',
                       }}
                     />
                   </div>
@@ -376,7 +373,6 @@ export default function Sponsors() {
                   className="w-full h-full flex items-center justify-center transition-all duration-300 hover:scale-105"
                   style={{
                     background: '#FFFFFF',
-                    boxShadow: '8px 8px 0px rgba(0, 0, 0, 0.25)',
                     borderRadius: '20px',
                     transform: 'matrix(-1, 0, 0, -1, 0, 0)',
                     transformStyle: 'preserve-3d',
@@ -420,7 +416,6 @@ export default function Sponsors() {
                   className="w-full h-full flex items-center justify-center p-4 transition-all duration-300 hover:scale-105"
                   style={{
                     background: '#FFFFFF',
-                    boxShadow: '8px 8px 0px rgba(0, 0, 0, 0.25)',
                     borderRadius: '20px',
                     transform: 'matrix(-1, -0.01, 0, -1, 0, 0)',
                     transformStyle: 'preserve-3d',
