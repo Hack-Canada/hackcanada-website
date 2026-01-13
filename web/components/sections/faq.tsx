@@ -81,7 +81,7 @@ export default function FAQ() {
     <section
       id="faq"
       className="w-full relative overflow-hidden"
-      style={{ minHeight: "1256px" }}
+      style={{ minHeight: "clamp(1000px, 150vh, 2000px)" }}
     >
       {/* Background Image */}
       <div
@@ -109,22 +109,21 @@ export default function FAQ() {
         className="absolute inset-0 z-[1]"
         style={{
           backgroundImage: "url('/faq/background.svg')",
-          backgroundSize: "contain",
+          backgroundSize: "cover",
           backgroundPosition: "center bottom",
           backgroundRepeat: "no-repeat",
         }}
       />
 
-      <div className="container mx-auto px-4 py-20 relative z-10">
+      <div className="container mx-auto px-4 pt-32 pb-8 sm:pt-40 sm:pb-12 md:pt-56 md:pb-16 lg:pt-64 lg:pb-20 relative z-10">
         {/* Two Column Layout */}
         <div
-          className="max-w-[976px] mx-auto flex flex-col md:flex-row gap-[14px] justify-center"
-          style={{ marginTop: "100px" }}
+          className="max-w-[1400px] ml-auto mr-0 md:mr-4 lg:mr-8 flex flex-col md:flex-row gap-[20px] justify-end"
         >
           {/* Left Column */}
           <Accordion
             type="multiple"
-            className="w-[474px] max-w-full flex flex-col gap-[14px]"
+            className="w-full md:w-[680px] max-w-full flex flex-col gap-[14px]"
           >
             {leftColumnItems.map((item, index) => {
               const value = `left-${index}`;
@@ -196,7 +195,7 @@ export default function FAQ() {
           {/* Right Column */}
           <Accordion
             type="multiple"
-            className="w-[474px] max-w-full flex flex-col gap-[14px]"
+            className="w-full md:w-[680px] max-w-full flex flex-col gap-[14px]"
           >
             {rightColumnItems.map((item, index) => {
               const value = `right-${index}`;
