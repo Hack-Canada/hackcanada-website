@@ -63,7 +63,6 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         </nav>
         <div className="border-t border-white w-32 my-4"></div>
         <nav className='flex gap-6'>
-          <a href="discordlink"><FontAwesomeIcon icon={faDiscord} className='text-white w-6 h-6' /></a>
           <a href="https://www.instagram.com/hackcanada/"><FontAwesomeIcon icon={faInstagram} className='text-white w-6 h-6' /></a>
           <a href="linkedinLink"><FontAwesomeIcon icon={faLinkedin} className='text-white w-6 h-6' /></a>
           <a href="mailto"><FontAwesomeIcon icon={faEnvelope} className='text-white w-6 h-6' /></a>
