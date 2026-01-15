@@ -15,100 +15,64 @@ interface FAQItem {
   answer?: string;
 }
 
-const firstAccordionItems: FAQItem[] = [
+const leftColumnItems: FAQItem[] = [
+  {
+    question: "What's a hackathon?",
+    answer:
+      "A hackathon is a weekend-long competition where \"hackers\" build projects in teams to present and compete for prizes. Competition isn't the only part however, as hackers are also given the opportunity to network, participate in awesome workshops, and eat free food!",
+  },
   {
     question: "What is Hack Canada?",
     answer:
-      "Hack Canada is a nationwide hackathon that brings together students, developers, and innovators from across the country to build amazing projects, learn new skills, and connect with the tech community.",
+      "Hack Canada is a yearly held, in-person hackathon run by the Hackathons Canada, a community of tech-enthusiasts across Canada. Hack Canada 2026 will run from March 5th to 7th for 48 hours.",
   },
   {
-    question: "What is a hackathon?",
+    question: "How much does it cost?",
     answer:
-      "A hackathon is an event where participants collaborate intensively on software projects. It's a fun, creative environment where you can build anything you want, learn new technologies, and work with a team to bring your ideas to life.",
+      "Hack Canada is 100% free to attend. All food, drinks, and overnight accommodations are provided for free to all hackers. Workshops, snacks, and all other activities during Hack Canada are also all completely free and funded by our generous sponsors.",
   },
   {
-    question: "What if I've never been to a hackathon before?",
+    question: "Where and when is Hack Canada?",
     answer:
-      "No worries! Hack Canada welcomes participants of all experience levels. We'll have mentors, workshops, and resources to help you get started. Many first-time hackers have created amazing projects!",
+      "Hack Canada will be held overnight at the Lazaridis Centre at Wilfrid Laurier University, from March 4th to 6th.",
   },
   {
-    question: "What if I don't know how to code?",
+    question: "What is the schedule like?",
     answer:
-      "That's perfectly fine! Hackathons are great places to learn. We'll have workshops for beginners, and you can team up with more experienced developers. Many participants learn to code during their first hackathon.",
+      "Hack Canada will start with an opening ceremony, immediately followed by the \"hacking period\" lasting 48 hours and giving hackers the chance to work on their projects. Soon after it is over, judging will take place, and then our closing ceremony to wrap up the event.",
   },
   {
-    question: "What if I don't have a team?",
+    question: "Who is eligible to participate?",
     answer:
-      "Don't worry! We'll have team formation activities at the beginning of the event. You can also join solo and find teammates, or work on your own project. Many great projects have been built by solo hackers!",
-  },
-];
-
-const thirdAccordionItems: FAQItem[] = [
-  {
-    question: "Who can participate?",
-    answer:
-      "Hack Canada is open to all students, recent graduates, and anyone passionate about technology. Whether you're in high school, university, or just starting your tech journey, we welcome you to join us!",
-  },
-  {
-    question: "When do hacker applications open?",
-    answer:
-      "Applications typically open a few months before the event. Keep an eye on our website and social media channels for announcements about application dates and deadlines.",
-  },
-  {
-    question: "How do I register?",
-    answer:
-      "Registration will be available through our website once applications open. Simply fill out the application form with your information, and we'll notify you if you've been accepted to participate.",
-  },
-  {
-    question: "How else can I contribute to Hack Canada?",
-    answer:
-      "Apart from joining as a hacker, we will also be looking for volunteers, mentors and judges! Keep an eye out for announcements on our social media pages. If you'd like to collaborate as a sponsor or a workshop host, react out to us at contact@hackcanada.org.",
+      "Any student in high school or currently enrolled in an undergraduate degree can participate.",
   },
 ];
 
-const secondAccordionLeft: FAQItem[] = [
+const rightColumnItems: FAQItem[] = [
   {
-    question: "How much does it cost to attend Hack Canada?",
+    question: "What size are the teams?",
     answer:
-      "Hack Canada is completely free to attend! We provide meals, snacks, swag, and all the resources you need. Just bring yourself, your laptop, and your enthusiasm!",
+      "Teams can be up to four hackers, and soloing is allowed.",
   },
   {
-    question: "What documents do I need to apply?",
+    question: "What can we make?",
     answer:
-      "You'll need to provide basic information like your name, email, school (if applicable), and a brief description of your interests. No special documents are required - just your enthusiasm to participate!",
+      "You are allowed to make any software or hardware project as long as you start within the hacking period.",
   },
   {
-    question: "Will food be provided?",
+    question: "When are application results released?",
     answer:
-      "Yes! We'll provide meals throughout the event, including breakfast, lunch, dinner, and plenty of snacks and drinks to keep you energized while you build your projects.",
+      "Results will be released within 2 weeks of the application due date.",
   },
   {
-    question: "What should I bring to the event?",
+    question: "What do you get from attending?",
     answer:
-      "Bring your laptop, charger, and any other devices you might need. We recommend bringing a water bottle, comfortable clothes, and a positive attitude. We'll provide everything else!",
-  },
-];
-
-const secondAccordionRight: FAQItem[] = [
-  {
-    question: "What is the code of conduct?",
-    answer:
-      "Our code of conduct ensures a safe, inclusive, and respectful environment for all participants. We expect everyone to treat each other with respect, be inclusive, and help create a positive experience for all.",
+      "You will be given your own custom bag of Hack Canada swag, the opportunity to network with industry professionals during our networking panel and during the event, and access to numerous fun activities and workshops to assist you on your tech journey and provide you with a fun experience!",
   },
   {
-    question: "Who can I contact for code of conduct concerns?",
+    question: "What do I need to participate?",
     answer:
-      "If you have any concerns or need to report an issue, please reach out to our organizers immediately. You can find our contact information at the event or email us at contact@hackcanada.org.",
-  },
-  {
-    question: "How can I report a violation?",
-    answer:
-      "You can report violations by speaking directly to any organizer, using our anonymous reporting form, or emailing contact@hackcanada.org. All reports are taken seriously and handled confidentially.",
-  },
-  {
-    question: "My parents are concerned—what should I tell them?",
-    answer:
-      "Hack Canada is a safe, supervised event with experienced organizers and mentors. We have security measures in place, provide meals, and ensure a supportive environment. Share our website and contact information with them so they can learn more!",
+      "Bring a laptop, charger, and an excited spirit for technology and building! If you are sleeping overnight, make sure to also bring a sleeping bag, toiletries (toothbrush, toothpaste, etc.), an extra pair of clothes, and other sleeping gear (pillow, blanket, etc.)",
   },
 ];
 
@@ -117,247 +81,74 @@ export default function FAQ() {
     <section
       id="faq"
       className="w-full relative overflow-hidden"
-      style={{ minHeight: "1256px" }}
+      style={{ minHeight: "clamp(1000px, 150vh, 2000px)" }}
     >
-      {/* Background Image - Lighthouse scene with aurora */}
+      {/* Background Image */}
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: "url('/faq.svg')",
+          backgroundImage: "url('/faq/background1.svg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          left: "-103px",
-          width: "1884px",
-          height: "1256px",
+        }}
+      />
+      {/* Sky Artwork */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: "url('/faq/Untitled_Artwork%203.svg')",
+          backgroundSize: "cover",
+          backgroundPosition: "top center",
+          backgroundRepeat: "no-repeat",
+          opacity: 0.9,
+        }}
+      />
+      {/* Lighthouse */}
+      <div
+        className="absolute inset-0 z-[1]"
+        style={{
+          backgroundImage: "url('/faq/background.svg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center bottom",
+          backgroundRepeat: "no-repeat",
         }}
       />
 
-      <div className="container mx-auto px-4 py-20 relative z-10">
-        {/* Purple Accordion Groups - Side by Side */}
+      <div className="container mx-auto px-4 pt-32 pb-8 sm:pt-40 sm:pb-12 md:pt-56 md:pb-16 lg:pt-64 lg:pb-20 relative z-10">
+        {/* Two Column Layout */}
         <div
-          className="max-w-[976px] mx-auto flex flex-col md:flex-row gap-[14px] justify-center mb-12"
-          style={{ marginTop: "100px" }}
+          className="max-w-[1400px] ml-auto mr-0 md:mr-4 lg:mr-8 flex flex-col md:flex-row gap-[20px] justify-end"
         >
-          {/* First Purple Group (Left) */}
-          <Accordion
-            type="multiple"
-            className="w-[474px] max-w-full flex flex-col gap-[14px]"
-          >
-            {firstAccordionItems.map((item, index) => {
-              const textWidths = [235, 230, 454.14, 436, 421];
-              const value = `first-${index}`;
-
-              return (
-                <AccordionItem
-                  key={index}
-                  value={value}
-                  className="border-none relative overflow-hidden"
-                >
-                  <AccordionTrigger
-                    className={cn(
-                      "relative w-full h-[56px] data-[state=open]:h-[166px] transition-all duration-300",
-                      "bg-gradient-to-r from-[#5D2F47] to-[#2A222E]",
-                      "border border-[#A2A2A2] rounded-[10px]",
-                      "data-[state=open]:shadow-[0px_0px_6.1px_rgba(255,239,99,0.5)]",
-                      "hover:no-underline",
-                      "[&>svg]:hidden"
-                    )}
-                    style={{
-                      padding: 0,
-                      boxSizing: "border-box",
-                    }}
-                  >
-                    <span
-                      className="absolute text-white overflow-hidden"
-                      style={{
-                        width: `${textWidths[index]}px`,
-                        maxWidth: "calc(100% - 60px)",
-                        height: "16px",
-                        left: index === 2 ? "19.86px" : "22px",
-                        top: "19px",
-                        fontFamily: "var(--font-baloo-chettan)",
-                        fontWeight: 400,
-                        fontSize: "17px",
-                        lineHeight: "96%",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {item.question}
-                    </span>
-                    <div
-                      className="absolute flex items-center justify-center pointer-events-none"
-                      style={{
-                        left: index === 2 ? "445.97px" : "443px",
-                        top: "22px",
-                        width: "15px",
-                        height: "15px",
-                      }}
-                    >
-                      <Plus className="w-4 h-4 text-white stroke-[2] data-[state=open]:hidden" />
-                      <X
-                        className="w-4 h-4 text-white stroke-[2] hidden data-[state=open]:block"
-                        style={{ transform: "rotate(45deg)" }}
-                      />
-                    </div>
-                  </AccordionTrigger>
-                  {item.answer && (
-                    <AccordionContent
-                      className="text-white pt-0 pb-0 overflow-hidden"
-                      style={{
-                        position: "absolute",
-                        width: "436px",
-                        maxWidth: "calc(100% - 44px)",
-                        height: "90px",
-                        left: "22px",
-                        top: "49px",
-                        fontFamily: "var(--font-outfit)",
-                        fontWeight: 400,
-                        fontSize: "15px",
-                        lineHeight: "117%",
-                        wordWrap: "break-word",
-                        overflowWrap: "break-word",
-                      }}
-                    >
-                      {item.answer}
-                    </AccordionContent>
-                  )}
-                </AccordionItem>
-              );
-            })}
-          </Accordion>
-
-          {/* Third Purple Group (Right) */}
-          <Accordion
-            type="multiple"
-            className="w-[474px] max-w-full flex flex-col gap-[14px]"
-          >
-            {thirdAccordionItems.map((item, index) => {
-              const textWidths = [235, 421, 454.14, 436];
-              const value = `third-${index}`;
-
-              return (
-                <AccordionItem
-                  key={index}
-                  value={value}
-                  className="border-none relative overflow-hidden"
-                >
-                  <AccordionTrigger
-                    className={cn(
-                      "relative w-full h-[56px] data-[state=open]:h-[166px] transition-all duration-300",
-                      "bg-gradient-to-r from-[#5D2F47] to-[#2A222E]",
-                      "border border-[#A2A2A2] rounded-[10px]",
-                      "data-[state=open]:shadow-[0px_0px_6.1px_rgba(255,239,99,0.5)]",
-                      "hover:no-underline",
-                      "[&>svg]:hidden"
-                    )}
-                    style={{
-                      padding: 0,
-                      boxSizing: "border-box",
-                    }}
-                  >
-                    <span
-                      className="absolute text-white overflow-hidden"
-                      style={{
-                        width: `${textWidths[index]}px`,
-                        maxWidth: "calc(100% - 60px)",
-                        height: "16px",
-                        left: index === 2 ? "19.86px" : "22px",
-                        top: "19px",
-                        fontFamily: "var(--font-baloo-chettan)",
-                        fontWeight: 400,
-                        fontSize: "17px",
-                        lineHeight: "96%",
-                        whiteSpace: "nowrap",
-                        overflow: "hidden",
-                        textOverflow: "ellipsis",
-                      }}
-                    >
-                      {item.question}
-                    </span>
-                    <div
-                      className="absolute flex items-center justify-center pointer-events-none"
-                      style={{
-                        left: index === 2 ? "445.97px" : "443px",
-                        top: "22px",
-                        width: "15px",
-                        height: "15px",
-                      }}
-                    >
-                      <Plus className="w-4 h-4 text-white stroke-[2] data-[state=open]:hidden" />
-                      <X
-                        className="w-4 h-4 text-white stroke-[2] hidden data-[state=open]:block"
-                        style={{ transform: "rotate(45deg)" }}
-                      />
-                    </div>
-                  </AccordionTrigger>
-                  {item.answer && (
-                    <AccordionContent
-                      className="text-white pt-0 pb-0 overflow-hidden"
-                      style={{
-                        position: "absolute",
-                        width: "436px",
-                        maxWidth: "calc(100% - 44px)",
-                        height: "90px",
-                        left: "22px",
-                        top: "49px",
-                        fontFamily: "var(--font-outfit)",
-                        fontWeight: 400,
-                        fontSize: "15px",
-                        lineHeight: "117%",
-                        wordWrap: "break-word",
-                        overflowWrap: "break-word",
-                      }}
-                    >
-                      {item.answer}
-                    </AccordionContent>
-                  )}
-                </AccordionItem>
-              );
-            })}
-          </Accordion>
-        </div>
-
-        {/* Blue Accordion Group - Two Columns */}
-        <div className="max-w-[976px] mx-auto flex flex-col md:flex-row gap-[14px] justify-center">
           {/* Left Column */}
           <Accordion
             type="multiple"
-            className="w-[474px] max-w-full flex flex-col gap-[14px]"
+            className="w-full md:w-[680px] max-w-full flex flex-col gap-[14px]"
           >
-            {secondAccordionLeft.map((item, index) => {
-              const textWidths = [424, 421, 454.14, 436];
-              const value = `second-left-${index}`;
+            {leftColumnItems.map((item, index) => {
+              const value = `left-${index}`;
 
               return (
                 <AccordionItem
                   key={index}
                   value={value}
-                  className="border-none relative overflow-hidden"
+                  className="border-none relative overflow-hidden rounded-[10px] border border-[#A2A2A2] bg-gradient-to-r from-[#5D2F47] to-[#2A222E]"
                 >
                   <AccordionTrigger
                     className={cn(
-                      "relative w-full h-[56px] data-[state=open]:h-[166px] transition-all duration-300",
-                      "bg-gradient-to-r from-[#2F395D] to-[#2A222E]",
-                      "border-[0.5px] border-[#A2A2A2] rounded-[10px]",
-                      "data-[state=open]:shadow-[0px_0px_6.1px_rgba(255,239,99,0.5)]",
+                      "relative w-full min-h-[56px] transition-all duration-300",
                       "hover:no-underline",
-                      "[&>svg]:hidden"
+                      "[&>svg]:hidden",
+                      "flex items-start justify-between"
                     )}
                     style={{
-                      padding: 0,
+                      padding: "19px 22px",
                       boxSizing: "border-box",
                     }}
                   >
                     <span
-                      className="absolute text-white"
+                      className="text-white flex-1 pr-4"
                       style={{
-                        width: `${textWidths[index]}px`,
-                        height: "16px",
-                        left: "22px",
-                        top: "19px",
                         fontFamily: "var(--font-baloo-chettan)",
                         fontWeight: 400,
                         fontSize: "17px",
@@ -367,31 +158,30 @@ export default function FAQ() {
                       {item.question}
                     </span>
                     <div
-                      className="absolute flex items-center justify-center pointer-events-none"
+                      className="flex items-center justify-center flex-shrink-0"
                       style={{
-                        left: "443px",
-                        top: "22px",
                         width: "15px",
                         height: "15px",
                       }}
                     >
                       <Plus className="w-4 h-4 text-white stroke-[2] data-[state=open]:hidden" />
-                      <X className="w-4 h-4 text-white stroke-[2] hidden data-[state=open]:block" />
+                      <X
+                        className="w-4 h-4 text-white stroke-[2] hidden data-[state=open]:block"
+                        style={{ transform: "rotate(45deg)" }}
+                      />
                     </div>
                   </AccordionTrigger>
                   {item.answer && (
                     <AccordionContent
-                      className="text-white pt-0 pb-0"
+                      className="text-white"
                       style={{
-                        position: "absolute",
-                        width: "436px",
-                        height: "90px",
-                        left: "calc(50% - 436px/2 + 3px)",
-                        top: "30px",
+                        padding: "0 22px 19px 22px",
                         fontFamily: "var(--font-outfit)",
                         fontWeight: 400,
                         fontSize: "15px",
                         lineHeight: "117%",
+                        wordWrap: "break-word",
+                        overflowWrap: "break-word",
                       }}
                     >
                       {item.answer}
@@ -405,39 +195,32 @@ export default function FAQ() {
           {/* Right Column */}
           <Accordion
             type="multiple"
-            className="w-[474px] max-w-full flex flex-col gap-[14px]"
+            className="w-full md:w-[680px] max-w-full flex flex-col gap-[14px]"
           >
-            {secondAccordionRight.map((item, index) => {
-              const textWidths = [346, 421, 454.14, 436];
-              const value = `second-right-${index}`;
+            {rightColumnItems.map((item, index) => {
+              const value = `right-${index}`;
 
               return (
                 <AccordionItem
                   key={index}
                   value={value}
-                  className="border-none relative overflow-hidden"
+                  className="border-none relative overflow-hidden rounded-[10px] border border-[#A2A2A2] bg-gradient-to-r from-[#5D2F47] to-[#2A222E]"
                 >
                   <AccordionTrigger
                     className={cn(
-                      "relative w-full h-[56px] data-[state=open]:h-[166px] transition-all duration-300",
-                      "bg-gradient-to-r from-[#2F395D] to-[#2A222E]",
-                      "border-[0.5px] border-[#A2A2A2] rounded-[10px]",
-                      "data-[state=open]:shadow-[0px_0px_6.1px_rgba(255,239,99,0.5)]",
+                      "relative w-full min-h-[56px] transition-all duration-300",
                       "hover:no-underline",
-                      "[&>svg]:hidden"
+                      "[&>svg]:hidden",
+                      "flex items-start justify-between"
                     )}
                     style={{
-                      padding: 0,
+                      padding: "19px 22px",
                       boxSizing: "border-box",
                     }}
                   >
                     <span
-                      className="absolute text-white"
+                      className="text-white flex-1 pr-4"
                       style={{
-                        width: `${textWidths[index]}px`,
-                        height: "16px",
-                        left: "22px",
-                        top: "19px",
                         fontFamily: "var(--font-baloo-chettan)",
                         fontWeight: 400,
                         fontSize: "17px",
@@ -447,31 +230,30 @@ export default function FAQ() {
                       {item.question}
                     </span>
                     <div
-                      className="absolute flex items-center justify-center pointer-events-none"
+                      className="flex items-center justify-center flex-shrink-0"
                       style={{
-                        left: "443px",
-                        top: "22px",
                         width: "15px",
                         height: "15px",
                       }}
                     >
                       <Plus className="w-4 h-4 text-white stroke-[2] data-[state=open]:hidden" />
-                      <X className="w-4 h-4 text-white stroke-[2] hidden data-[state=open]:block" />
+                      <X
+                        className="w-4 h-4 text-white stroke-[2] hidden data-[state=open]:block"
+                        style={{ transform: "rotate(45deg)" }}
+                      />
                     </div>
                   </AccordionTrigger>
                   {item.answer && (
                     <AccordionContent
-                      className="text-white pt-0 pb-0"
+                      className="text-white"
                       style={{
-                        position: "absolute",
-                        width: "436px",
-                        height: "90px",
-                        left: "calc(50% - 436px/2 + 3px)",
-                        top: "30px",
+                        padding: "0 22px 19px 22px",
                         fontFamily: "var(--font-outfit)",
                         fontWeight: 400,
                         fontSize: "15px",
                         lineHeight: "117%",
+                        wordWrap: "break-word",
+                        overflowWrap: "break-word",
                       }}
                     >
                       {item.answer}
