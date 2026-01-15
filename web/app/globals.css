@@ -134,6 +134,12 @@
 }
 
 @keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
+
+a {
+  font-family: 'Baloo Chettan 2', serif;
 
   0%,
   100% {
