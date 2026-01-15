@@ -41,37 +41,40 @@ export default function Hero() {
         setSectionHeight(backgroundImgRef.current.offsetHeight);
       }
     };
-
     window.addEventListener('resize', updateHeight);
     return () => window.removeEventListener('resize', updateHeight);
   }, []);
 
   return (
-    <section id="hero" className="w-full flex items-center lg:items-start justify-center relative overflow-hidden lg:pt-[25%]" style={{ height: `${sectionHeight + 300}px` }}>
-      {/* Background layer - slower parallax */}
-      <div 
-        className="absolute inset-0 z-0"
-        style={{
-          transform: `translateY(${-100 + scrollY * 0.1}px)`,
-        }}
-      >
-        <Image 
-          ref={backgroundImgRef}
-          src="/background.png" 
-          alt="Background" 
-          width={1920}
-          height={1080}
-          className="object-cover w-screen h-auto min-w-[1920px] min-h-[1080px]"
-          priority
-          onLoad={handleImageLoad}
-        />
+    <section id="hero" className="w-full flex items-center lg:items-start justify-center relative lg:pt-[25%]" style={{ height: `${sectionHeight+350}px` }}>
+      {/* Overflow container for background and content only */}
+      <div className="absolute inset-0 overflow-hidden z-0">
+        {/* Background layer - slower parallax */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            transform: `translateY(${-100 + scrollY * 0.1}px)`,
+          }}
+        >
+          <Image 
+            ref={backgroundImgRef}
+            src="/background.png" 
+            alt="Background" 
+            width={1920}
+            height={1080}
+            className="object-cover w-screen h-auto min-w-[1920px]"
+            priority
+            onLoad={handleImageLoad}
+          />
+        </div>
       </div>
 
-      {/* Foreground layer - faster parallax */}
+      {/* Foreground layer - on top, not clipped */}
       <div 
-        className="absolute inset-0 z-10"
+        className="absolute inset-0 z-10 pointer-events-none"
         style={{
-          transform: `translateY(${400 + scrollY * 0.001}px)`,
+          transform: `translateY(${380 + scrollY * 0.001}px)`,
+          overflow: 'visible'
         }}
       >
         <Image 
