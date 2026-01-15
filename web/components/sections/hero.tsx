@@ -17,6 +17,8 @@ import Image from 'next/image';
  */
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
+  const [sectionHeight, setSectionHeight] = useState(1400);
+  const backgroundImgRef = React.useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,8 +29,25 @@ export default function Hero() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleImageLoad = () => {
+    if (backgroundImgRef.current) {
+      setSectionHeight(backgroundImgRef.current.offsetHeight);
+    }
+  };
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (backgroundImgRef.current) {
+        setSectionHeight(backgroundImgRef.current.offsetHeight);
+      }
+    };
+
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
   return (
-    <section id="hero" className="w-full h-[1400px] flex items-center justify-center relative overflow-hidden">
+    <section id="hero" className="w-full flex items-center lg:items-start justify-center relative overflow-hidden lg:pt-[25%]" style={{ height: `${sectionHeight + 300}px` }}>
       {/* Background layer - slower parallax */}
       <div 
         className="absolute inset-0 z-0"
@@ -37,12 +56,14 @@ export default function Hero() {
         }}
       >
         <Image 
+          ref={backgroundImgRef}
           src="/background.png" 
           alt="Background" 
           width={1920}
           height={1080}
-          className="object-cover w-[1920px] h-[1080px]"
+          className="object-cover w-screen h-auto min-w-[1920px] min-h-[1080px]"
           priority
+          onLoad={handleImageLoad}
         />
       </div>
 
@@ -58,12 +79,12 @@ export default function Hero() {
           alt="Foreground" 
           width={1920}
           height={1080}
-          className="object-top w-[1920px] h-[1080px]"
+          className="object-top w-screen h-auto min-w-375"
           priority
         />
       </div>
 
-      <div className="z-20 flex flex-col items-center text-center px-4 mb-[30vh] lg:ml-[50vw] lg:mb-[45vh] backdrop-blur-md mx-10 bg-white/20 rounded-lg py-6 lg:backdrop-blur-none lg:bg-transparent lg:py-0"
+      <div className="z-20 flex flex-col items-center text-center px-4 lg:ml-[50vw] -mt-[40vh] lg:mt-0 backdrop-blur-md mx-10 bg-white/20 rounded-lg py-6 lg:backdrop-blur-none lg:bg-transparent lg:py-0"
         style={{
           transform: `translateY(${scrollY * 0.002}px)`,
         }}
