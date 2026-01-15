@@ -28,7 +28,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="hero" className="w-full min-h-[1400px] flex items-center justify-center relative overflow-hidden">
+    <section id="hero" className="w-full h-[1400px] flex items-center justify-center relative overflow-hidden">
       {/* Background layer - slower parallax */}
       <div 
         className="absolute inset-0 z-0"
@@ -58,7 +58,7 @@ export default function Hero() {
           alt="Foreground" 
           width={1920}
           height={1080}
-          className="object-cover object-top w-[1920px] h-[1080px]"
+          className="object-top w-[1920px] h-[1080px]"
           priority
         />
       </div>
