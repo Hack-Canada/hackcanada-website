@@ -33,7 +33,7 @@ export default function Hero() {
       <div 
         className="absolute inset-0 z-0"
         style={{
-          transform: `translateY(${-100 + scrollY * 0.4}px)`,
+          transform: `translateY(${-100 + scrollY * 0.1}px)`,
         }}
       >
         <Image 
@@ -50,7 +50,7 @@ export default function Hero() {
       <div 
         className="absolute inset-0 z-10"
         style={{
-          transform: `translateY(${300 + scrollY * 0.2}px)`,
+          transform: `translateY(${300 + scrollY * 0.001}px)`,
         }}
       >
         <Image 
@@ -65,7 +65,7 @@ export default function Hero() {
 
       <div className="z-20 flex flex-col items-center text-center px-4 mb-[30vh] lg:ml-[50vw] lg:mb-[45vh] backdrop-blur-md mx-10 bg-white/20 rounded-lg py-6 lg:backdrop-blur-none lg:bg-transparent lg:py-0"
         style={{
-          transform: `translateY(${scrollY * 0.2}px)`,
+          transform: `translateY(${scrollY * 0.002}px)`,
         }}
       >
         <h1 className='text-6xl lg:text-8xl font-bold text-[#441E0A]'>Hack Canada</h1>
