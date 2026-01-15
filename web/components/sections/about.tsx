@@ -140,7 +140,7 @@ export default function About() {
     <section
       ref={sectionRef}
       id="about"
-      className="relative w-full overflow-hidden text-white -mt-[120px] pt-[120px]"
+      className="relative w-full overflow-hidden text-white -mt-[60px] pt-[120px]"
       style={{ backgroundColor: "transparent" }}
     >
       {/* Dark blue background - starts below the wavy edge */}
@@ -261,7 +261,7 @@ export default function About() {
           {/* Left title + paragraph - with scroll reveal */}
           <div 
             ref={titleRef}
-            className={`absolute left-[103px] top-[100px] max-w-[640px] transition-all duration-700 ease-out
+            className={`absolute left-[103px] top-[80px] max-w-[640px] transition-all duration-700 ease-out
               ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
             style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
           >
