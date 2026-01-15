@@ -71,7 +71,7 @@ export default function Hero() {
       <div 
         className="absolute inset-0 z-10"
         style={{
-          transform: `translateY(${300 + scrollY * 0.001}px)`,
+          transform: `translateY(${400 + scrollY * 0.001}px)`,
         }}
       >
         <Image 
