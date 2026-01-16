@@ -81,7 +81,7 @@ export default function FAQ() {
     <section
       id="faq"
       className="w-full relative overflow-hidden"
-      style={{ minHeight: "clamp(900px, 120vh, 1600px)" }}
+      style={{ minHeight: "clamp(800px, 120vh, 1600px)" }}
     >
       {/* Full Background */}
       <div
@@ -94,15 +94,71 @@ export default function FAQ() {
         }}
       />
 
-      <div className="container mx-auto px-4 pt-32 pb-4 sm:pt-40 sm:pb-8 md:pt-56 md:pb-12 lg:pt-64 lg:pb-16 relative z-10">
+      {/* Let's shed some light on... */}
+      <div
+        className="absolute z-10"
+        style={{
+          top: "clamp(20px, 4vh, 100px)",
+          left: "50%",
+          transform: "translateX(-50%) rotate(-9.46deg)",
+          width: "clamp(200px, 85vw, 350px)",
+          height: "clamp(22px, 3.5vw, 29px)",
+          maxWidth: "90vw",
+          fontFamily: "var(--font-baloo-chettan)",
+          fontStyle: "normal",
+          fontWeight: 400,
+          fontSize: "clamp(20px, 3.5vw, 30px)",
+          lineHeight: "96%",
+          letterSpacing: "0%",
+          textAlign: "center",
+          color: "#CCC7D0",
+          opacity: 1,
+          borderRadius: 0,
+          WebkitTextStroke: "1px rgba(204, 199, 208, 0.5)",
+          textShadow: 
+            "2px 2px 0px rgba(0, 0, 0, 0.4), " +
+            "3px 3px 4px rgba(0, 0, 0, 0.3), " +
+            "0px 0px 8px rgba(204, 199, 208, 0.2)",
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "center",
+        }}
+      >
+        Let&apos;s shed some light on...
+      </div>
+
+      {/* Frequently Asked Questions */}
+      <div
+        className="absolute z-10"
+        style={{
+          position: "absolute",
+          width: "643px",
+          height: "48px",
+          left: "50%",
+          top: "clamp(50px, 8vh, 150px)",
+          marginLeft: "-321.5px", // Center the 643px width
+          fontFamily: "var(--font-baloo-chettan)",
+          fontStyle: "normal",
+          fontWeight: 400,
+          fontSize: "50px",
+          lineHeight: "96%",
+          textAlign: "center",
+          color: "#FFDFF7",
+          transform: "rotate(-9.46deg)",
+        }}
+      >
+        Frequently Asked Questions
+      </div>
+
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 pt-[180px] pb-4 sm:pt-[220px] sm:pb-8 md:pt-[260px] md:pb-12 lg:pt-[300px] lg:pb-16 relative z-10">
         {/* Two Column Layout */}
         <div
-          className="max-w-[1000px] ml-auto mr-0 md:mr-8 lg:mr-16 xl:mr-24 flex flex-col md:flex-row gap-[16px] justify-end"
+          className="max-w-full sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] mx-auto flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 justify-center pt-[350px] sm:pt-0"
         >
           {/* Left Column */}
           <Accordion
             type="multiple"
-            className="w-full md:w-[480px] max-w-full flex flex-col gap-[10px]"
+            className="w-full md:w-[clamp(260px,42vw,420px)] lg:w-[420px] max-w-full flex flex-col gap-1.5 sm:gap-2"
           >
             {leftColumnItems.map((item, index) => {
               const value = `left-${index}`;
@@ -111,26 +167,30 @@ export default function FAQ() {
                 <AccordionItem
                   key={index}
                   value={value}
-                  className="border-none relative overflow-hidden rounded-[10px] border border-[#A2A2A2] bg-gradient-to-r from-[#5D2F47] to-[#2A222E]"
+                  className="border-none relative overflow-hidden border border-[#A2A2A2] bg-gradient-to-r from-[#5D2F47] to-[#2A222E]"
+                  style={{
+                    borderRadius: "clamp(6px, 1.2vw, 8px)",
+                  }}
                 >
                   <AccordionTrigger
                     className={cn(
-                      "relative w-full min-h-[48px] transition-all duration-300",
+                      "relative w-full transition-all duration-300",
                       "hover:no-underline",
                       "[&>svg]:hidden",
                       "flex items-start justify-between"
                     )}
                     style={{
-                      padding: "14px 18px",
+                      padding: "clamp(10px, 2vw, 12px) clamp(12px, 2.5vw, 16px)",
                       boxSizing: "border-box",
+                      minHeight: "clamp(40px, 7vw, 44px)",
                     }}
                   >
                     <span
-                      className="text-white flex-1 pr-4"
+                      className="text-white flex-1 pr-2 sm:pr-3"
                       style={{
                         fontFamily: "var(--font-baloo-chettan)",
                         fontWeight: 400,
-                        fontSize: "15px",
+                        fontSize: "clamp(12px, 2.2vw, 14px)",
                         lineHeight: "96%",
                       }}
                     >
@@ -139,13 +199,13 @@ export default function FAQ() {
                     <div
                       className="flex items-center justify-center flex-shrink-0"
                       style={{
-                        width: "15px",
-                        height: "15px",
+                        width: "clamp(12px, 2.5vw, 14px)",
+                        height: "clamp(12px, 2.5vw, 14px)",
                       }}
                     >
-                      <Plus className="w-4 h-4 text-white stroke-[2] data-[state=open]:hidden" />
+                      <Plus className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white stroke-[2] data-[state=open]:hidden" />
                       <X
-                        className="w-4 h-4 text-white stroke-[2] hidden data-[state=open]:block"
+                        className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white stroke-[2] hidden data-[state=open]:block"
                         style={{ transform: "rotate(45deg)" }}
                       />
                     </div>
@@ -154,10 +214,10 @@ export default function FAQ() {
                     <AccordionContent
                       className="text-white"
                       style={{
-                        padding: "0 18px 14px 18px",
+                        padding: `0 clamp(12px, 2.5vw, 16px) clamp(10px, 2vw, 12px) clamp(12px, 2.5vw, 16px)`,
                         fontFamily: "var(--font-outfit)",
                         fontWeight: 400,
-                        fontSize: "14px",
+                        fontSize: "clamp(11px, 2vw, 13px)",
                         lineHeight: "117%",
                         wordWrap: "break-word",
                         overflowWrap: "break-word",
@@ -174,7 +234,7 @@ export default function FAQ() {
           {/* Right Column */}
           <Accordion
             type="multiple"
-            className="w-full md:w-[480px] max-w-full flex flex-col gap-[10px]"
+            className="w-full md:w-[clamp(260px,42vw,420px)] lg:w-[420px] max-w-full flex flex-col gap-1.5 sm:gap-2"
           >
             {rightColumnItems.map((item, index) => {
               const value = `right-${index}`;
@@ -183,26 +243,30 @@ export default function FAQ() {
                 <AccordionItem
                   key={index}
                   value={value}
-                  className="border-none relative overflow-hidden rounded-[10px] border border-[#A2A2A2] bg-gradient-to-r from-[#5D2F47] to-[#2A222E]"
+                  className="border-none relative overflow-hidden border border-[#A2A2A2] bg-gradient-to-r from-[#5D2F47] to-[#2A222E]"
+                  style={{
+                    borderRadius: "clamp(6px, 1.2vw, 8px)",
+                  }}
                 >
                   <AccordionTrigger
                     className={cn(
-                      "relative w-full min-h-[48px] transition-all duration-300",
+                      "relative w-full transition-all duration-300",
                       "hover:no-underline",
                       "[&>svg]:hidden",
                       "flex items-start justify-between"
                     )}
                     style={{
-                      padding: "14px 18px",
+                      padding: "clamp(10px, 2vw, 12px) clamp(12px, 2.5vw, 16px)",
                       boxSizing: "border-box",
+                      minHeight: "clamp(40px, 7vw, 44px)",
                     }}
                   >
                     <span
-                      className="text-white flex-1 pr-4"
+                      className="text-white flex-1 pr-2 sm:pr-3"
                       style={{
                         fontFamily: "var(--font-baloo-chettan)",
                         fontWeight: 400,
-                        fontSize: "15px",
+                        fontSize: "clamp(12px, 2.2vw, 14px)",
                         lineHeight: "96%",
                       }}
                     >
@@ -211,13 +275,13 @@ export default function FAQ() {
                     <div
                       className="flex items-center justify-center flex-shrink-0"
                       style={{
-                        width: "15px",
-                        height: "15px",
+                        width: "clamp(12px, 2.5vw, 14px)",
+                        height: "clamp(12px, 2.5vw, 14px)",
                       }}
                     >
-                      <Plus className="w-4 h-4 text-white stroke-[2] data-[state=open]:hidden" />
+                      <Plus className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white stroke-[2] data-[state=open]:hidden" />
                       <X
-                        className="w-4 h-4 text-white stroke-[2] hidden data-[state=open]:block"
+                        className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white stroke-[2] hidden data-[state=open]:block"
                         style={{ transform: "rotate(45deg)" }}
                       />
                     </div>
@@ -226,10 +290,10 @@ export default function FAQ() {
                     <AccordionContent
                       className="text-white"
                       style={{
-                        padding: "0 18px 14px 18px",
+                        padding: `0 clamp(12px, 2.5vw, 16px) clamp(10px, 2vw, 12px) clamp(12px, 2.5vw, 16px)`,
                         fontFamily: "var(--font-outfit)",
                         fontWeight: 400,
-                        fontSize: "14px",
+                        fontSize: "clamp(11px, 2vw, 13px)",
                         lineHeight: "117%",
                         wordWrap: "break-word",
                         overflowWrap: "break-word",
