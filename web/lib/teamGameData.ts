@@ -1,183 +1,75 @@
-// DUMMY DATA FOR TEAM MEMBERS
 export interface TeamMember {
     id: string;
     name: string;
     role: string;
-    team: 'Tech' | 'Logistics' | 'Outreach' | 'Product Design' | 'Visual Design' | 'Finance';
+    team: 'Admin' | 'Backend' | 'Finance' | 'Frontend' | 'Logistics' | 'Marketing/Graphic Design' | 'Outreach' | 'Product Design' | 'Visual Design';
     photo: string;
-    funFact: string;
+    oneLiner: string;
 }
 
-export const teamMembers: TeamMember[] = [
-    // TECH TEAM
-    {
-        id: 'tech-1',
-        name: 'Alex Chen',
-        role: 'Lead Developer',
-        team: 'Tech',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=alex',
-        funFact: 'Can debug code in their sleep'
-    },
-    {
-        id: 'tech-2',
-        name: 'Sarah Kim',
-        role: 'Frontend Developer',
-        team: 'Tech',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sarah',
-        funFact: 'React wizard, coffee addict'
-    },
-    {
-        id: 'tech-3',
-        name: 'Marcus Johnson',
-        role: 'Backend Engineer',
-        team: 'Tech',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=marcus',
-        funFact: 'Loves optimizing database queries'
-    },
-    {
-        id: 'tech-4',
-        name: 'Lisa Wang',
-        role: 'Full Stack Developer',
-        team: 'Tech',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=lisa',
-        funFact: 'Shipped 5 features this sprint'
-    },
+// Raw data - easier to manage
+const rawTeamData = [
+    // Admin
+    { name: 'James Cao', role: 'Admin', team: 'Admin', oneLiner: 'what if instead of Hack Canada, we hack Canada' },
 
-    // LOGISTICS TEAM
-    {
-        id: 'logistics-1',
-        name: 'Tyler Brown',
-        role: 'Operations Lead',
-        team: 'Logistics',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=tyler',
-        funFact: 'Master of spreadsheets'
-    },
-    {
-        id: 'logistics-2',
-        name: 'Maya Patel',
-        role: 'Event Coordinator',
-        team: 'Logistics',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=maya',
-        funFact: 'Can plan events in their sleep'
-    },
-    {
-        id: 'logistics-3',
-        name: 'Connor O\'Brien',
-        role: 'Venue Manager',
-        team: 'Logistics',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=connor',
-        funFact: 'Never misses a deadline'
-    },
+    // Backend Team
+    { name: 'Eason Huang', role: 'Backend Engineer', team: 'Backend', oneLiner: 'i use arch btw 🤓' },
+    { name: 'Rehatpreet Kaur', role: 'Backend Engineer', team: 'Backend', oneLiner: 'I like bugging bugs 🐛' },
+    { name: 'Anish Paleja', role: 'Backend Engineer', team: 'Backend', oneLiner: '"It\'s not a bug, it\'s just a feature…☝️"' },
+    { name: 'Hreem Pandya (Backend)', role: 'Backend Engineer', team: 'Backend', oneLiner: 'Hreem Pandya' },
+    { name: 'Wahib Barqawi', role: 'Backend Engineer', team: 'Backend', oneLiner: 'Every bug is just a new lesson waiting' },
+    { name: 'Sohel Shekh', role: 'Backend Engineer', team: 'Backend', oneLiner: 'Figuring out simple fixes for everyday stuff' },
 
-    // OUTREACH TEAM
-    {
-        id: 'outreach-1',
-        name: 'Emily Rodriguez',
-        role: 'Outreach Lead',
-        team: 'Outreach',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=emily',
-        funFact: 'Networked with 100+ sponsors'
-    },
-    {
-        id: 'outreach-2',
-        name: 'David Park',
-        role: 'Social Media Manager',
-        team: 'Outreach',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=david',
-        funFact: 'Meme lord and content creator'
-    },
-    {
-        id: 'outreach-3',
-        name: 'Jasmine Lee',
-        role: 'Community Manager',
-        team: 'Outreach',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=jasmine',
-        funFact: 'Responds to DMs in seconds'
-    },
-    {
-        id: 'outreach-4',
-        name: 'Ryan Mitchell',
-        role: 'Partnership Coordinator',
-        team: 'Outreach',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=ryan',
-        funFact: 'Made 50 cold emails warm'
-    },
+    // Finance Team
+    { name: 'Varnit Sahu', role: 'Finance', team: 'Finance', oneLiner: 'i make money go brrrr' },
+    { name: 'Sardul Subedi', role: 'Finance', team: 'Finance', oneLiner: 'We misplaced all the prize money' },
 
-    // PRODUCT DESIGN TEAM
-    {
-        id: 'product-design-1',
-        name: 'Priya Sharma',
-        role: 'Product Designer',
-        team: 'Product Design',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=priya',
-        funFact: 'User research enthusiast'
-    },
-    {
-        id: 'product-design-2',
-        name: 'Jordan Lee',
-        role: 'UX Designer',
-        team: 'Product Design',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=jordan',
-        funFact: 'Figma shortcuts master'
-    },
-    {
-        id: 'product-design-3',
-        name: 'Sophia Martinez',
-        role: 'UI Designer',
-        team: 'Product Design',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=sophia',
-        funFact: 'Pixel-perfect is the only way'
-    },
+    // Frontend Team
+    { name: 'Adelynn Tran', role: 'Frontend Engineer', team: 'Frontend', oneLiner: 'i wish i could sleep 25 hours a day' },
+    { name: 'Advitiya Sharma', role: 'Frontend Engineer', team: 'Frontend', oneLiner: 'Overthinking everything' },
+    { name: 'Faiz Mustansar', role: 'Frontend Engineer', team: 'Frontend', oneLiner: 'jus a chill guy' },
+    { name: 'Hreem Pandya (Frontend)', role: 'Frontend Engineer', team: 'Frontend', oneLiner: 'Hreem Pandya' },
+    { name: 'Oliver Huang', role: 'Frontend Engineer', team: 'Frontend', oneLiner: 'to be loved is to be changed' },
 
-    // VISUAL DESIGN TEAM
-    {
-        id: 'visual-design-1',
-        name: 'Zoe Taylor',
-        role: 'Graphic Designer',
-        team: 'Visual Design',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=zoe',
-        funFact: 'Can design a poster in 10 minutes'
-    },
-    {
-        id: 'visual-design-2',
-        name: 'Ethan Kim',
-        role: 'Brand Designer',
-        team: 'Visual Design',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=ethan',
-        funFact: 'Color theory is their superpower'
-    },
-    {
-        id: 'visual-design-3',
-        name: 'Ava Chen',
-        role: 'Illustrator',
-        team: 'Visual Design',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=ava',
-        funFact: 'Drew the mascot in one sitting'
-    },
+    // Logistics Team
+    { name: 'Jun Bin Cheng', role: 'Logistics', team: 'Logistics', oneLiner: 'meow' },
+    { name: 'Vienna Zhao', role: 'Logistics', team: 'Logistics', oneLiner: 'A coffee a day keeps the doctor away' },
+    { name: 'Jad Menkara', role: 'Logistics', team: 'Logistics', oneLiner: 'to thine own self be true' },
+    { name: 'Yuvaansh Kapila', role: 'Logistics', team: 'Logistics', oneLiner: 'Hey, I\'m Yuvaansh, a Grade 11 student passionate about technology, a jack of all trades but master of none' },
+    { name: 'Ritvik Goyal', role: 'Logistics', team: 'Logistics', oneLiner: 'True Dreamer = True Builder' },
+    { name: 'Sarveshwar Senthil Kumar', role: 'Logistics', team: 'Logistics', oneLiner: 'Either playing chess or working on a personal project!' },
+    { name: 'Yang Xue', role: 'Logistics', team: 'Logistics', oneLiner: 'i can bench 225' },
 
-    // FINANCE TEAM
-    {
-        id: 'finance-1',
-        name: 'Noah Williams',
-        role: 'Finance Lead',
-        team: 'Finance',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=noah',
-        funFact: 'Budgets are their love language'
-    },
-    {
-        id: 'finance-2',
-        name: 'Olivia Thompson',
-        role: 'Treasurer',
-        team: 'Finance',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=olivia',
-        funFact: 'Excel wizard, number cruncher'
-    },
-    {
-        id: 'finance-3',
-        name: 'Liam Anderson',
-        role: 'Sponsorship Coordinator',
-        team: 'Finance',
-        photo: 'https://api.dicebear.com/7.x/avataaars/svg?seed=liam',
-        funFact: 'Secured $50K in funding'
-    },
-];
+    // Marketing/Graphic Design Team
+    { name: 'Ahana Virmani', role: 'Marketing/Graphic Design', team: 'Marketing/Graphic Design', oneLiner: '"d1 yapper 😭🔥💕"' },
+    { name: 'Varneet Kaur', role: 'Marketing/Graphic Design', team: 'Marketing/Graphic Design', oneLiner: 'i procrastinate too much ;_;' },
+    { name: 'Vedika Gopinaath', role: 'Marketing/Graphic Design', team: 'Marketing/Graphic Design', oneLiner: 'Just a curious human!' },
+    { name: 'Sophia Xu', role: 'Marketing/Graphic Design', team: 'Marketing/Graphic Design', oneLiner: 'Why did the polar bear call tech support? His screen was frozen.' },
+
+    // Outreach Team
+    { name: 'Shaoming Wu', role: 'Outreach', team: 'Outreach', oneLiner: 'dependent on mcdonalds' },
+    { name: 'Mehul Garang', role: 'Outreach', team: 'Outreach', oneLiner: 'Building connections and ideas that make an impact' },
+    { name: 'Tishya Bhat', role: 'Outreach', team: 'Outreach', oneLiner: 'snacks before hacks' },
+    { name: 'Edward Drobnis', role: 'Outreach', team: 'Outreach', oneLiner: 'I LOVE HACK CANADA 🤓🤓' },
+
+    // Product Design Team
+    { name: 'Muskan Madhwani', role: 'Product Design', team: 'Product Design', oneLiner: 'I collect ideas and turn them into something meaningful.' },
+    { name: 'Naman Sonawane', role: 'Product Design', team: 'Product Design', oneLiner: 'doing hw between cursor prompts' },
+    { name: 'Anushka Kshirsagar', role: 'Product Design', team: 'Product Design', oneLiner: 'is ai coming for our jobs? hmm' },
+
+    // Visual Design Team
+    { name: 'Claire L', role: 'Visual Design', team: 'Visual Design', oneLiner: 'be there or be square' },
+    { name: 'Isabelle Dharma', role: 'Visual Design', team: 'Visual Design', oneLiner: 'naps are best taken when not needed' },
+    { name: 'Jessica Zhang', role: 'Visual Design', team: 'Visual Design', oneLiner: 'One Must imagine Sisyphus Happy' },
+] as const;
+
+export const teamMembers: TeamMember[] = Object.freeze(
+    rawTeamData.map((member, index) => ({
+        id: `member-${index}-${member.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z-]/g, '')}`,
+        name: member.name,
+        role: member.role,
+        team: member.team,
+        photo: `https://api.dicebear.com/7.x/avataaars/svg?seed=${member.name.toLowerCase().replace(/\s+/g, '')}`,
+        oneLiner: member.oneLiner
+    }))
+) as TeamMember[];
