@@ -97,12 +97,12 @@ export default function FAQ() {
       <div className="container mx-auto px-4 pt-32 pb-4 sm:pt-40 sm:pb-8 md:pt-56 md:pb-12 lg:pt-64 lg:pb-16 relative z-10">
         {/* Two Column Layout */}
         <div
-          className="max-w-[1400px] ml-auto mr-0 md:mr-4 lg:mr-8 flex flex-col md:flex-row gap-[20px] justify-end"
+          className="max-w-[1000px] ml-auto mr-0 md:mr-8 lg:mr-16 xl:mr-24 flex flex-col md:flex-row gap-[16px] justify-end"
         >
           {/* Left Column */}
           <Accordion
             type="multiple"
-            className="w-full md:w-[680px] max-w-full flex flex-col gap-[14px]"
+            className="w-full md:w-[480px] max-w-full flex flex-col gap-[10px]"
           >
             {leftColumnItems.map((item, index) => {
               const value = `left-${index}`;
@@ -115,13 +115,13 @@ export default function FAQ() {
                 >
                   <AccordionTrigger
                     className={cn(
-                      "relative w-full min-h-[56px] transition-all duration-300",
+                      "relative w-full min-h-[48px] transition-all duration-300",
                       "hover:no-underline",
                       "[&>svg]:hidden",
                       "flex items-start justify-between"
                     )}
                     style={{
-                      padding: "19px 22px",
+                      padding: "14px 18px",
                       boxSizing: "border-box",
                     }}
                   >
@@ -130,7 +130,7 @@ export default function FAQ() {
                       style={{
                         fontFamily: "var(--font-baloo-chettan)",
                         fontWeight: 400,
-                        fontSize: "17px",
+                        fontSize: "15px",
                         lineHeight: "96%",
                       }}
                     >
@@ -154,10 +154,10 @@ export default function FAQ() {
                     <AccordionContent
                       className="text-white"
                       style={{
-                        padding: "0 22px 19px 22px",
+                        padding: "0 18px 14px 18px",
                         fontFamily: "var(--font-outfit)",
                         fontWeight: 400,
-                        fontSize: "15px",
+                        fontSize: "14px",
                         lineHeight: "117%",
                         wordWrap: "break-word",
                         overflowWrap: "break-word",
@@ -174,7 +174,7 @@ export default function FAQ() {
           {/* Right Column */}
           <Accordion
             type="multiple"
-            className="w-full md:w-[680px] max-w-full flex flex-col gap-[14px]"
+            className="w-full md:w-[480px] max-w-full flex flex-col gap-[10px]"
           >
             {rightColumnItems.map((item, index) => {
               const value = `right-${index}`;
@@ -187,13 +187,13 @@ export default function FAQ() {
                 >
                   <AccordionTrigger
                     className={cn(
-                      "relative w-full min-h-[56px] transition-all duration-300",
+                      "relative w-full min-h-[48px] transition-all duration-300",
                       "hover:no-underline",
                       "[&>svg]:hidden",
                       "flex items-start justify-between"
                     )}
                     style={{
-                      padding: "19px 22px",
+                      padding: "14px 18px",
                       boxSizing: "border-box",
                     }}
                   >
@@ -202,7 +202,7 @@ export default function FAQ() {
                       style={{
                         fontFamily: "var(--font-baloo-chettan)",
                         fontWeight: 400,
-                        fontSize: "17px",
+                        fontSize: "15px",
                         lineHeight: "96%",
                       }}
                     >
@@ -226,10 +226,10 @@ export default function FAQ() {
                     <AccordionContent
                       className="text-white"
                       style={{
-                        padding: "0 22px 19px 22px",
+                        padding: "0 18px 14px 18px",
                         fontFamily: "var(--font-outfit)",
                         fontWeight: 400,
-                        fontSize: "15px",
+                        fontSize: "14px",
                         lineHeight: "117%",
                         wordWrap: "break-word",
                         overflowWrap: "break-word",
