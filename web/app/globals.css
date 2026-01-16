@@ -47,7 +47,7 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
+  --background: #111031;
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
@@ -134,23 +134,16 @@
 }
 
 @keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 1; }
+}
 
-  0%,
-  100% {
-    opacity: 0.2;
-  }
+a {
+  font-family: 'Baloo Chettan 2', serif;
+}
 
-  50% {
-    opacity: 1;
-  }
-
-  a {
-    font-family: 'Baloo Chettan 2', serif;
-  }
-
-  h1 {
-    font-family: 'Baloo Chettan 2', serif;
-  }
+h1 {
+  font-family: 'Baloo Chettan 2', serif;
 }
 /* ---------- Meteor shower (top-right -> bottom-left) ---------- */
 
