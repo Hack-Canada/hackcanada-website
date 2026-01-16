@@ -4,8 +4,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { teamMembers, TeamMember } from '@/lib/teamGameData';
 import Beaver from './Beaver';
 import Obstacle from './Obstacle';
-import { faDiscord, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import { faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
@@ -504,36 +503,32 @@ export default function BeaverGame() {
                   "{selectedMember.oneLiner}"
                 </div>
 
-                <div className="flex gap-3 mb-4">
-                  <a
-                    href="#"
-                    className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <FontAwesomeIcon icon={faLinkedin} className="text-lg text-gray-700" />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <FontAwesomeIcon icon={faEnvelope} className="text-lg text-gray-700" />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <FontAwesomeIcon icon={faInstagram} className="text-lg text-gray-700" />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                    onClick={e => e.preventDefault()}
-                  >
-                    <FontAwesomeIcon icon={faDiscord} className="text-lg text-gray-700" />
-                  </a>
-                </div>
+                {/* Social media icons - only show if available */}
+                {selectedMember.socials && (
+                  <div className="flex gap-3 mb-4">
+                    {selectedMember.socials.linkedin && (
+                      <a
+                        href={selectedMember.socials.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                      >
+                        <FontAwesomeIcon icon={faLinkedin} className="text-lg text-gray-700" />
+                      </a>
+                    )}
+                    
+                    {selectedMember.socials.instagram && (
+                      <a
+                        href={selectedMember.socials.instagram}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                      >
+                        <FontAwesomeIcon icon={faInstagram} className="text-lg text-gray-700" />
+                      </a>
+                    )}
+                  </div>
+                )}
 
                 <DrawerClose asChild>
                   <button className="w-full py-2 bg-black text-white rounded-lg hover:bg-black/80">
@@ -581,36 +576,32 @@ export default function BeaverGame() {
               "{selectedMember.oneLiner}"
             </div>
 
-            <div className="mt-5 flex gap-4">
-              <a
-                href="#"
-                className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                onClick={e => e.preventDefault()}
-              >
-                <FontAwesomeIcon icon={faLinkedin} className="text-lg text-gray-700" />
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                onClick={e => e.preventDefault()}
-              >
-                <FontAwesomeIcon icon={faEnvelope} className="text-lg text-gray-700" />
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                onClick={e => e.preventDefault()}
-              >
-                <FontAwesomeIcon icon={faInstagram} className="text-lg text-gray-700" />
-              </a>
-              <a
-                href="#"
-                className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                onClick={e => e.preventDefault()}
-              >
-                <FontAwesomeIcon icon={faDiscord} className="text-lg text-gray-700" />
-              </a>
-            </div>
+            {/* Social media icons - only show if available */}
+            {selectedMember.socials && (
+              <div className="mt-5 flex gap-4">
+                {selectedMember.socials.linkedin && (
+                  <a
+                    href={selectedMember.socials.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                  >
+                    <FontAwesomeIcon icon={faLinkedin} className="text-lg text-gray-700" />
+                  </a>
+                )}
+                
+                {selectedMember.socials.instagram && (
+                  <a
+                    href={selectedMember.socials.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                  >
+                    <FontAwesomeIcon icon={faInstagram} className="text-lg text-gray-700" />
+                  </a>
+                )}
+              </div>
+            )}
 
             <div className="mt-4 text-xs text-gray-500">
               Press <span className="font-semibold">Esc</span> or click outside to close.
