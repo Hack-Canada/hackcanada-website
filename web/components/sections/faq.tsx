@@ -81,41 +81,20 @@ export default function FAQ() {
     <section
       id="faq"
       className="w-full relative overflow-hidden"
-      style={{ minHeight: "clamp(1000px, 150vh, 2000px)" }}
+      style={{ minHeight: "clamp(900px, 120vh, 1600px)" }}
     >
-      {/* Background Image */}
+      {/* Full Background */}
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: "url('/faq/background1.svg')",
+          backgroundImage: "url('/faq/full-bg.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
       />
-      {/* Sky Artwork */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: "url('/faq/upper-bg.svg')",
-          backgroundSize: "cover",
-          backgroundPosition: "top center",
-          backgroundRepeat: "no-repeat",
-          opacity: 0.9,
-        }}
-      />
-      {/* Lighthouse */}
-      <div
-        className="absolute inset-0 z-[1]"
-        style={{
-          backgroundImage: "url('/faq/background1.svg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center bottom",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
 
-      <div className="container mx-auto px-4 pt-32 pb-8 sm:pt-40 sm:pb-12 md:pt-56 md:pb-16 lg:pt-64 lg:pb-20 relative z-10">
+      <div className="container mx-auto px-4 pt-32 pb-4 sm:pt-40 sm:pb-8 md:pt-56 md:pb-12 lg:pt-64 lg:pb-16 relative z-10">
         {/* Two Column Layout */}
         <div
           className="max-w-[1400px] ml-auto mr-0 md:mr-4 lg:mr-8 flex flex-col md:flex-row gap-[20px] justify-end"
