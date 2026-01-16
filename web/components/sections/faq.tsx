@@ -97,7 +97,7 @@ export default function FAQ() {
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: "url('/faq/Untitled_Artwork%203.svg')",
+          backgroundImage: "url('/faq/upper-bg.svg')",
           backgroundSize: "cover",
           backgroundPosition: "top center",
           backgroundRepeat: "no-repeat",
