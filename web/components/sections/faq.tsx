@@ -81,7 +81,10 @@ export default function FAQ() {
     <section
       id="faq"
       className="w-full relative overflow-hidden"
-      style={{ minHeight: "clamp(800px, 120vh, 1600px)" }}
+      style={{ 
+        minHeight: "clamp(800px, 120vh, 1600px)",
+        paddingTop: "clamp(80px, 15vh, 200px)",
+      }}
     >
       {/* Full Background */}
       <div
@@ -94,60 +97,74 @@ export default function FAQ() {
         }}
       />
 
-      {/* Let's shed some light on... */}
+      {/* FAQ Header Text Group */}
       <div
         className="absolute z-10"
         style={{
-          top: "clamp(20px, 4vh, 100px)",
+          top: "clamp(120px, 15vh, 250px)",
           left: "50%",
-          transform: "translateX(-50%) rotate(-9.46deg)",
-          width: "clamp(200px, 85vw, 350px)",
-          height: "clamp(22px, 3.5vw, 29px)",
-          maxWidth: "90vw",
-          fontFamily: "var(--font-baloo-chettan)",
-          fontStyle: "normal",
-          fontWeight: 400,
-          fontSize: "clamp(20px, 3.5vw, 30px)",
-          lineHeight: "96%",
-          letterSpacing: "0%",
-          textAlign: "center",
-          color: "#CCC7D0",
-          opacity: 1,
-          borderRadius: 0,
-          WebkitTextStroke: "1px rgba(204, 199, 208, 0.5)",
-          textShadow: 
-            "2px 2px 0px rgba(0, 0, 0, 0.4), " +
-            "3px 3px 4px rgba(0, 0, 0, 0.3), " +
-            "0px 0px 8px rgba(204, 199, 208, 0.2)",
+          transform: "translateX(-50%)",
+          width: "100%",
           display: "flex",
-          alignItems: "flex-start",
-          justifyContent: "center",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: "clamp(20px, 3vh, 40px)",
         }}
       >
-        Let&apos;s shed some light on...
-      </div>
+        {/* Let's shed some light on... */}
+        <div
+          style={{
+            transform: "rotate(-9.46deg)",
+            width: "clamp(200px, 85vw, 350px)",
+            height: "clamp(22px, 3.5vw, 29px)",
+            maxWidth: "90vw",
+            fontFamily: "var(--font-baloo-chettan)",
+            fontStyle: "normal",
+            fontWeight: 400,
+            fontSize: "clamp(20px, 3.5vw, 30px)",
+            lineHeight: "96%",
+            letterSpacing: "0%",
+            textAlign: "center",
+            color: "#CCC7D0",
+            opacity: 1,
+            borderRadius: 0,
+            whiteSpace: "nowrap",
+            overflow: "visible",
+            WebkitTextStroke: "1px rgba(204, 199, 208, 0.5)",
+            textShadow: 
+              "2px 2px 0px rgba(0, 0, 0, 0.4), " +
+              "3px 3px 4px rgba(0, 0, 0, 0.3), " +
+              "0px 0px 8px rgba(204, 199, 208, 0.2)",
+            display: "flex",
+            alignItems: "flex-start",
+            justifyContent: "center",
+          }}
+        >
+          Let&apos;s shed some light on...
+        </div>
 
-      {/* Frequently Asked Questions */}
-      <div
-        className="absolute z-10"
-        style={{
-          position: "absolute",
-          width: "643px",
-          height: "48px",
-          left: "50%",
-          top: "clamp(50px, 8vh, 150px)",
-          marginLeft: "-321.5px", // Center the 643px width
-          fontFamily: "var(--font-baloo-chettan)",
-          fontStyle: "normal",
-          fontWeight: 400,
-          fontSize: "50px",
-          lineHeight: "96%",
-          textAlign: "center",
-          color: "#FFDFF7",
-          transform: "rotate(-9.46deg)",
-        }}
-      >
-        Frequently Asked Questions
+        {/* Frequently Asked Questions */}
+        <div
+          style={{
+            transform: "rotate(-9.46deg)",
+            width: "clamp(400px, 90vw, 643px)",
+            height: "clamp(36px, 5vw, 48px)",
+            fontFamily: "var(--font-baloo-chettan)",
+            fontStyle: "normal",
+            fontWeight: 400,
+            fontSize: "clamp(32px, 5.5vw, 50px)",
+            lineHeight: "96%",
+            textAlign: "center",
+            color: "#FFDFF7",
+            whiteSpace: "nowrap",
+            overflow: "visible",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          Frequently Asked Questions
+        </div>
       </div>
 
       <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 pt-[180px] pb-4 sm:pt-[220px] sm:pb-8 md:pt-[260px] md:pb-12 lg:pt-[300px] lg:pb-16 relative z-10">
