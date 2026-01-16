@@ -630,7 +630,24 @@ export default function BeaverGame() {
                 </h1>
 
                 <p className="hidden sm:block text-xl text-white mt-2">
-                  Made with 💗 by @hackcanada / @hackathonscanada
+                  Made with 💗 by{' '}
+                  <a
+                    href="https://www.instagram.com/hackcanada"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    @hackcanada
+                  </a>
+                  {' '}/{' '}
+                  <a
+                    href="https://www.instagram.com/hackathoncanada/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    @hackathoncanada
+                  </a>
                 </p>
 
                 <p className="sm:hidden text-xs text-white/80 mt-2">
