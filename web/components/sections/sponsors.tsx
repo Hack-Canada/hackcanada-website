@@ -137,16 +137,12 @@ export default function Sponsors() {
           zIndex: 1,
         }}
       />
-      <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16 lg:py-20 relative z-10">
+      <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16 lg:py-20 relative z-10 pt-20 md:pt-32">
         {/* Header */}
         <div className="mx-auto mb-16" style={{ maxWidth: '1129px', width: '100%' }}>
           <h1 
-            className="mb-6 text-center text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl"
+            className="mb-6 text-center text-5xl md:text-6xl font-semibold tracking-tight"
             style={{
-              fontFamily: 'var(--font-baloo-chettan)',
-              fontSize: 'clamp(48px, 8vw, 96px)',
-              lineHeight: '96%',
-              fontWeight: 400,
               color: '#DBDAF3',
             }}
           >
@@ -320,7 +316,7 @@ export default function Sponsors() {
         {/* Sponsor Blocks Grid */}
         <div className="max-w-6xl mx-auto px-4">
           {/* Gold - Large Single Block */}
-          <div className="flex justify-center mb-4 sm:mb-6 md:mb-8">
+          <div className="flex justify-center mb-2 sm:mb-3 md:mb-4">
             <a
               href={goldBlock.link || '#'}
               target="_blank"
@@ -361,7 +357,7 @@ export default function Sponsors() {
           </div>
 
           {/* Silver - Two Blocks Side by Side */}
-          <div className="flex flex-col md:flex-row justify-center gap-3 sm:gap-4 mb-4 sm:mb-6 md:mb-8">
+          <div className="flex flex-col md:flex-row justify-center gap-3 sm:gap-4 mb-2 sm:mb-3 md:mb-4">
             {silverBlocks.map((sponsor, index) => (
               <a
                 key={index}

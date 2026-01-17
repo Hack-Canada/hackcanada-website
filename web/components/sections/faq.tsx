@@ -86,6 +86,7 @@ export default function FAQ() {
         paddingTop: "clamp(80px, 15vh, 200px)",
       }}
     >
+      
       {/* Full Background */}
       <div
         className="absolute inset-0 z-0"
@@ -184,7 +185,7 @@ export default function FAQ() {
                 <AccordionItem
                   key={index}
                   value={value}
-                  className="border-none relative overflow-hidden border border-[#A2A2A2] bg-gradient-to-r from-[#5D2F47] to-[#2A222E]"
+                  className="border-none relative overflow-hidden border border-[#A2A2A2] bg-linear-to-r from-[#5D2F47] to-[#2A222E]"
                   style={{
                     borderRadius: "clamp(6px, 1.2vw, 8px)",
                   }}
@@ -214,15 +215,15 @@ export default function FAQ() {
                       {item.question}
                     </span>
                     <div
-                      className="flex items-center justify-center flex-shrink-0"
+                      className="flex items-center justify-center shrink-0"
                       style={{
                         width: "clamp(12px, 2.5vw, 14px)",
                         height: "clamp(12px, 2.5vw, 14px)",
                       }}
                     >
-                      <Plus className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white stroke-[2] data-[state=open]:hidden" />
+                      <Plus className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white stroke-2 data-[state=open]:hidden" />
                       <X
-                        className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white stroke-[2] hidden data-[state=open]:block"
+                        className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white stroke-2 hidden data-[state=open]:block"
                         style={{ transform: "rotate(45deg)" }}
                       />
                     </div>
@@ -260,7 +261,7 @@ export default function FAQ() {
                 <AccordionItem
                   key={index}
                   value={value}
-                  className="border-none relative overflow-hidden border border-[#A2A2A2] bg-gradient-to-r from-[#5D2F47] to-[#2A222E]"
+                  className="border-none relative overflow-hidden border border-[#A2A2A2] bg-linear-to-r from-[#5D2F47] to-[#2A222E]"
                   style={{
                     borderRadius: "clamp(6px, 1.2vw, 8px)",
                   }}
@@ -290,15 +291,15 @@ export default function FAQ() {
                       {item.question}
                     </span>
                     <div
-                      className="flex items-center justify-center flex-shrink-0"
+                      className="flex items-center justify-center shrink-0"
                       style={{
                         width: "clamp(12px, 2.5vw, 14px)",
                         height: "clamp(12px, 2.5vw, 14px)",
                       }}
                     >
-                      <Plus className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white stroke-[2] data-[state=open]:hidden" />
+                      <Plus className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white stroke-2 data-[state=open]:hidden" />
                       <X
-                        className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white stroke-[2] hidden data-[state=open]:block"
+                        className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white stroke-2 hidden data-[state=open]:block"
                         style={{ transform: "rotate(45deg)" }}
                       />
                     </div>
