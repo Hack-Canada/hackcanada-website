@@ -261,7 +261,7 @@ export default function About() {
           {/* Left title + paragraph - with scroll reveal */}
           <div 
             ref={titleRef}
-            className={`absolute left-[103px] top-[80px] lg:top-[120px] max-w-[640px] transition-all duration-700 ease-out
+            className={`absolute left-[120px] md:left-[140px] lg:left-[160px] top-[80px] lg:top-[120px] max-w-[640px] transition-all duration-700 ease-out
               ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
             style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
           >
@@ -285,7 +285,7 @@ export default function About() {
           {/* Right paragraph - with staggered scroll reveal */}
           <div 
             ref={rightTextRef}
-            className={`absolute right-20 top-[390px] md:top-[320px] lg:top-[340px] max-w-[420px] text-white/80 leading-relaxed transition-all duration-700 ease-out
+            className={`absolute right-[120px] md:right-[140px] lg:right-[160px] top-[390px] md:top-[320px] lg:top-[340px] max-w-[420px] text-white/80 leading-relaxed transition-all duration-700 ease-out
               ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
             style={{ transitionDelay: "300ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
           >
