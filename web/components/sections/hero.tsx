@@ -98,7 +98,7 @@ export default function Hero() {
           <div className='bg-[#441E0A] text-white px-8 lg:px-10 py-2 lg:py-3 rounded-t-lg lg:rounded-lg hover:bg-[#5C2E0F] transition'>
             <a href="" className='font-bold text-lg lg:text-2xl'>Coming Soon</a>
           </div>
-          <div className='bg-[#EC294D] text-white px-4 py-1 rounded-b-lg text-center'>
+          <div className='bg-[#EC294D] text-white px-8 lg:px-10 py-1 rounded-b-lg text-center flex items-center justify-center'>
             <span className='font-semibold text-sm'>Due Feb 20, 2025!</span>
           </div>
         </div>
