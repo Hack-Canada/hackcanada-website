@@ -12,7 +12,7 @@ export default function About() {
   const titleRef = useRef<HTMLDivElement | null>(null);
   const rightTextRef = useRef<HTMLDivElement | null>(null);
   const [hoveredImage, setHoveredImage] = useState<number | null>(null);
-  const [isInCollage, setIsInCollage] = useState(false);
+  const [isInSection, setIsInSection] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   
   // Smooth interpolation for beaver position - both start at 0 (top)
@@ -39,17 +39,18 @@ export default function About() {
     return () => observer.disconnect();
   }, []);
 
-  // Candle follows mouse within collage area - smooth tracking
+  // Candle follows mouse within entire section - smooth tracking
   useEffect(() => {
-    const collage = collageRef.current;
+    const section = sectionRef.current;
     const candle = candleRef.current;
-    if (!collage || !candle) return;
+    if (!section || !candle) return;
 
     let targetX = 200;
     let targetY = 200;
     let currentX = 200;
     let currentY = 200;
     let rafId: number;
+    let isMouseInSection = false;
 
     const lerp = (start: number, end: number, factor: number) => 
       start + (end - start) * factor;
@@ -63,25 +64,63 @@ export default function About() {
       rafId = requestAnimationFrame(animate);
     };
 
-    const onMouseMove = (e: MouseEvent) => {
-      const rect = collage.getBoundingClientRect();
-      targetX = e.clientX - rect.left;
-      targetY = e.clientY - rect.top;
+    const checkMouseInSection = (e: MouseEvent) => {
+      const rect = section.getBoundingClientRect();
+      const isInBounds = 
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+      
+      if (isInBounds && !isMouseInSection) {
+        isMouseInSection = true;
+        setIsInSection(true);
+      } else if (!isInBounds && isMouseInSection) {
+        isMouseInSection = false;
+        setIsInSection(false);
+      }
     };
 
-    const onMouseEnter = () => setIsInCollage(true);
-    const onMouseLeave = () => setIsInCollage(false);
+    const onMouseMove = (e: MouseEvent) => {
+      const rect = section.getBoundingClientRect();
+      // Calculate position relative to section
+      targetX = e.clientX - rect.left;
+      targetY = e.clientY - rect.top;
+      
+      // Check if mouse is still in section bounds
+      checkMouseInSection(e);
+    };
+
+    const onMouseEnter = () => {
+      isMouseInSection = true;
+      setIsInSection(true);
+    };
+
+    const onMouseLeave = () => {
+      isMouseInSection = false;
+      setIsInSection(false);
+    };
+
+    // Also check on scroll to handle cases where mouse doesn't move but section scrolls
+    const onScroll = () => {
+      if (isMouseInSection) {
+        // Re-check if mouse is still in section after scroll
+        // We can't get mouse position from scroll event, so we'll rely on next mousemove
+      }
+    };
 
     rafId = requestAnimationFrame(animate);
-    collage.addEventListener("mousemove", onMouseMove);
-    collage.addEventListener("mouseenter", onMouseEnter);
-    collage.addEventListener("mouseleave", onMouseLeave);
+    section.addEventListener("mousemove", onMouseMove);
+    section.addEventListener("mouseenter", onMouseEnter);
+    section.addEventListener("mouseleave", onMouseLeave);
+    window.addEventListener("scroll", onScroll, { passive: true });
     
     return () => {
       cancelAnimationFrame(rafId);
-      collage.removeEventListener("mousemove", onMouseMove);
-      collage.removeEventListener("mouseenter", onMouseEnter);
-      collage.removeEventListener("mouseleave", onMouseLeave);
+      section.removeEventListener("mousemove", onMouseMove);
+      section.removeEventListener("mouseenter", onMouseEnter);
+      section.removeEventListener("mouseleave", onMouseLeave);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
@@ -141,7 +180,7 @@ export default function About() {
       ref={sectionRef}
       id="about"
       className="relative w-full overflow-hidden text-white -mt-[60px] pt-[120px]"
-      style={{ backgroundColor: "transparent" }}
+      style={{ backgroundColor: "transparent", cursor: "none" }}
     >
       {/* Dark blue background - starts below the wavy edge */}
       <div 
@@ -403,22 +442,23 @@ export default function About() {
               />
             </div>
 
-            {/* Candle cursor - smooth following with GPU acceleration */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              ref={candleRef}
-              src="/group-66.svg"
-              alt="candle cursor"
-              className="pointer-events-none absolute w-20 h-auto z-[9999]"
-              style={{ 
-                left: 0, 
-                top: 0,
-                opacity: isInCollage ? 1 : 0,
-                transition: 'opacity 250ms cubic-bezier(0.16, 1, 0.3, 1)',
-                willChange: 'transform, opacity'
-              }}
-            />
           </div>
+
+          {/* Candle cursor - smooth following with GPU acceleration - for entire section */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            ref={candleRef}
+            src="/group-66.svg"
+            alt="candle cursor"
+            className="pointer-events-none absolute w-20 h-auto z-[9999]"
+            style={{ 
+              left: 0, 
+              top: 0,
+              opacity: isInSection ? 1 : 0,
+              transition: 'opacity 300ms cubic-bezier(0.16, 1, 0.3, 1)',
+              willChange: 'transform, opacity'
+            }}
+          />
         </div>
       </div>
     </section>
