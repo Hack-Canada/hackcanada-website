@@ -46,7 +46,7 @@ export default function Navbar() {
     <>
       <div className={`fixed top-4 xl:top-12 left-4 right-32 xl:left-24 md:right-64 z-50 flex border-1 border-white rounded-lg bg-white/50 backdrop-blur gap-8 items-center px-8 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-[200%]'}`}>
         {/* logo */}
-        <img src="beaver.png" alt="beaver logo" className="h-16" />
+        <img src="/navbar/hackcanadaLogo.png" alt="Hack Canada Logo" className="h-16" />
         <div className='hidden lg:flex gap-8 justify-between items-center flex-1'>
           <nav className="flex gap-8 text-lg xl:text-2xl font-bold">
             {/* page link */}
