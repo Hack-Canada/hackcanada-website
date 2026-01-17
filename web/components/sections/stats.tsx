@@ -74,7 +74,7 @@ export default function Stats() {
             <div className="relative w-full h-full max-w-7xl mx-auto px-4">
               
               {/* Title text */}
-              <div className="absolute top-[15%] left-1/2 -translate-x-1/2 z-30 w-full max-w-4xl">
+              <div className="absolute top-[10%] left-1/2 -translate-x-1/2 z-40 w-full max-w-4xl">
                 <svg 
                   viewBox="0 0 1200 200" 
                   className="w-full"
@@ -84,7 +84,7 @@ export default function Stats() {
                   <defs>
                     <path 
                       id="curve" 
-                      d="M 50 150 Q 600 -200 1150 150" 
+                      d="M 50 150 Q 600 -220 1150 150" 
                       fill="transparent"
                     />
                     <filter id="glow">
@@ -113,7 +113,7 @@ export default function Stats() {
               </div>
 
               {/* Stats image */}
-              <div className="absolute top-[59%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[75%] max-w-[750px]">
+              <div className="absolute bottom-[-75] left-1/2 -translate-x-1/2 z-30 w-[70%] md:w-[60%] lg:w-[70%] xl:w-[75%] max-w-[750px]">
                 <Image
                   src="/statsNew.png"
                   alt="Hack Canada statistics"
@@ -127,7 +127,7 @@ export default function Stats() {
             </div>
             
             {/* City skyline */}
-            <div className="absolute bottom-0 left-0 right-0 z-0 w-full">
+            <div className="absolute bottom-0 left-0 right-0 z-10 w-full">
               <Image
                 src="/stat-images/city.svg"
                 alt="City skyline"
@@ -146,7 +146,7 @@ export default function Stats() {
             <div className="relative w-full h-full mx-auto px-2">
               
               {/* Title text - mobile */}
-              <div className="absolute top-[35%] left-1/2 -translate-x-1/2 z-30 w-full">
+              <div className="absolute top-[25%] left-1/2 -translate-x-1/2 z-40 w-full">
                 <svg 
                   viewBox="0 0 1200 200" 
                   className="w-full"
@@ -156,7 +156,7 @@ export default function Stats() {
                   <defs>
                     <path 
                       id="curve-mobile" 
-                      d="M 50 150 Q 600 -150 1150 150" 
+                      d="M 50 150 Q 600 -180 1150 150" 
                       fill="transparent"
                     />
                     <filter id="glow-mobile">
@@ -185,7 +185,7 @@ export default function Stats() {
               </div>
 
               {/* Stats image - mobile */}
-              <div className="absolute top-[70%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[110%]">
+              <div className="absolute bottom-[-50] left-1/2 -translate-x-1/2 z-30 w-[85%] max-w-[600px]">
                 <Image
                   src="/statsNew.png"
                   alt="Hack Canada statistics"
@@ -199,7 +199,7 @@ export default function Stats() {
             </div>
             
             {/* City skyline - mobile */}
-            <div className="absolute bottom-0 left-0 right-0 z-0 w-full">
+            <div className="absolute bottom-0 left-0 right-0 z-10 w-full">
               <Image
                 src="/stat-images/city.svg"
                 alt="City skyline"
