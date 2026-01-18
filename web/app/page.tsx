@@ -1,11 +1,10 @@
-import Navbar from '@/components/sections/navbar';
-import Footer from '@/components/sections/footer';
-import About from '@/components/sections/about';
-import Stats from '@/components/sections/stats';
-import Sponsors from '@/components/sections/sponsors';
-import FAQ from '@/components/sections/faq';
-import Team from '@/components/sections/team';
-import Hero from '@/components/sections/hero';
+import Navbar from "@/components/sections/navbar";
+import Footer from "@/components/sections/footer";
+import About from "@/components/sections/about";
+import Stats from "@/components/sections/stats";
+import FaqSponsors from "@/components/sections/FaqSponsors";
+import Team from "@/components/sections/team";
+import Hero from "@/components/sections/hero";
 
 export default function Home() {
   return (
@@ -15,9 +14,7 @@ export default function Home() {
         <Hero />
         <About />
         <Stats />
-        <Sponsors />
-        <FAQ />
-        <Team />
+        <FaqSponsors /> <Team />
       </main>
       <Footer />
     </div>
