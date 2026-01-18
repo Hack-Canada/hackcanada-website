@@ -792,9 +792,9 @@ export default function FaqSponsors() {
       <div
         className="w-full relative"
         style={{
-          height: '200px', // Adjust height as needed
-          marginTop: '-100px', // Overlap with the SVG and pull up
-          zIndex: 5, // Between SVG and FAQ content
+          height: '400px', // Increased height
+          marginTop: '-200px', // Adjusted to overlap more
+          zIndex: 5,
           background: 'linear-gradient(to bottom, rgba(26, 17, 38, 0), rgba(26, 17, 38, 1))',
         }}
       ></div>
