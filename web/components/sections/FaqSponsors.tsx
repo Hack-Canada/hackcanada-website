@@ -785,7 +785,7 @@ export default function FaqSponsors() {
           width={1920}
           height={300}
           className="w-full h-auto max-w-[1920px]"
-          style={{ objectFit: 'contain' }}
+          style={{ objectFit: 'contain', filter: 'drop-shadow(0px 10px 15px rgba(128, 0, 128, 0.5))' }}
         />
       </div>
       <FaqContent />
