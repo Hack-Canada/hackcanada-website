@@ -10,7 +10,6 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
-import MountainLandscape from "../effects/MountainLandscape";
 
 interface SponsorHighlight {
   name: string;
@@ -127,7 +126,7 @@ function SponsorsContent() {
   return (
     <section
       id="sponsors"
-      className="w-full relative overflow-hidden"
+      className="w-full relative overflow-visible"
       style={{ minHeight: "clamp(800px, 100vh, 2585px)" }}
     >
       {/* Full Background */}
@@ -486,9 +485,33 @@ function SponsorsContent() {
           </div>
         </div>
       </div>
-      <div className="relative z-10 -mt-4 sm:-mt-8 md:-mt-12">
-        <MountainLandscape />
-      </div>
+      <div
+        className="pointer-events-none absolute left-0 right-0 z-20"
+        style={{
+          bottom: 0,
+          height: "clamp(120px, 16vw, 200px)",
+          transform: "translateY(50%)",
+          backgroundImage: "url('/faq-qa.svg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute left-0 right-0 z-20"
+        style={{
+          bottom: 0,
+          height: "clamp(160px, 20vw, 260px)",
+          transform:
+            "translateY(calc(50% + clamp(120px, 16vw, 200px)))",
+          backgroundImage: "url('/additional.svg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+        aria-hidden="true"
+      />
     </section>
   );
 }
@@ -565,7 +588,7 @@ function FaqContent() {
       className="w-full relative overflow-hidden"
       style={{
         minHeight: "clamp(800px, 120vh, 1600px)",
-        paddingTop: "clamp(80px, 15vh, 200px)",
+        paddingTop: "clamp(120px, 18vh, 240px)",
       }}
     >
       {/* Full Background */}
@@ -583,7 +606,7 @@ function FaqContent() {
       <div
         className="absolute z-10"
         style={{
-          top: "clamp(120px, 15vh, 250px)",
+          top: "clamp(160px, 18vh, 280px)",
           left: "50%",
           transform: "translateX(-50%)",
           width: "100%",
