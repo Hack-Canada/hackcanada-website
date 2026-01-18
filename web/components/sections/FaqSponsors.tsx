@@ -778,6 +778,16 @@ export default function FaqSponsors() {
   return (
     <>
       <SponsorsContent />
+      <div className="w-full flex justify-center mt-[-10%] sm:mt-[-5%] md:mt-[-3%] relative z-10">
+        <Image
+          src="/faq-qa.svg"
+          alt="FAQ Transition"
+          width={1920}
+          height={300}
+          className="w-full h-auto max-w-[1920px]"
+          style={{ objectFit: 'contain' }}
+        />
+      </div>
       <FaqContent />
     </>
   );
