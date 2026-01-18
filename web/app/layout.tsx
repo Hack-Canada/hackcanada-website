@@ -6,6 +6,7 @@ import {
 } from "next/font/google";
 import { Geist, Geist_Mono, Luckiest_Guy, Rubik } from "next/font/google";
 import "./globals.css";
+import AbstractBackground from "../components/effects/AbstractBackground";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -91,6 +92,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${balooChettan.variable} ${lato.variable} ${outfit.variable} ${luckiestGuy.variable} ${rubik.variable} antialiased`}
       >
+        <AbstractBackground />
         <a
           id="mlh-trust-badge"
           style={{

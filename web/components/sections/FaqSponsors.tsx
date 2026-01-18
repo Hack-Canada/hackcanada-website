@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, Plus, X } from 'lucide-react';
-import Image from 'next/image';
+import React, { useState, useEffect, useRef } from "react";
+import { ChevronLeft, ChevronRight, Plus, X } from "lucide-react";
+import Image from "next/image";
 import {
   Accordion,
   AccordionItem,
@@ -10,6 +10,7 @@ import {
   AccordionContent,
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
+import MountainLandscape from "../effects/MountainLandscape";
 
 interface SponsorHighlight {
   name: string;
@@ -28,38 +29,44 @@ interface SponsorBlock {
 // Sponsor highlights for the carousel
 const sponsorHighlights: SponsorHighlight[] = [
   {
-    name: 'Meta',
-    logo: '/sponsors/meta.png',
-    description: "Meta's mission is to give people the power to build community and bring the world closer together. Through our family of apps and services, we're building a different kind of company that connects billions of people around the world, gives them ways to share what matters most to them, and helps bring people closer together. Whether we're creating new products or helping a small business expand its reach, people at Meta are builders at heart. Our global teams are constantly iterating, solving problems, and working together to empower people around the world to build community and connect in meaningful ways. Together, we can help people build stronger communities — we're just getting started.",
-    link: 'https://www.meta.com/careers',
-    linkText: 'Explore careers at Meta →',
+    name: "Meta",
+    logo: "/sponsors/meta.png",
+    description:
+      "Meta's mission is to give people the power to build community and bring the world closer together. Through our family of apps and services, we're building a different kind of company that connects billions of people around the world, gives them ways to share what matters most to them, and helps bring people closer together. Whether we're creating new products or helping a small business expand its reach, people at Meta are builders at heart. Our global teams are constantly iterating, solving problems, and working together to empower people around the world to build community and connect in meaningful ways. Together, we can help people build stronger communities — we're just getting started.",
+    link: "https://www.meta.com/careers",
+    linkText: "Explore careers at Meta →",
   },
   {
-    name: 'Meta',
-    logo: '/sponsors/meta.png',
-    description: "Meta's mission is to give people the power to build community and bring the world closer together. Through our family of apps and services, we're building a different kind of company that connects billions of people around the world, gives them ways to share what matters most to them, and helps bring people closer together. Whether we're creating new products or helping a small business expand its reach, people at Meta are builders at heart. Our global teams are constantly iterating, solving problems, and working together to empower people around the world to build community and connect in meaningful ways. Together, we can help people build stronger communities — we're just getting started.",
-    link: 'https://www.meta.com/careers',
-    linkText: 'Explore careers at Meta →',
+    name: "Meta",
+    logo: "/sponsors/meta.png",
+    description:
+      "Meta's mission is to give people the power to build community and bring the world closer together. Through our family of apps and services, we're building a different kind of company that connects billions of people around the world, gives them ways to share what matters most to them, and helps bring people closer together. Whether we're creating new products or helping a small business expand its reach, people at Meta are builders at heart. Our global teams are constantly iterating, solving problems, and working together to empower people around the world to build community and connect in meaningful ways. Together, we can help people build stronger communities — we're just getting started.",
+    link: "https://www.meta.com/careers",
+    linkText: "Explore careers at Meta →",
   },
   {
-    name: 'Meta',
-    logo: '/sponsors/meta.png',
-    description: "Meta's mission is to give people the power to build community and bring the world closer together. Through our family of apps and services, we're building a different kind of company that connects billions of people around the world, gives them ways to share what matters most to them, and helps bring people closer together. Whether we're creating new products or helping a small business expand its reach, people at Meta are builders at heart. Our global teams are constantly iterating, solving problems, and working together to empower people around the world to build community and connect in meaningful ways. Together, we can help people build stronger communities — we're just getting started.",
-    link: 'https://www.meta.com/careers',
-    linkText: 'Explore careers at Meta →',
+    name: "Meta",
+    logo: "/sponsors/meta.png",
+    description:
+      "Meta's mission is to give people the power to build community and bring the world closer together. Through our family of apps and services, we're building a different kind of company that connects billions of people around the world, gives them ways to share what matters most to them, and helps bring people closer together. Whether we're creating new products or helping a small business expand its reach, people at Meta are builders at heart. Our global teams are constantly iterating, solving problems, and working together to empower people around the world to build community and connect in meaningful ways. Together, we can help people build stronger communities — we're just getting started.",
+    link: "https://www.meta.com/careers",
+    linkText: "Explore careers at Meta →",
   },
 ];
 
 // Sponsor blocks for the grid
-const goldBlock: SponsorBlock = { name: 'Avalanche', logo: '/sponsors/avalanche.png' };
+const goldBlock: SponsorBlock = {
+  name: "Avalanche",
+  logo: "/sponsors/avalanche.png",
+};
 const silverBlocks: SponsorBlock[] = [
-  { name: 'Microsoft', logo: '/sponsors/microsoft.png' },
-  { name: 'Microsoft', logo: '/sponsors/microsoft.png' },
+  { name: "Microsoft", logo: "/sponsors/microsoft.png" },
+  { name: "Microsoft", logo: "/sponsors/microsoft.png" },
 ];
 const bronzeBlocks: SponsorBlock[] = [
-  { name: 'NordVPN', logo: '/sponsors/nordvpn.png' },
-  { name: '1Password', logo: '/sponsors/1password.png' },
-  { name: 'Warp', logo: '/sponsors/warp.png' },
+  { name: "NordVPN", logo: "/sponsors/nordvpn.png" },
+  { name: "1Password", logo: "/sponsors/1password.png" },
+  { name: "Warp", logo: "/sponsors/warp.png" },
 ];
 
 function SponsorsContent() {
@@ -95,8 +102,9 @@ function SponsorsContent() {
 
     const carousel = carouselRef.current;
     if (carousel) {
-      carousel.addEventListener('transitionend', handleTransitionEnd);
-      return () => carousel.removeEventListener('transitionend', handleTransitionEnd);
+      carousel.addEventListener("transitionend", handleTransitionEnd);
+      return () =>
+        carousel.removeEventListener("transitionend", handleTransitionEnd);
     }
   }, [currentHighlight, infiniteSlides.length, sponsorHighlights.length]);
 
@@ -120,37 +128,41 @@ function SponsorsContent() {
     <section
       id="sponsors"
       className="w-full relative overflow-hidden"
-      style={{ minHeight: 'clamp(800px, 100vh, 2585px)' }}
+      style={{ minHeight: "clamp(800px, 100vh, 2585px)" }}
     >
       {/* Full Background */}
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: 'url(/sponsors/asdfasdfasdfasdfadsf%201.svg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
+          backgroundImage: "url(/sponsors/asdfasdfasdfasdfadsf%201.svg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
         }}
       />
       {/* Mountains Overlay - Sits on top of background */}
       <div
         className="absolute inset-0"
         style={{
-          backgroundImage: 'url(/sponsors/asdfasfasdfasfasd%201.svg)',
-          backgroundSize: 'contain',
-          backgroundPosition: 'bottom center',
-          backgroundRepeat: 'no-repeat',
-          height: '100%',
+          backgroundImage: "url(/sponsors/asdfasfasdfasfasd%201.svg)",
+          backgroundSize: "contain",
+          backgroundPosition: "bottom center",
+          backgroundRepeat: "no-repeat",
+          height: "100%",
           zIndex: 1,
+          opacity: 0.95,
         }}
       />
       <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16 lg:py-20 relative z-10 pt-20 md:pt-32">
         {/* Header */}
-        <div className="mx-auto mb-16" style={{ maxWidth: '1129px', width: '100%' }}>
+        <div
+          className="mx-auto mb-16"
+          style={{ maxWidth: "1129px", width: "100%" }}
+        >
           <h1
             className="mb-6 text-center text-5xl md:text-6xl font-semibold tracking-tight"
             style={{
-              color: '#DBDAF3',
+              color: "#DBDAF3",
             }}
           >
             Sponsors
@@ -158,16 +170,17 @@ function SponsorsContent() {
           <p
             className="text-center mx-auto text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl px-4"
             style={{
-              fontFamily: 'var(--font-lato)',
-              fontSize: 'clamp(18px, 3vw, 35px)',
-              lineHeight: 'clamp(28px, 4vw, 60px)',
+              fontFamily: "var(--font-lato)",
+              fontSize: "clamp(18px, 3vw, 35px)",
+              lineHeight: "clamp(28px, 4vw, 60px)",
               fontWeight: 500,
-              color: '#E7DAE6',
-              maxWidth: '1129px',
-              width: '100%',
+              color: "#E7DAE6",
+              maxWidth: "1129px",
+              width: "100%",
             }}
           >
-            A huge thank you to our sponsors for making Hack Canada possible! Your support helps us reach new heights across the tech landscape.
+            A huge thank you to our sponsors for making Hack Canada possible!
+            Your support helps us reach new heights across the tech landscape.
           </p>
         </div>
 
@@ -176,14 +189,14 @@ function SponsorsContent() {
           <h2
             className="mb-8 text-center mx-auto text-xl sm:text-2xl md:text-3xl lg:text-4xl px-4"
             style={{
-              fontFamily: 'var(--font-lato)',
-              fontStyle: 'italic',
+              fontFamily: "var(--font-lato)",
+              fontStyle: "italic",
               fontWeight: 500,
-              fontSize: 'clamp(20px, 3vw, 32px)',
-              lineHeight: 'clamp(32px, 4vw, 60px)',
-              color: '#FBDCDC',
-              maxWidth: '1129px',
-              width: '100%',
+              fontSize: "clamp(20px, 3vw, 32px)",
+              lineHeight: "clamp(32px, 4vw, 60px)",
+              color: "#FBDCDC",
+              maxWidth: "1129px",
+              width: "100%",
             }}
           >
             Sponsor Highlights
@@ -191,13 +204,18 @@ function SponsorsContent() {
 
           <div className="relative max-w-[954.94px] mx-auto px-4">
             {/* Carousel Container */}
-            <div className="relative overflow-hidden" style={{ minHeight: 'clamp(400px, 50vw, 700px)' }}>
+            <div
+              className="relative overflow-hidden"
+              style={{ minHeight: "clamp(400px, 50vw, 700px)" }}
+            >
               <div
                 ref={carouselRef}
                 className="flex"
                 style={{
                   transform: `translateX(-${currentHighlight * 100}%)`,
-                  transition: isTransitioning ? 'transform 0.5s ease-in-out' : 'none',
+                  transition: isTransitioning
+                    ? "transform 0.5s ease-in-out"
+                    : "none",
                 }}
               >
                 {infiniteSlides.map((sponsor, index) => (
@@ -208,16 +226,26 @@ function SponsorsContent() {
                     <div
                       className="relative flex flex-col items-center w-full max-w-[953.54px] mx-auto"
                       style={{
-                        width: '953.54px',
-                        height: '638.36px',
-                        maxWidth: '100%',
-                        aspectRatio: '953.54/638.36',
-                        background: '#FFFFFF',
-                        borderRadius: '20px',
+                        width: "953.54px",
+                        height: "638.36px",
+                        maxWidth: "100%",
+                        aspectRatio: "953.54/638.36",
+                        background: "#FFFFFF",
+                        borderRadius: "20px",
                         zIndex: index === currentHighlight ? 10 : 1,
                       }}
                     >
-                      <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: 'clamp(20px, 4vw, 40px)' }}>
+                      <div
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          padding: "clamp(20px, 4vw, 40px)",
+                        }}
+                      >
                         {sponsor.logo && (
                           <div className="mb-8">
                             <Image
@@ -226,24 +254,24 @@ function SponsorsContent() {
                               width={318}
                               height={64}
                               className="object-contain"
-                      style={{
-                        width: 'clamp(200px, 30vw, 318px)',
-                        height: 'auto',
-                        maxWidth: '100%',
-                      }}
+                              style={{
+                                width: "clamp(200px, 30vw, 318px)",
+                                height: "auto",
+                                maxWidth: "100%",
+                              }}
                             />
                           </div>
                         )}
                         <p
                           className="text-center mb-8 text-sm sm:text-base md:text-lg lg:text-xl px-4"
                           style={{
-                            fontFamily: 'var(--font-lato)',
+                            fontFamily: "var(--font-lato)",
                             fontWeight: 500,
-                            fontSize: 'clamp(14px, 2vw, 20px)',
-                            lineHeight: '150%',
-                            color: '#282D5C',
-                            maxWidth: '708px',
-                            width: '100%',
+                            fontSize: "clamp(14px, 2vw, 20px)",
+                            lineHeight: "150%",
+                            color: "#282D5C",
+                            maxWidth: "708px",
+                            width: "100%",
                           }}
                         >
                           {sponsor.description}
@@ -255,15 +283,15 @@ function SponsorsContent() {
                             rel="noopener noreferrer"
                             className="text-sm sm:text-base md:text-lg lg:text-xl"
                             style={{
-                              fontFamily: 'var(--font-lato)',
+                              fontFamily: "var(--font-lato)",
                               fontWeight: 500,
-                              fontSize: 'clamp(14px, 2vw, 20px)',
-                              lineHeight: '150%',
-                              color: '#282D5C',
-                              textDecoration: 'underline',
+                              fontSize: "clamp(14px, 2vw, 20px)",
+                              lineHeight: "150%",
+                              color: "#282D5C",
+                              textDecoration: "underline",
                             }}
                           >
-                            {sponsor.linkText || 'Learn more →'}
+                            {sponsor.linkText || "Learn more →"}
                           </a>
                         )}
                       </div>
@@ -278,7 +306,7 @@ function SponsorsContent() {
               onClick={prevHighlight}
               className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white border-2 border-gray-300 rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors z-20"
               aria-label="Previous sponsor"
-              style={{ backgroundColor: '#FFFFFF', borderColor: '#D1D5DB' }}
+              style={{ backgroundColor: "#FFFFFF", borderColor: "#D1D5DB" }}
             >
               <ChevronLeft className="w-6 h-6 text-gray-700" />
             </button>
@@ -286,7 +314,7 @@ function SponsorsContent() {
               onClick={nextHighlight}
               className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white border-2 border-gray-300 rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors z-20"
               aria-label="Next sponsor"
-              style={{ backgroundColor: '#FFFFFF', borderColor: '#D1D5DB' }}
+              style={{ backgroundColor: "#FFFFFF", borderColor: "#D1D5DB" }}
             >
               <ChevronRight className="w-6 h-6 text-gray-700" />
             </button>
@@ -295,20 +323,26 @@ function SponsorsContent() {
             <div className="flex justify-center gap-2 mt-8 z-20 relative">
               {sponsorHighlights.map((_, index) => {
                 // Map the infinite carousel index to the real index for pagination
-                const realIndex = currentHighlight === 0
-                  ? sponsorHighlights.length - 1
-                  : currentHighlight === infiniteSlides.length - 1
-                  ? 0
-                  : currentHighlight - 1;
+                const realIndex =
+                  currentHighlight === 0
+                    ? sponsorHighlights.length - 1
+                    : currentHighlight === infiniteSlides.length - 1
+                      ? 0
+                      : currentHighlight - 1;
                 return (
                   <button
                     key={index}
                     onClick={() => goToHighlight(index)}
-                    className={`rounded-full transition-all ${index === realIndex
-                        ? 'bg-white w-8 h-2'
-                        : 'bg-white/50 w-2 h-2 hover:bg-white/75'}`}
+                    className={`rounded-full transition-all ${
+                      index === realIndex
+                        ? "bg-white w-8 h-2"
+                        : "bg-white/50 w-2 h-2 hover:bg-white/75"
+                    }`}
                     style={{
-                      backgroundColor: index === realIndex ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)',
+                      backgroundColor:
+                        index === realIndex
+                          ? "#FFFFFF"
+                          : "rgba(255, 255, 255, 0.5)",
                     }}
                     aria-label={`Go to sponsor ${index + 1}`}
                   />
@@ -323,26 +357,26 @@ function SponsorsContent() {
           {/* Gold - Large Single Block */}
           <div className="flex justify-center mb-2 sm:mb-3 md:mb-4">
             <a
-              href={goldBlock.link || '#'}
+              href={goldBlock.link || "#"}
               target="_blank"
               rel="noopener noreferrer"
               className="relative flex items-center justify-center w-full max-w-[954px]"
               style={{
-                height: 'clamp(180px, 25vw, 294px)',
-                aspectRatio: '954/294',
+                height: "clamp(180px, 25vw, 294px)",
+                aspectRatio: "954/294",
               }}
             >
               <div
                 className="w-full h-full flex items-center justify-center transition-all duration-300 hover:scale-105"
                 style={{
-                  background: '#FFFFFF',
-                  borderRadius: 'clamp(12px, 2vw, 20px)',
-                  transform: 'rotate(-179.87deg)',
-                  transformStyle: 'preserve-3d',
+                  background: "#FFFFFF",
+                  borderRadius: "clamp(12px, 2vw, 20px)",
+                  transform: "rotate(-179.87deg)",
+                  transformStyle: "preserve-3d",
                 }}
               >
                 {goldBlock.logo && (
-                  <div style={{ transform: 'rotate(179.87deg)' }}>
+                  <div style={{ transform: "rotate(179.87deg)" }}>
                     <Image
                       src={goldBlock.logo}
                       alt={goldBlock.name}
@@ -350,9 +384,9 @@ function SponsorsContent() {
                       height={294}
                       className="object-contain"
                       style={{
-                        width: 'clamp(200px, 35vw, 400px)',
-                        height: 'auto',
-                        maxWidth: '100%',
+                        width: "clamp(200px, 35vw, 400px)",
+                        height: "auto",
+                        maxWidth: "100%",
                       }}
                     />
                   </div>
@@ -366,26 +400,26 @@ function SponsorsContent() {
             {silverBlocks.map((sponsor, index) => (
               <a
                 key={index}
-                href={sponsor.link || '#'}
+                href={sponsor.link || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="relative flex items-center justify-center w-full md:w-[465px]"
                 style={{
-                  height: 'clamp(140px, 20vw, 258px)',
-                  aspectRatio: '465/258',
+                  height: "clamp(140px, 20vw, 258px)",
+                  aspectRatio: "465/258",
                 }}
               >
                 <div
                   className="w-full h-full flex items-center justify-center transition-all duration-300 hover:scale-105"
                   style={{
-                    background: '#FFFFFF',
-                    borderRadius: 'clamp(12px, 2vw, 20px)',
-                    transform: 'matrix(-1, 0, 0, -1, 0, 0)',
-                    transformStyle: 'preserve-3d',
+                    background: "#FFFFFF",
+                    borderRadius: "clamp(12px, 2vw, 20px)",
+                    transform: "matrix(-1, 0, 0, -1, 0, 0)",
+                    transformStyle: "preserve-3d",
                   }}
                 >
                   {sponsor.logo && (
-                    <div style={{ transform: 'matrix(-1, 0, 0, -1, 0, 0)' }}>
+                    <div style={{ transform: "matrix(-1, 0, 0, -1, 0, 0)" }}>
                       <Image
                         src={sponsor.logo}
                         alt={sponsor.name}
@@ -393,9 +427,9 @@ function SponsorsContent() {
                         height={63}
                         className="object-contain"
                         style={{
-                          width: 'clamp(120px, 20vw, 200px)',
-                          height: 'auto',
-                          maxWidth: '100%',
+                          width: "clamp(120px, 20vw, 200px)",
+                          height: "auto",
+                          maxWidth: "100%",
                         }}
                       />
                     </div>
@@ -410,26 +444,28 @@ function SponsorsContent() {
             {bronzeBlocks.map((sponsor, index) => (
               <a
                 key={index}
-                href={sponsor.link || '#'}
+                href={sponsor.link || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="relative flex items-center justify-center w-full sm:w-[291px]"
                 style={{
-                  height: 'clamp(100px, 25vw, 208px)',
-                  aspectRatio: '291/208',
+                  height: "clamp(100px, 25vw, 208px)",
+                  aspectRatio: "291/208",
                 }}
               >
                 <div
                   className="w-full h-full flex items-center justify-center p-1.5 sm:p-3 md:p-4 transition-all duration-300 hover:scale-105"
                   style={{
-                    background: '#FFFFFF',
-                    borderRadius: 'clamp(10px, 2vw, 20px)',
-                    transform: 'matrix(-1, -0.01, 0, -1, 0, 0)',
-                    transformStyle: 'preserve-3d',
+                    background: "#FFFFFF",
+                    borderRadius: "clamp(10px, 2vw, 20px)",
+                    transform: "matrix(-1, -0.01, 0, -1, 0, 0)",
+                    transformStyle: "preserve-3d",
                   }}
                 >
                   {sponsor.logo && (
-                    <div style={{ transform: 'matrix(-1, -0.01, 0, -1, 0, 0)' }}>
+                    <div
+                      style={{ transform: "matrix(-1, -0.01, 0, -1, 0, 0)" }}
+                    >
                       <Image
                         src={sponsor.logo}
                         alt={sponsor.name}
@@ -437,9 +473,9 @@ function SponsorsContent() {
                         height={161}
                         className="object-contain"
                         style={{
-                          width: 'clamp(60px, 12vw, 140px)',
-                          height: 'auto',
-                          maxWidth: '100%',
+                          width: "clamp(60px, 12vw, 140px)",
+                          height: "auto",
+                          maxWidth: "100%",
                         }}
                       />
                     </div>
@@ -449,6 +485,9 @@ function SponsorsContent() {
             ))}
           </div>
         </div>
+      </div>
+      <div className="relative z-10 -mt-4 sm:-mt-8 md:-mt-12">
+        <MountainLandscape />
       </div>
     </section>
   );
@@ -463,7 +502,7 @@ const leftColumnItems: FAQItem[] = [
   {
     question: "What's a hackathon?",
     answer:
-      "A hackathon is a weekend-long competition where \"hackers\" build projects in teams to present and compete for prizes. Competition isn't the only part however, as hackers are also given the opportunity to network, participate in awesome workshops, and eat free food!",
+      'A hackathon is a weekend-long competition where "hackers" build projects in teams to present and compete for prizes. Competition isn\'t the only part however, as hackers are also given the opportunity to network, participate in awesome workshops, and eat free food!',
   },
   {
     question: "What is Hack Canada?",
@@ -483,7 +522,7 @@ const leftColumnItems: FAQItem[] = [
   {
     question: "What is the schedule like?",
     answer:
-      "Hack Canada will start with an opening ceremony, immediately followed by the \"hacking period\" lasting 48 hours and giving hackers the chance to work on their projects. Soon after it is over, judging will take place, and then our closing ceremony to wrap up the event.",
+      'Hack Canada will start with an opening ceremony, immediately followed by the "hacking period" lasting 48 hours and giving hackers the chance to work on their projects. Soon after it is over, judging will take place, and then our closing ceremony to wrap up the event.',
   },
   {
     question: "Who is eligible to participate?",
@@ -495,8 +534,7 @@ const leftColumnItems: FAQItem[] = [
 const rightColumnItems: FAQItem[] = [
   {
     question: "What size are the teams?",
-    answer:
-      "Teams can be up to four hackers, and soloing is allowed.",
+    answer: "Teams can be up to four hackers, and soloing is allowed.",
   },
   {
     question: "What can we make?",
@@ -530,7 +568,6 @@ function FaqContent() {
         paddingTop: "clamp(80px, 15vh, 200px)",
       }}
     >
-
       {/* Full Background */}
       <div
         className="absolute inset-0 z-0"
@@ -614,9 +651,7 @@ function FaqContent() {
 
       <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 pt-[180px] pb-4 sm:pt-[220px] sm:pb-8 md:pt-[260px] md:pb-12 lg:pt-[300px] lg:pb-16 relative z-10">
         {/* Two Column Layout */}
-        <div
-          className="max-w-full sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] mx-auto flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 justify-center pt-[350px] sm:pt-0"
-        >
+        <div className="max-w-full sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] mx-auto flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 justify-center pt-[350px] sm:pt-0">
           {/* Left Column */}
           <Accordion
             type="multiple"
@@ -639,10 +674,11 @@ function FaqContent() {
                       "relative w-full transition-all duration-300",
                       "hover:no-underline",
                       "[&>svg]:hidden",
-                      "flex items-start justify-between"
+                      "flex items-start justify-between",
                     )}
                     style={{
-                      padding: "clamp(10px, 2vw, 12px) clamp(12px, 2.5vw, 16px)",
+                      padding:
+                        "clamp(10px, 2vw, 12px) clamp(12px, 2.5vw, 16px)",
                       boxSizing: "border-box",
                       minHeight: "clamp(40px, 7vw, 44px)",
                     }}
@@ -715,10 +751,11 @@ function FaqContent() {
                       "relative w-full transition-all duration-300",
                       "hover:no-underline",
                       "[&>svg]:hidden",
-                      "flex items-start justify-between"
+                      "flex items-start justify-between",
                     )}
                     style={{
-                      padding: "clamp(10px, 2vw, 12px) clamp(12px, 2.5vw, 16px)",
+                      padding:
+                        "clamp(10px, 2vw, 12px) clamp(12px, 2.5vw, 16px)",
                       boxSizing: "border-box",
                       minHeight: "clamp(40px, 7vw, 44px)",
                     }}
@@ -778,26 +815,6 @@ export default function FaqSponsors() {
   return (
     <>
       <SponsorsContent />
-      <div className="w-full flex justify-center mt-[-10%] sm:mt-[-5%] md:mt-[-3%] relative z-10">
-        <Image
-          src="/faq-qa.svg"
-          alt="FAQ Transition"
-          width={1920}
-          height={300}
-          className="w-full h-auto max-w-[1920px]"
-          style={{ objectFit: 'contain', filter: 'drop-shadow(0px 30px 50px rgba(26, 17, 38, 0.5))' }}
-        />
-      </div>
-      {/* Gradient Transition Layer */}
-      <div
-        className="w-full relative"
-        style={{
-          height: '400px', // Increased height
-          marginTop: '-200px', // Adjusted to overlap more
-          zIndex: 5,
-          background: 'linear-gradient(to bottom, rgba(26, 17, 38, 0), rgba(26, 17, 38, 1))',
-        }}
-      ></div>
       <FaqContent />
     </>
   );

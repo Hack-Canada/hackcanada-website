@@ -500,7 +500,7 @@ export default function BeaverGame() {
 
               <div className="px-4 pb-6">
                 <div className="mb-4 text-sm text-gray-700 italic">
-                  "{selectedMember.oneLiner}"
+&quot;{selectedMember.oneLiner}&quot;
                 </div>
 
                 {/* Social media icons - only show if available */}
@@ -573,7 +573,7 @@ export default function BeaverGame() {
             </div>
 
             <div className="mt-4 text-sm text-gray-700 italic">
-              "{selectedMember.oneLiner}"
+              &quot;{selectedMember.oneLiner}&quot;
             </div>
 
             {/* Social media icons - only show if available */}
@@ -670,7 +670,7 @@ export default function BeaverGame() {
                   Team {hitMember?.team}
                 </p>
                 <p className="text-[10px] sm:text-base text-white/75 italic mt-0.5 sm:mt-1 max-w-[55vw] sm:max-w-none">
-                  "{hitMember?.oneLiner}"
+                  &quot;{hitMember?.oneLiner}&quot;
                 </p>
               </>
             )}
@@ -749,7 +749,7 @@ export default function BeaverGame() {
         >
           {(gameState.isPlaying || gameState.isGameOver) && (
             <Beaver
-              ref={beaverRef as any}
+              ref={beaverRef}
               bottom={beaverBottom}
               isJumping={isJumping}
               yVelocity={yVelocity}
