@@ -1,3 +1,4 @@
+// BeaverGame.tsx
 'use client';
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -43,7 +44,6 @@ function useIsMobile(breakpoint = 640) {
   return isMobile;
 }
 
-// Memoized MetBar component to prevent unnecessary re-renders
 const MetBar = React.memo(({ 
   metMembers, 
   teamMembers, 
@@ -59,15 +59,23 @@ const MetBar = React.memo(({
   hoveredMember: string | null;
   setHoveredMember: (id: string | null) => void;
 }) => (
-  <div className="overflow-x-auto overflow-y-visible scrollbar-hide" style={{
-    height: isMobile ? 96 : 112,
-    paddingTop: 18,
-    paddingBottom: 18,
-    paddingLeft: 34,
-    paddingRight: 22,
-  }}>
-    <div className="flex flex-nowrap gap-3 items-center">
-      {teamMembers.map((member, idx) => {
+  <div
+    className="overflow-x-auto overflow-y-visible scrollbar-hide w-full max-w-full"
+    style={{
+      height: isMobile ? 80 : 140,
+      paddingTop: isMobile ? 8 : 18,
+      paddingBottom: isMobile ? 8 : 18,
+      WebkitOverflowScrolling: 'touch',
+    }}
+  >
+    <div
+      className="grid grid-flow-col grid-rows-2 items-center w-max mx-auto px-4"
+      style={{
+        gridAutoColumns: isMobile ? 36 : 56,
+        gap: isMobile ? 8 : 16,
+      }}
+    >
+      {teamMembers.map((member) => {
         const isMet = metMembers.includes(member.id);
         const isHovered = hoveredMember === member.id;
 
@@ -75,7 +83,6 @@ const MetBar = React.memo(({
           <div
             key={member.id}
             className="relative flex-shrink-0"
-            style={{ marginLeft: idx === 0 ? 6 : 0 }}
             onMouseEnter={() => setHoveredMember(member.id)}
             onMouseLeave={() => setHoveredMember(null)}
             onClick={e => {
@@ -88,12 +95,16 @@ const MetBar = React.memo(({
               alt={isMet ? member.name : 'Unknown'}
               draggable={false}
               className={[
-                'w-10 h-10 rounded-full border-2 transition-all select-none',
+                'rounded-full border-2 transition-all select-none',
                 isMet
                   ? 'border-white grayscale-0 cursor-pointer hover:scale-110 hover:shadow-[0_0_18px_rgba(255,255,255,0.55)]'
                   : 'border-gray-600 grayscale opacity-30 cursor-not-allowed',
                 isMet && isHovered ? 'shadow-[0_0_22px_rgba(255,255,255,0.75)]' : '',
               ].join(' ')}
+              style={{
+                width: isMobile ? 32 : 48,
+                height: isMobile ? 32 : 48,
+              }}
             />
           </div>
         );
@@ -149,13 +160,12 @@ export default function BeaverGame() {
   const pendingClusterRef = useRef(0);
   const nextInClusterRef = useRef(0);
 
-  // Responsive numeric layout values
   const padX = isMobile ? '5vw' : '14vw';
   const laneTop = isMobile ? '38%' : '34%';
   const laneHeightPx = isMobile ? 200 : 240;
   const groundH = 12;
 
-  const obstacleSize = isMobile ? 52 : 55;
+  const obstacleSize = isMobile ? 52 : 70;
   const spawnPad = 120;
 
   const BASE_SPEED_PX_PER_MS = 0.45;
@@ -399,7 +409,6 @@ export default function BeaverGame() {
 
       const target = e.target as Node | null;
 
-      // don't jump when interacting with met bar or modal
       if (metBarRef.current && target && metBarRef.current.contains(target)) return;
       if (selectedMember) return;
 
@@ -460,339 +469,311 @@ export default function BeaverGame() {
     } as React.CSSProperties;
   }, [groundOffset]);
 
-  const openMemberModal = useCallback(
-    (id: string) => {
-      // Read metMembers from state directly instead of closure
-      setMetMembers(currentMet => {
-        if (!currentMet.includes(id)) return currentMet; // Don't open if not met
-        
-        const member = teamMembers.find(m => m.id === id) || null;
-        setSelectedMember(member);
-        
-        return currentMet; // Return unchanged
-      });
-    },
-    [] // Empty deps - no re-renders!
-  );
+  const openMemberModal = useCallback((id: string) => {
+    setMetMembers(currentMet => {
+      if (!currentMet.includes(id)) return currentMet;
+
+      const member = teamMembers.find(m => m.id === id) || null;
+      setSelectedMember(member);
+
+      return currentMet;
+    });
+  }, []);
 
   return (
-    <div className="relative w-full h-[80vh] bg-black overflow-hidden font-rubik">
-      {/* Mobile Drawer */}
-      {selectedMember && isMobile && (
-        <Drawer open={true} onOpenChange={() => setSelectedMember(null)}>
-          <DrawerContent>
-            <div className="mx-auto w-full max-w-sm">
-              <DrawerHeader>
-                <div className="flex items-center gap-4 mb-3">
+    <div className="relative w-full overflow-visible">
+      <img
+        src="/teamGame-assets/mountain-like.svg"
+        alt=""
+        draggable={false}
+        className="absolute left-0 top-0 w-full h-auto pointer-events-none select-none z-[60] -translate-y-[85%]"
+      />
+
+      <div className="relative w-screen sm:w-screen h-[80vh] sm:h-screen bg-black overflow-hidden font-rubik">
+        {selectedMember && isMobile && (
+          <Drawer open={true} onOpenChange={() => setSelectedMember(null)}>
+            <DrawerContent>
+              <div className="mx-auto w-full max-w-sm">
+                <DrawerHeader>
+                  <div className="flex items-center gap-4 mb-3">
+                    <img
+                      src={selectedMember.photo}
+                      alt={selectedMember.name}
+                      className="w-16 h-16 rounded-xl object-cover border border-black/10"
+                    />
+                    <div>
+                      <DrawerTitle className="text-xl">{selectedMember.name}</DrawerTitle>
+                      <DrawerDescription className="text-sm">Team {selectedMember.team}</DrawerDescription>
+                    </div>
+                  </div>
+                </DrawerHeader>
+
+                <div className="px-4 pb-6">
+                  <div className="mb-4 text-sm text-gray-700 italic">"{selectedMember.oneLiner}"</div>
+
+                  {selectedMember.socials && (
+                    <div className="flex gap-3 mb-4">
+                      {selectedMember.socials.linkedin && (
+                        <a
+                          href={selectedMember.socials.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                        >
+                          <FontAwesomeIcon icon={faLinkedin} className="text-lg text-gray-700" />
+                        </a>
+                      )}
+
+                      {selectedMember.socials.instagram && (
+                        <a
+                          href={selectedMember.socials.instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                        >
+                          <FontAwesomeIcon icon={faInstagram} className="text-lg text-gray-700" />
+                        </a>
+                      )}
+                    </div>
+                  )}
+
+                  <DrawerClose asChild>
+                    <button className="w-full py-2 bg-black text-white rounded-lg hover:bg-black/80">Close</button>
+                  </DrawerClose>
+                </div>
+              </div>
+            </DrawerContent>
+          </Drawer>
+        )}
+
+        {selectedMember && !isMobile && (
+          <div
+            className="fixed inset-0 z-[999] flex items-center justify-center bg-black/60 px-4 animate-in fade-in duration-200"
+            onClick={() => setSelectedMember(null)}
+          >
+            <div
+              className="w-full max-w-[520px] rounded-2xl bg-white text-black shadow-2xl p-8 animate-in slide-in-from-bottom-4 duration-300"
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="flex items-start justify-between gap-6">
+                <div className="flex items-center gap-5 min-w-0">
                   <img
                     src={selectedMember.photo}
                     alt={selectedMember.name}
-                    className="w-16 h-16 rounded-xl object-cover border border-black/10"
+                    className="w-24 h-24 rounded-xl object-cover border border-black/10 flex-shrink-0"
                   />
-                  <div>
-                    <DrawerTitle className="text-xl">{selectedMember.name}</DrawerTitle>
-                    <DrawerDescription className="text-sm">
-                      Team {selectedMember.team}
-                    </DrawerDescription>
+                  <div className="min-w-0">
+                    <div className="text-2xl font-semibold truncate">{selectedMember.name}</div>
+                    <div className="text-base text-gray-600 truncate">Team {selectedMember.team}</div>
                   </div>
                 </div>
-              </DrawerHeader>
 
-              <div className="px-4 pb-6">
-                <div className="mb-4 text-sm text-gray-700 italic">
-                  "{selectedMember.oneLiner}"
+                <button
+                  className="rounded-lg px-4 py-2 text-base bg-black text-white hover:bg-black/80 flex-shrink-0"
+                  onClick={() => setSelectedMember(null)}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <div className="mt-5 text-base text-gray-700 italic">"{selectedMember.oneLiner}"</div>
+
+              {selectedMember.socials && (
+                <div className="mt-5 flex gap-4">
+                  {selectedMember.socials.linkedin && (
+                    <a
+                      href={selectedMember.socials.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                    >
+                      <FontAwesomeIcon icon={faLinkedin} className="text-lg text-gray-700" />
+                    </a>
+                  )}
+
+                  {selectedMember.socials.instagram && (
+                    <a
+                      href={selectedMember.socials.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+                    >
+                      <FontAwesomeIcon icon={faInstagram} className="text-lg text-gray-700" />
+                    </a>
+                  )}
                 </div>
+              )}
 
-                {/* Social media icons - only show if available */}
-                {selectedMember.socials && (
-                  <div className="flex gap-3 mb-4">
-                    {selectedMember.socials.linkedin && (
-                      <a
-                        href={selectedMember.socials.linkedin}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                      >
-                        <FontAwesomeIcon icon={faLinkedin} className="text-lg text-gray-700" />
-                      </a>
-                    )}
-                    
-                    {selectedMember.socials.instagram && (
-                      <a
-                        href={selectedMember.socials.instagram}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                      >
-                        <FontAwesomeIcon icon={faInstagram} className="text-lg text-gray-700" />
-                      </a>
-                    )}
-                  </div>
-                )}
-
-                <DrawerClose asChild>
-                  <button className="w-full py-2 bg-black text-white rounded-lg hover:bg-black/80">
-                    Close
-                  </button>
-                </DrawerClose>
+              <div className="mt-4 text-xs text-gray-500">
+                Press <span className="font-semibold">Esc</span> or click outside to close.
               </div>
             </div>
-          </DrawerContent>
-        </Drawer>
-      )}
+          </div>
+        )}
 
-      {/* Desktop Modal */}
-      {selectedMember && !isMobile && (
-        <div
-          className="fixed inset-0 z-[999] flex items-center justify-center bg-black/60 px-4 animate-in fade-in duration-200"
-          onClick={() => setSelectedMember(null)}
-        >
-          <div
-            className="w-full max-w-[420px] rounded-2xl bg-white text-black shadow-2xl p-6 animate-in slide-in-from-bottom-4 duration-300"
-            onClick={e => e.stopPropagation()}
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex items-center gap-4 min-w-0">
-                <img
-                  src={selectedMember.photo}
-                  alt={selectedMember.name}
-                  className="w-16 h-16 rounded-xl object-cover border border-black/10 flex-shrink-0"
-                />
-                <div className="min-w-0">
-                  <div className="text-lg font-semibold truncate">{selectedMember.name}</div>
-                  <div className="text-sm text-gray-600 truncate">Team {selectedMember.team}</div>
-                </div>
-              </div>
-
-              <button
-                className="rounded-lg px-3 py-1 text-sm bg-black text-white hover:bg-black/80 flex-shrink-0"
-                onClick={() => setSelectedMember(null)}
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="mt-4 text-sm text-gray-700 italic">
-              "{selectedMember.oneLiner}"
-            </div>
-
-            {/* Social media icons - only show if available */}
-            {selectedMember.socials && (
-              <div className="mt-5 flex gap-4">
-                {selectedMember.socials.linkedin && (
-                  <a
-                    href={selectedMember.socials.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+        <div className="absolute z-30 left-0 right-0 top-0 px-4 sm:px-12 pt-10 sm:pt-10">
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0">
+              {!gameState.isGameOver ? (
+                <>
+                  <h1
+                    className="text-[28px] leading-[0.95] sm:text-6xl sm:leading-none text-white font-luckiest whitespace-normal"
+                    style={{ maxWidth: isMobile ? '72vw' : 'none' }}
                   >
-                    <FontAwesomeIcon icon={faLinkedin} className="text-lg text-gray-700" />
-                  </a>
-                )}
-                
-                {selectedMember.socials.instagram && (
-                  <a
-                    href={selectedMember.socials.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
-                  >
-                    <FontAwesomeIcon icon={faInstagram} className="text-lg text-gray-700" />
-                  </a>
-                )}
-              </div>
-            )}
+                    Meet our Team
+                  </h1>
 
-            <div className="mt-4 text-xs text-gray-500">
-              Press <span className="font-semibold">Esc</span> or click outside to close.
+                  <p className="hidden sm:block text-xl text-white mt-2">
+                    Made with 💗 by{' '}
+                    <a
+                      href="https://www.instagram.com/hackcanada"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      @hackcanada
+                    </a>
+                    {' '}/{' '}
+                    <a
+                      href="https://www.instagram.com/hackathoncanada/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:underline"
+                    >
+                      @hackathoncanada
+                    </a>
+                  </p>
+
+                  <p className="sm:hidden text-xs text-white/80 mt-2">Tap/click to jump</p>
+                </>
+              ) : (
+                <>
+                  <h1
+                    className="text-[28px] leading-[0.95] sm:text-6xl sm:leading-none text-white font-luckiest whitespace-normal"
+                    style={{ maxWidth: isMobile ? '72vw' : 'none' }}
+                  >
+                    YOU HIT {hitMember?.name.toUpperCase()}!
+                  </h1>
+                  <p className="text-sm sm:text-xl text-white/90 mt-2">Team {hitMember?.team}</p>
+                  <p className="text-[10px] sm:text-base text-white/75 italic mt-0.5 sm:mt-1 max-w-[55vw] sm:max-w-none">
+                    "{hitMember?.oneLiner}"
+                  </p>
+                </>
+              )}
+            </div>
+
+            <div className="shrink-0 text-white font-mono text-lg sm:text-2xl whitespace-nowrap">
+              <span className="opacity-80 mr-4">HI {displayHigh}</span>
+              <span className="tracking-wider">{displayScore}</span>
             </div>
           </div>
         </div>
-      )}
 
-      {/* Header (responsive) */}
-      <div className="absolute z-30 left-0 right-0 top-0 px-4 sm:px-12 pt-4 sm:pt-10">
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            {!gameState.isGameOver ? (
-              <>
-                <h1
-                  className="
-                    text-[28px] leading-[0.95] sm:text-6xl sm:leading-none
-                    text-white font-luckiest
-                    whitespace-normal
-                  "
-                  style={{
-                    maxWidth: isMobile ? '72vw' : 'none',
-                  }}
+        <div className="absolute inset-0 z-30 pointer-events-none">
+          <div className="sm:hidden">
+            {!gameState.isPlaying && !gameState.isGameOver && (
+              <div className="mt-[22vh] px-4">
+                <button
+                  onClick={startGame}
+                  className="w-full px-6 py-3 bg-white text-black text-xl font-bold rounded-xl hover:bg-gray-200 transition-colors pointer-events-auto"
                 >
-                  Meet our Team
-                </h1>
+                  TAP TO START
+                </button>
+              </div>
+            )}
 
-                <p className="hidden sm:block text-xl text-white mt-2">
-                  Made with 💗 by{' '}
-                  <a
-                    href="https://www.instagram.com/hackcanada"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    @hackcanada
-                  </a>
-                  {' '}/{' '}
-                  <a
-                    href="https://www.instagram.com/hackathoncanada/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:underline"
-                  >
-                    @hackathoncanada
-                  </a>
-                </p>
-
-                <p className="sm:hidden text-xs text-white/80 mt-2">
-                  Tap/click to jump
-                </p>
-              </>
-            ) : (
-              <>
-                <h1
-                  className="
-                    text-[28px] leading-[0.95] sm:text-6xl sm:leading-none
-                    text-white font-luckiest
-                    whitespace-normal
-                  "
-                  style={{ maxWidth: isMobile ? '72vw' : 'none' }}
+            {gameState.isGameOver && (
+              <div className="mt-[26vh] px-4">
+                <button
+                  onClick={startGame}
+                  className="w-full max-w-[520px] mx-auto px-6 py-3 bg-white text-black text-xl font-bold rounded-xl hover:bg-gray-200 transition-colors flex items-center justify-center gap-3 pointer-events-auto"
                 >
-                  YOU HIT {hitMember?.name.toUpperCase()}!
-                </h1>
-                <p className="text-sm sm:text-xl text-white/90 mt-2">
-                  Team {hitMember?.team}
-                </p>
-                <p className="text-[10px] sm:text-base text-white/75 italic mt-0.5 sm:mt-1 max-w-[55vw] sm:max-w-none">
-                  "{hitMember?.oneLiner}"
-                </p>
-              </>
+                  <span className="text-2xl">↻</span>
+                  RESTART
+                </button>
+              </div>
             )}
           </div>
 
-          {/* Score */}
-          <div className="shrink-0 text-white font-mono text-lg sm:text-2xl whitespace-nowrap">
-            <span className="opacity-80 mr-4">HI {displayHigh}</span>
-            <span className="tracking-wider">{displayScore}</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Start / Restart */}
-      <div className="absolute inset-0 z-30 pointer-events-none">
-        {/* MOBILE */}
-        <div className="sm:hidden">
-          {!gameState.isPlaying && !gameState.isGameOver && (
-            <div className="mt-[22vh] px-4">
+          <div className="hidden sm:flex absolute inset-0 items-center justify-center">
+            {!gameState.isPlaying && !gameState.isGameOver && (
               <button
                 onClick={startGame}
-                className="w-full px-6 py-3 bg-white text-black text-xl font-bold rounded-xl hover:bg-gray-200 transition-colors pointer-events-auto"
+                className="px-8 py-4 bg-white text-black text-2xl font-bold rounded-xl hover:bg-gray-200 transition-colors pointer-events-auto"
               >
                 TAP TO START
               </button>
-            </div>
-          )}
+            )}
 
-          {gameState.isGameOver && (
-            <div className="mt-[26vh] px-4">
+            {gameState.isGameOver && (
               <button
                 onClick={startGame}
-                className="w-full max-w-[520px] mx-auto px-6 py-3 bg-white text-black text-xl font-bold rounded-xl hover:bg-gray-200 transition-colors flex items-center justify-center gap-3 pointer-events-auto"
+                className="px-10 py-5 bg-white text-black text-2xl font-bold rounded-xl hover:bg-gray-200 transition-colors flex items-center gap-3 pointer-events-auto"
               >
-                <span className="text-2xl">↻</span>
+                <span className="text-3xl">↻</span>
                 RESTART
               </button>
-            </div>
-          )}
-        </div>
-
-        {/* DESKTOP */}
-        <div className="hidden sm:flex absolute inset-0 items-center justify-center">
-          {!gameState.isPlaying && !gameState.isGameOver && (
-            <button
-              onClick={startGame}
-              className="px-8 py-4 bg-white text-black text-2xl font-bold rounded-xl hover:bg-gray-200 transition-colors pointer-events-auto"
-            >
-              TAP TO START
-            </button>
-          )}
-
-          {gameState.isGameOver && (
-            <button
-              onClick={startGame}
-              className="px-10 py-5 bg-white text-black text-2xl font-bold rounded-xl hover:bg-gray-200 transition-colors flex items-center gap-3 pointer-events-auto"
-            >
-              <span className="text-3xl">↻</span>
-              RESTART
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Lane */}
-      <div className="absolute left-0 w-full z-10" style={{ top: laneTop, height: `${laneHeightPx}px` }}>
-        <div
-          ref={laneRef}
-          className="relative h-full"
-          style={{
-            width: `calc(100% - (${padX} * 2))`,
-            marginLeft: padX,
-            marginRight: padX,
-            overflow: 'hidden',
-          }}
-        >
-          {(gameState.isPlaying || gameState.isGameOver) && (
-            <Beaver
-              ref={beaverRef as any}
-              bottom={beaverBottom}
-              isJumping={isJumping}
-              yVelocity={yVelocity}
-              isGameOver={gameState.isGameOver}
-            />
-          )}
-
-          {obstacles.map(o => (
-            <Obstacle
-              key={o.id}
-              ref={el => {
-                obstacleRefs.current[o.id] = el;
-              }}
-              member={o.member}
-              x={o.x}
-              size={obstacleSize}
-              groundOffsetPx={groundH}
-            />
-          ))}
-
-          <div className="absolute left-0 bottom-0 w-full" style={{ height: `${groundH}px` }}>
-            <div className="absolute top-0 left-0 w-full h-full" style={groundStyle} />
+            )}
           </div>
         </div>
-      </div>
 
-      {/* Met bar with memoized component */}
-      <div
-        ref={metBarRef}
-        className="absolute z-50 text-white pointer-events-auto left-4 right-4 bottom-2 sm:left-12 sm:right-12 sm:bottom-8"
-      >
-        <div className="text-sm sm:text-xl mb-2 sm:mb-3">
-          Team Members Met: {metMembers.length}/{teamMembers.length}
+        <div className="absolute left-0 w-full z-0" style={{ top: laneTop, height: `${laneHeightPx}px` }}>
+          <div
+            ref={laneRef}
+            className="relative h-full"
+            style={{
+              width: `calc(100% - (${padX} * 2))`,
+              marginLeft: padX,
+              marginRight: padX,
+              overflow: 'hidden',
+            }}
+          >
+            {(gameState.isPlaying || gameState.isGameOver) && (
+              <Beaver
+                ref={beaverRef as any}
+                bottom={beaverBottom}
+                isJumping={isJumping}
+                yVelocity={yVelocity}
+                isGameOver={gameState.isGameOver}
+              />
+            )}
+
+            {obstacles.map(o => (
+              <Obstacle
+                key={o.id}
+                ref={el => {
+                  obstacleRefs.current[o.id] = el;
+                }}
+                member={o.member}
+                x={o.x}
+                size={obstacleSize}
+                groundOffsetPx={groundH}
+              />
+            ))}
+
+            <div className="absolute left-0 bottom-0 w-full" style={{ height: `${groundH}px` }}>
+              <div className="absolute top-0 left-0 w-full h-full" style={groundStyle} />
+            </div>
+          </div>
         </div>
 
-        <MetBar 
-          metMembers={metMembers}
-          teamMembers={teamMembers}
-          isMobile={isMobile}
-          openMemberModal={openMemberModal}
-          hoveredMember={hoveredMember}
-          setHoveredMember={setHoveredMember}
-        />
+        <div
+          ref={metBarRef}
+          className="absolute z-50 text-white pointer-events-auto left-0 right-0 bottom-0 sm:bottom-8 flex flex-col items-center pb-2"
+        >
+          <div className="text-sm sm:text-xl mb-2 sm:mb-3 mt-2">
+            Team Members Met: {metMembers.length}/{teamMembers.length}
+          </div>
+
+          <MetBar
+            metMembers={metMembers}
+            teamMembers={teamMembers}
+            isMobile={isMobile}
+            openMemberModal={openMemberModal}
+            hoveredMember={hoveredMember}
+            setHoveredMember={setHoveredMember}
+          />
+        </div>
       </div>
     </div>
   );
