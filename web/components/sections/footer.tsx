@@ -37,8 +37,8 @@ export default function Footer() {
               <a href="" className="no-underline hover:underline transition-all duration-300 underline-offset-2">Contact Us</a>
             </div>
             <div className='flex align-center items-center gap-4 justify-end'>
-              <img src="hackathonscanada.png" alt="hackathons canada logo" />
-              <p>A Hackathons Canada Initiative</p>
+        <img src="/navbar/hackcanadaLogo.png" alt="Hack Canada Logo" className="h-18 rounded-full p-4" />
+              <p>A Hackathon Canada Intiative to be CUTC Initiative</p>
             </div>
           </div>
         </div>
@@ -46,4 +46,3 @@ export default function Footer() {
     </footer>
   );
 }
-
