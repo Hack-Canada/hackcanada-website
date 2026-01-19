@@ -131,6 +131,13 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  @media (max-width: 768px) {
+    html,
+    body {
+      overflow-x: hidden;
+    }
+  }
 }
 
 @keyframes twinkle {
