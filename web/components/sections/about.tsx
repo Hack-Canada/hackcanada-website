@@ -296,11 +296,11 @@ export default function About() {
 
       <div className="container mx-auto px-4">
         {/* Keep About self-contained so images don't overlap next section */}
-        <div className="relative min-h-[940px] pt-24 pb-28">
+        <div className="relative lg:min-h-[940px] pt-24 pb-28 flex flex-col gap-10 lg:block">
           {/* Left title + paragraph - with scroll reveal */}
           <div 
             ref={titleRef}
-            className={`absolute left-[120px] md:left-[140px] lg:left-[160px] top-[80px] lg:top-[120px] max-w-[640px] transition-all duration-700 ease-out
+            className={`static mx-auto max-w-[640px] lg:mx-0 lg:absolute lg:left-[120px] lg:top-[80px] xl:left-[160px] xl:top-[120px] transition-all duration-700 ease-out
               ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
             style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
           >
@@ -324,7 +324,7 @@ export default function About() {
           {/* Right paragraph - with staggered scroll reveal */}
           <div 
             ref={rightTextRef}
-            className={`absolute right-[120px] md:right-[140px] lg:right-[160px] top-[390px] md:top-[320px] lg:top-[340px] max-w-[420px] text-white/80 leading-relaxed transition-all duration-700 ease-out
+            className={`static mx-auto max-w-[520px] text-white/80 leading-relaxed lg:mx-0 lg:absolute lg:right-[120px] xl:right-[160px] lg:top-[340px] transition-all duration-700 ease-out
               ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
             style={{ transitionDelay: "300ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
           >
@@ -347,11 +347,11 @@ export default function About() {
           {/* ===== Collage with candle cursor effect ===== */}
           <div 
             ref={collageRef}
-            className="absolute left-[20px] top-[320px] w-[750px] h-[620px] cursor-none z-10"
+            className="relative mx-auto flex w-full max-w-[560px] flex-col gap-6 cursor-none z-10 lg:block lg:max-w-none lg:gap-0 lg:absolute lg:left-[20px] lg:top-[320px] lg:w-[750px] lg:h-[620px]"
           >
             {/* TOP IMAGE (rect-403.svg) - top center */}
             <div 
-              className={`absolute left-[120px] top-[0px] w-[360px] h-[280px] rotate-[2deg] z-10 transition-all duration-500
+              className={`relative mx-auto w-[320px] h-[250px] rotate-[2deg] z-10 transition-all duration-500 sm:w-[360px] sm:h-[280px] lg:absolute lg:left-[120px] lg:top-[0px]
                 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
               style={{ transitionDelay: "400ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
               onMouseEnter={() => setHoveredImage(0)}
@@ -382,7 +382,7 @@ export default function About() {
 
             {/* LEFT IMAGE (hackc-1071.svg) - bottom left */}
             <div 
-              className={`absolute left-[0px] top-[220px] w-[380px] h-[295px] rotate-[-5deg] z-20 transition-all duration-500
+              className={`relative mx-auto w-[320px] h-[250px] rotate-[-5deg] z-20 transition-all duration-500 sm:w-[380px] sm:h-[295px] lg:absolute lg:left-[0px] lg:top-[220px]
                 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
               style={{ transitionDelay: "550ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
               onMouseEnter={() => setHoveredImage(1)}
@@ -413,7 +413,7 @@ export default function About() {
 
             {/* RIGHT IMAGE (hackc-1078.svg) - bottom right */}
             <div 
-              className={`absolute left-[340px] top-[280px] w-[360px] h-[280px] rotate-[4deg] z-30 transition-all duration-500
+              className={`relative mx-auto w-[320px] h-[250px] rotate-[4deg] z-30 transition-all duration-500 sm:w-[360px] sm:h-[280px] lg:absolute lg:left-[340px] lg:top-[280px]
                 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
               style={{ transitionDelay: "700ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
               onMouseEnter={() => setHoveredImage(2)}
