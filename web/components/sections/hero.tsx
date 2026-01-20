@@ -46,7 +46,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="hero" className="w-full flex items-center lg:items-start justify-center relative lg:pt-[25%]" style={{ height: `${sectionHeight+350}px` }}>
+    <section id="hero" className="w-full flex items-start justify-center relative lg:pt-[25%]" style={{ height: `${sectionHeight+350}px` }}>
       {/* Overflow container for background and content only */}
       <div className="absolute inset-0 overflow-hidden z-0">
         {/* Background layer - slower parallax */}
@@ -87,7 +87,7 @@ export default function Hero() {
         />
       </div>
 
-      <div className="z-20 flex flex-col items-center text-center px-4 lg:ml-[50vw] -mt-[40vh] lg:mt-0 backdrop-blur-md mx-10 bg-white/20 rounded-lg py-6 lg:backdrop-blur-none lg:bg-transparent lg:py-0"
+      <div className="z-20 flex flex-col items-center text-center px-4 mt-[35vh] lg:ml-[50vw] lg:mt-0 backdrop-blur-md mx-10 bg-white/20 rounded-lg py-6 lg:backdrop-blur-none lg:bg-transparent lg:py-0"
         style={{
           transform: `translateY(${scrollY * 0.002}px)`,
         }}
