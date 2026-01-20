@@ -184,7 +184,7 @@ function SponsorsContent() {
         </div>
 
         {/* Sponsor Highlights Carousel */}
-        <div className="mb-20">
+        <div className="mb-20 hidden sm:block">
           <h2
             className="mb-8 text-center mx-auto text-xl sm:text-2xl md:text-3xl lg:text-4xl px-4"
             style={{
