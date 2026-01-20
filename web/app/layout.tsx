@@ -6,6 +6,7 @@ import {
 } from "next/font/google";
 import { Geist, Geist_Mono, Luckiest_Guy, Rubik } from "next/font/google";
 import "./globals.css";
+import AbstractBackground from "../components/effects/AbstractBackground";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -50,6 +51,35 @@ export const metadata: Metadata = {
   title: "HackCanada - Canada's Premier Hackathon",
   description:
     "Join Canada's premier hackathon event. Build, innovate, and connect with developers from across the country.",
+  openGraph: {
+    title: "HackCanada - Canada's Premier Hackathon",
+    description:
+      "Join Canada's premier hackathon event. Build, innovate, and connect with developers from across the country.",
+    images: [
+      {
+        url: "/navbar/hackcanadaLogo.png",
+        width: 1200,
+        height: 630,
+        alt: "Hack Canada Logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HackCanada - Canada's Premier Hackathon",
+    description:
+      "Join Canada's premier hackathon event. Build, innovate, and connect with developers from across the country.",
+    images: ["/navbar/hackcanadaLogo.png"],
+  },
+  icons: {
+    icon: [
+      { url: "/navbar/hackcanadaLogo.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/navbar/hackcanadaLogo.png", sizes: "180x180", type: "image/png" },
+    ],
+    shortcut: "/navbar/hackcanadaLogo.png",
+  },
 };
 
 export default function RootLayout({
@@ -62,6 +92,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${balooChettan.variable} ${lato.variable} ${outfit.variable} ${luckiestGuy.variable} ${rubik.variable} antialiased`}
       >
+        <AbstractBackground />
         <a
           id="mlh-trust-badge"
           style={{

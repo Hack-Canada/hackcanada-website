@@ -13,9 +13,19 @@ const Beaver = forwardRef<HTMLDivElement, BeaverProps>(function Beaver(
   { bottom, isJumping, yVelocity, isGameOver },
   ref
 ) {
-  const beaverSize = 80;
-  const beaverX = typeof window !== 'undefined' && window.innerWidth < 640 ? 30 : 110;
+  const [beaverSize, setBeaverSize] = useState(100);
+  const [beaverX, setBeaverX] = useState(110);
 
+  useEffect(() => {
+    const updatePosition = () => {
+      const isMobile = window.innerWidth < 640;
+      setBeaverX(isMobile ? 18 : 110);
+      setBeaverSize(isMobile ? 70 : 100);
+    };
+    updatePosition();
+    window.addEventListener('resize', updatePosition);
+    return () => window.removeEventListener('resize', updatePosition);
+  }, []);
 
   const [walkFrame, setWalkFrame] = useState<1 | 2>(1);
 

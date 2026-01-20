@@ -29,7 +29,7 @@ const Obstacle = forwardRef<HTMLDivElement, ObstacleProps>(function Obstacle(
     >
       
       <img
-        src={member.photo}
+        src={member.obstaclePhoto}
         alt={member.name}
         className="w-full h-full object-cover rounded-lg"
         draggable={false}

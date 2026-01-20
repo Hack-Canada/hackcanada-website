@@ -3,46 +3,6 @@
 import React, { useMemo } from 'react';
 import Image from 'next/image';
 
-interface StatItem {
-  number: string;
-  label: string;
-  cartImage: string;
-  position: { top: string; left: string };
-}
-
-const stats: StatItem[] = [
-  {
-    number: '400+',
-    label: 'hackers',
-    cartImage: '/stat-images/cart1.svg',
-    position: { top: '31%', left: '39%' },
-  },
-  {
-    number: '$15K+',
-    label: 'in prizes',
-    cartImage: '/stat-images/cart2.svg',
-    position: { top: '55%', left: '86%' },
-  },
-  {
-    number: '36',
-    label: 'Hours of Hacking',
-    cartImage: '/stat-images/cart3.svg',
-    position: { top: '69%', left: '9%' },
-  },
-  {
-    number: '20+',
-    label: 'sponsors',
-    cartImage: '/stat-images/cart4.svg',
-    position: { top: '112%', left: '37%' },
-  },
-  {
-    number: '85+',
-    label: 'projects',
-    cartImage: '/stat-images/cart5.svg',
-    position: { top: '100%', left: '85%' },
-  },
-];
-
 // Format percentage with consistent precision to avoid hydration mismatches
 const formatPercent = (val: number): string => {
   const rounded = Math.round(val * 10000) / 10000;
@@ -114,7 +74,7 @@ export default function Stats() {
             <div className="relative w-full h-full max-w-7xl mx-auto px-4">
               
               {/* Title text */}
-              <div className="absolute top-[15%] left-1/2 -translate-x-1/2 z-30 w-full max-w-4xl">
+              <div className="absolute top-[10%] left-1/2 -translate-x-1/2 z-40 w-full max-w-4xl">
                 <svg 
                   viewBox="0 0 1200 200" 
                   className="w-full"
@@ -124,7 +84,7 @@ export default function Stats() {
                   <defs>
                     <path 
                       id="curve" 
-                      d="M 50 150 Q 600 -200 1150 150" 
+                      d="M 50 150 Q 600 -220 1150 150" 
                       fill="transparent"
                     />
                     <filter id="glow">
@@ -152,11 +112,11 @@ export default function Stats() {
                 </svg>
               </div>
 
-              {/* Ferris wheel */}
-              <div className="absolute top-[59%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[75%] max-w-[750px]">
+              {/* Stats image */}
+              <div className="absolute bottom-[-75] left-1/2 -translate-x-1/2 z-30 w-[70%] md:w-[60%] lg:w-[70%] xl:w-[75%] max-w-[750px]">
                 <Image
-                  src="/stat-images/ferris_wheel.svg"
-                  alt="Ferris wheel"
+                  src="/statsNew.png"
+                  alt="Hack Canada statistics"
                   width={1100}
                   height={1100}
                   className="w-full h-auto drop-shadow-[0_0_35px_rgba(147,197,253,0.5)]"
@@ -164,35 +124,10 @@ export default function Stats() {
                 />
               </div>
 
-              {/* Cart stats */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[75%] max-w-[750px] h-[75vh] max-h-[750px] z-50">
-                {stats.map((stat, index) => (
-                  <div
-                    key={index}
-                    className="absolute"
-                    style={{
-                      top: stat.position.top,
-                      left: stat.position.left,
-                      transform: 'translate(-50%, -50%)',
-                    }}
-                  >
-                    <div className="relative w-52 sm:w-60 md:w-72 lg:w-80">
-                      <Image
-                        src={stat.cartImage}
-                        alt={`${stat.label} stat cart`}
-                        width={520}
-                        height={520}
-                        className="w-full h-auto drop-shadow-[0_0_20px_rgba(196,181,253,0.5)]"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-
             </div>
             
             {/* City skyline */}
-            <div className="absolute bottom-0 left-0 right-0 z-0 w-full">
+            <div className="absolute bottom-0 left-0 right-0 z-10 w-full">
               <Image
                 src="/stat-images/city.svg"
                 alt="City skyline"
@@ -211,7 +146,7 @@ export default function Stats() {
             <div className="relative w-full h-full mx-auto px-2">
               
               {/* Title text - mobile */}
-              <div className="absolute top-[35%] left-1/2 -translate-x-1/2 z-30 w-full">
+              <div className="absolute top-[25%] left-1/2 -translate-x-1/2 z-40 w-full">
                 <svg 
                   viewBox="0 0 1200 200" 
                   className="w-full"
@@ -221,7 +156,7 @@ export default function Stats() {
                   <defs>
                     <path 
                       id="curve-mobile" 
-                      d="M 50 150 Q 600 -150 1150 150" 
+                      d="M 50 150 Q 600 -180 1150 150" 
                       fill="transparent"
                     />
                     <filter id="glow-mobile">
@@ -249,11 +184,11 @@ export default function Stats() {
                 </svg>
               </div>
 
-              {/* Ferris wheel - mobile */}
-              <div className="absolute top-[70%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[110%]">
+              {/* Stats image - mobile */}
+              <div className="absolute bottom-[-50] left-1/2 -translate-x-1/2 z-30 w-[85%] max-w-[600px]">
                 <Image
-                  src="/stat-images/ferris_wheel.svg"
-                  alt="Ferris wheel"
+                  src="/statsNew.png"
+                  alt="Hack Canada statistics"
                   width={1100}
                   height={1100}
                   className="w-full h-auto drop-shadow-[0_0_25px_rgba(147,197,253,0.5)]"
@@ -261,113 +196,10 @@ export default function Stats() {
                 />
               </div>
 
-              {/* Cart stats - mobile */}
-              <div className="absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] h-[85vh] z-50">
-                {/* Cart 1 - 400+ hackers */}
-                <div
-                  className="absolute"
-                  style={{
-                    top: '55%',
-                    left: '39%',
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                >
-                  <div className="relative w-50">
-                    <Image
-                      src="/stat-images/cart1.svg"
-                      alt="hackers stat cart"
-                      width={520}
-                      height={520}
-                      className="w-full h-auto drop-shadow-[0_0_15px_rgba(196,181,253,0.5)]"
-                    />
-                  </div>
-                </div>
-
-                {/* Cart 2 - $15K+ in prizes */}
-                <div
-                  className="absolute"
-                  style={{
-                    top: '70%',
-                    left: '95%',
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                >
-                  <div className="relative w-50">
-                    <Image
-                      src="/stat-images/cart2.svg"
-                      alt="prizes stat cart"
-                      width={520}
-                      height={520}
-                      className="w-full h-auto drop-shadow-[0_0_15px_rgba(196,181,253,0.5)]"
-                    />
-                  </div>
-                </div>
-
-                {/* Cart 3 - 36 Hours of Hacking */}
-                <div
-                  className="absolute"
-                  style={{
-                    top: '75%',
-                    left: '8%',
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                >
-                  <div className="relative w-50">
-                    <Image
-                      src="/stat-images/cart3.svg"
-                      alt="hours stat cart"
-                      width={520}
-                      height={520}
-                      className="w-full h-auto drop-shadow-[0_0_15px_rgba(196,181,253,0.5)]"
-                    />
-                  </div>
-                </div>
-
-                {/* Cart 4 - 20+ sponsors */}
-                <div
-                  className="absolute"
-                  style={{
-                    top: '106%',
-                    left: '37%',
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                >
-                  <div className="relative w-50">
-                    <Image
-                      src="/stat-images/cart4.svg"
-                      alt="sponsors stat cart"
-                      width={520}
-                      height={520}
-                      className="w-full h-auto drop-shadow-[0_0_15px_rgba(196,181,253,0.5)]"
-                    />
-                  </div>
-                </div>
-
-                {/* Cart 5 - 85+ projects */}
-                <div
-                  className="absolute"
-                  style={{
-                    top: '97%',
-                    left: '85%',
-                    transform: 'translate(-50%, -50%)',
-                  }}
-                >
-                  <div className="relative w-50">
-                    <Image
-                      src="/stat-images/cart5.svg"
-                      alt="projects stat cart"
-                      width={520}
-                      height={520}
-                      className="w-full h-auto drop-shadow-[0_0_15px_rgba(196,181,253,0.5)]"
-                    />
-                  </div>
-                </div>
-              </div>
-
             </div>
             
             {/* City skyline - mobile */}
-            <div className="absolute bottom-0 left-0 right-0 z-0 w-full">
+            <div className="absolute bottom-0 left-0 right-0 z-10 w-full">
               <Image
                 src="/stat-images/city.svg"
                 alt="City skyline"
