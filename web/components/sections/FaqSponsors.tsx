@@ -672,9 +672,9 @@ function FaqContent() {
 </div>
 </div>
 
-      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 pt-[180px] pb-4 sm:pt-[220px] sm:pb-8 md:pt-[260px] md:pb-12 lg:pt-[300px] lg:pb-16 relative z-10">
+      <div className="container mx-auto px-3 pb-12 sm:px-4 md:px-6 lg:px-8 pt-[180px] sm:pt-[220px] sm:pb-8 md:pt-[260px] lg:pt-[300px] lg:pb-16 relative z-10">
         {/* Two Column Layout */}
-        <div className="max-w-full sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] mx-auto flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 justify-center pt-[200px] sm:pt-0
+        <div className="max-w-full sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] mx-auto flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 justify-center pt-40 sm:pt-0
 ">
           {/* Left Column */}
           <Accordion
