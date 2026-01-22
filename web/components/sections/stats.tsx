@@ -132,7 +132,7 @@ export default function Stats() {
                 src="/stat-images/city.svg"
                 alt="City skyline"
                 width={1920}
-                height={600}
+                height={1080}
                 className="w-full h-auto object-contain object-bottom"
                 priority
               />
@@ -185,7 +185,7 @@ export default function Stats() {
               </div>
 
               {/* Stats image - mobile */}
-              <div className="absolute bottom-[-50] left-1/2 -translate-x-1/2 z-30 w-[85%] max-w-[600px]">
+              <div className="absolute bottom-[-30] left-1/2 -translate-x-1/2 z-30 w-[85%] max-w-[600px]">
                 <Image
                   src="/statsNew.png"
                   alt="Hack Canada statistics"
@@ -204,7 +204,7 @@ export default function Stats() {
                 src="/stat-images/city.svg"
                 alt="City skyline"
                 width={1920}
-                height={600}
+                height={1080}
                 className="w-full h-auto object-contain object-bottom"
               />
             </div>
