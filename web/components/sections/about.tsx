@@ -304,12 +304,12 @@ export default function About() {
               ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
             style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
           >
-            <h2 className="text-5xl md:text-6xl font-semibold tracking-tight">
+            <h2 className="text-5xl md:text-6xl font-semibold tracking-tight font-luckiest">
               About Hack Canada
             </h2>
 
-            <p 
-              className={`mt-6 max-w-[620px] text-base md:text-lg leading-relaxed text-white/80 transition-all duration-700 ease-out
+            <p
+              className={`mt-6 max-w-[620px] text-base md:text-lg leading-relaxed text-white/80 transition-all duration-700 ease-out font-rubik
                 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
               style={{ transitionDelay: "150ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
             >
@@ -328,7 +328,7 @@ export default function About() {
               ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
             style={{ transitionDelay: "300ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
           >
-            <p className="text-base md:text-lg">
+            <p className="text-base md:text-lg font-rubik">
               We are a Canadian-focused hackathon, aiming to solve national
               problems using the amazing hacker minds to help and focus on
               changing Canada&apos;s future in many ways. Join us in shaping a

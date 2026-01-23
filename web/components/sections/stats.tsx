@@ -74,7 +74,7 @@ export default function Stats() {
             <div className="relative w-full h-full max-w-7xl mx-auto px-4">
               
               {/* Title text */}
-              <div className="absolute top-[10%] left-1/2 -translate-x-1/2 z-40 w-full max-w-4xl">
+              <div className="absolute top-[15%] left-1/2 -translate-x-1/2 z-40 w-full max-w-4xl">
                 <svg 
                   viewBox="0 0 1200 200" 
                   className="w-full"
@@ -98,7 +98,7 @@ export default function Stats() {
                   <text 
                     className="font-bold"
                     style={{ 
-                      fontFamily: '"Trebuchet MS", "Arial Rounded MT Bold", Verdana, sans-serif',
+                      fontFamily: 'var(--font-luckiest-guy), system-ui, sans-serif',
                       fill: '#d8b4fe',
                       filter: 'url(#glow)',
                       letterSpacing: '0.02em',
@@ -170,7 +170,7 @@ export default function Stats() {
                   <text 
                     className="font-bold"
                     style={{ 
-                      fontFamily: '"Trebuchet MS", "Arial Rounded MT Bold", Verdana, sans-serif',
+                      fontFamily: 'var(--font-luckiest-guy), system-ui, sans-serif',
                       fill: '#d8b4fe',
                       filter: 'url(#glow-mobile)',
                       letterSpacing: '0.02em',

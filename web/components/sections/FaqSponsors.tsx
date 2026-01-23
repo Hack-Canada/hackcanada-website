@@ -159,7 +159,7 @@ function SponsorsContent() {
           style={{ maxWidth: "1129px", width: "100%" }}
         >
           <h1
-            className="mb-6 text-center text-5xl md:text-6xl font-semibold tracking-tight"
+            className="mb-6 text-center text-5xl md:text-6xl font-semibold tracking-tight font-luckiest"
             style={{
               color: "#DBDAF3",
             }}
@@ -167,9 +167,8 @@ function SponsorsContent() {
             Sponsors
           </h1>
           <p
-            className="text-center mx-auto text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl px-4"
+            className="text-center mx-auto text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl px-4 font-rubik"
             style={{
-              fontFamily: "var(--font-lato)",
               fontSize: "clamp(18px, 3vw, 35px)",
               lineHeight: "clamp(28px, 4vw, 60px)",
               fontWeight: 500,
@@ -186,9 +185,8 @@ function SponsorsContent() {
         {/* Sponsor Highlights Carousel */}
         <div className="mb-20 hidden sm:block">
           <h2
-            className="mb-8 text-center mx-auto text-xl sm:text-2xl md:text-3xl lg:text-4xl px-4"
+            className="mb-8 text-center mx-auto text-xl sm:text-2xl md:text-3xl lg:text-4xl px-4 font-luckiest"
             style={{
-              fontFamily: "var(--font-lato)",
               fontStyle: "italic",
               fontWeight: 500,
               fontSize: "clamp(20px, 3vw, 32px)",
@@ -262,9 +260,8 @@ function SponsorsContent() {
                           </div>
                         )}
                         <p
-                          className="text-center mb-8 text-sm sm:text-base md:text-lg lg:text-xl px-4"
+                          className="text-center mb-8 text-sm sm:text-base md:text-lg lg:text-xl px-4 font-rubik"
                           style={{
-                            fontFamily: "var(--font-lato)",
                             fontWeight: 500,
                             fontSize: "clamp(14px, 2vw, 20px)",
                             lineHeight: "150%",
@@ -280,9 +277,8 @@ function SponsorsContent() {
                             href={sponsor.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-sm sm:text-base md:text-lg lg:text-xl"
+                            className="text-sm sm:text-base md:text-lg lg:text-xl font-rubik"
                             style={{
-                              fontFamily: "var(--font-lato)",
                               fontWeight: 500,
                               fontSize: "clamp(14px, 2vw, 20px)",
                               lineHeight: "150%",
@@ -354,15 +350,14 @@ function SponsorsContent() {
         {/* Sponsor Blocks Grid */}
         <div className="max-w-6xl mx-auto px-4">
           {/* Gold - Large Single Block */}
-          <div className="flex justify-center mb-2 sm:mb-3 md:mb-4">
+          <div className="flex justify-center mb-4 sm:mb-5 md:mb-6">
             <a
               href={goldBlock.link || "#"}
               target="_blank"
               rel="noopener noreferrer"
               className="relative flex items-center justify-center w-full max-w-[954px]"
               style={{
-                height: "clamp(180px, 25vw, 294px)",
-                aspectRatio: "954/294",
+                height: "clamp(120px, 18vw, 200px)",
               }}
             >
               <div
@@ -383,7 +378,7 @@ function SponsorsContent() {
                       height={294}
                       className="object-contain"
                       style={{
-                        width: "clamp(200px, 35vw, 400px)",
+                        width: "clamp(320px, 50vw, 560px)",
                         height: "auto",
                         maxWidth: "100%",
                       }}
@@ -395,17 +390,16 @@ function SponsorsContent() {
           </div>
 
           {/* Silver - Two Blocks Side by Side */}
-          <div className="flex flex-col md:flex-row justify-center gap-3 sm:gap-4 mb-2 sm:mb-3 md:mb-4">
+          <div className="flex flex-col md:flex-row justify-center gap-4 sm:gap-5 md:gap-6 mb-4 sm:mb-5 md:mb-6 max-w-[954px] mx-auto">
             {silverBlocks.map((sponsor, index) => (
               <a
                 key={index}
                 href={sponsor.link || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative flex items-center justify-center w-full md:w-[465px]"
+                className="relative flex items-center justify-center w-full"
                 style={{
-                  height: "clamp(140px, 20vw, 258px)",
-                  aspectRatio: "465/258",
+                  height: "clamp(100px, 14vw, 175px)",
                 }}
               >
                 <div
@@ -426,7 +420,7 @@ function SponsorsContent() {
                         height={63}
                         className="object-contain"
                         style={{
-                          width: "clamp(120px, 20vw, 200px)",
+                          width: "clamp(180px, 32vw, 320px)",
                           height: "auto",
                           maxWidth: "100%",
                         }}
@@ -439,17 +433,16 @@ function SponsorsContent() {
           </div>
 
           {/* Bronze - Three Blocks */}
-          <div className="grid grid-cols-2 sm:flex sm:flex-row justify-center gap-2 sm:gap-4 max-w-4xl mx-auto">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-5 md:gap-6 max-w-[954px] mx-auto">
             {bronzeBlocks.map((sponsor, index) => (
               <a
                 key={index}
                 href={sponsor.link || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative flex items-center justify-center w-full sm:w-[291px]"
+                className="relative flex items-center justify-center w-full"
                 style={{
-                  height: "clamp(100px, 25vw, 208px)",
-                  aspectRatio: "291/208",
+                  height: "clamp(70px, 12vw, 140px)",
                 }}
               >
                 <div
@@ -472,7 +465,7 @@ function SponsorsContent() {
                         height={161}
                         className="object-contain"
                         style={{
-                          width: "clamp(60px, 12vw, 140px)",
+                          width: "clamp(90px, 20vw, 200px)",
                           height: "auto",
                           maxWidth: "100%",
                         }}
@@ -503,8 +496,7 @@ function SponsorsContent() {
         style={{
           bottom: 0,
           height: "clamp(160px, 20vw, 260px)",
-          transform:
-            "translateY(calc(50% + clamp(120px, 16vw, 200px)))",
+          transform: "translateY(calc(50% + clamp(120px, 16vw, 200px)))",
           backgroundImage: "url('/additional.svg')",
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -618,12 +610,12 @@ function FaqContent() {
       >
         {/* Let's shed some light on... */}
         <div
+          className="font-rubik"
           style={{
             transform: "rotate(-9.46deg)",
             width: "clamp(200px, 85vw, 350px)",
             height: "clamp(22px, 3.5vw, 29px)",
             maxWidth: "90vw",
-            fontFamily: "var(--font-baloo-chettan)",
             fontStyle: "normal",
             fontWeight: 400,
             fontSize: "clamp(20px, 3.5vw, 30px)",
@@ -649,32 +641,41 @@ function FaqContent() {
         </div>
 
         {/* Frequently Asked Questions */}
-        <div
-          style={{
-            transform: "rotate(-9.46deg)",
-            width: "clamp(400px, 90vw, 643px)",
-            height: "clamp(36px, 5vw, 48px)",
-            fontFamily: "var(--font-baloo-chettan)",
-            fontStyle: "normal",
-            fontWeight: 400,
-            fontSize: "clamp(32px, 5.5vw, 50px)",
-            lineHeight: "96%",
-            textAlign: "center",
-            color: "#FFDFF7",
-            whiteSpace: "nowrap",
-            overflow: "visible",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          Frequently Asked Questions
-        </div>
-      </div>
+<div
+  className="font-luckiest"
+  style={{
+    transform: "rotate(-9.46deg)",
+    width: "clamp(280px, 90vw, 643px)",
+    height: "auto",
+    fontStyle: "normal",
+    fontWeight: 400,
+    fontSize: "clamp(32px, 5.5vw, 50px)",
+    lineHeight: "96%",
+    textAlign: "center",
+    color: "#FFDFF7",
+    overflow: "visible",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }}
+>
+  {/* Mobile: two lines */}
+  <span className="sm:hidden text-center font-luckiest">
+    Frequently <br />
+    Asked Questions
+  </span>
+
+  {/* Desktop: one line */}
+  <span className="hidden sm:inline whitespace-nowrap font-luckiest">
+    Frequently Asked Questions
+  </span>
+</div>
+</div>
 
       <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 pt-[180px] pb-4 sm:pt-[220px] sm:pb-8 md:pt-[260px] md:pb-12 lg:pt-[300px] lg:pb-16 relative z-10">
         {/* Two Column Layout */}
-        <div className="max-w-full sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] mx-auto flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 justify-center pt-[350px] sm:pt-0">
+        <div className="max-w-full sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] mx-auto flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 justify-center pt-[200px] sm:pt-0
+">
           {/* Left Column */}
           <Accordion
             type="multiple"
@@ -709,7 +710,7 @@ function FaqContent() {
                     <span
                       className="text-white flex-1 pr-2 sm:pr-3"
                       style={{
-                        fontFamily: "var(--font-baloo-chettan)",
+                        fontFamily: "var(--font-rubik)",
                         fontWeight: 400,
                         fontSize: "clamp(12px, 2.2vw, 14px)",
                         lineHeight: "96%",
@@ -736,7 +737,7 @@ function FaqContent() {
                       className="text-white"
                       style={{
                         padding: `0 clamp(12px, 2.5vw, 16px) clamp(10px, 2vw, 12px) clamp(12px, 2.5vw, 16px)`,
-                        fontFamily: "var(--font-outfit)",
+                        fontFamily: "var(--font-rubik)",
                         fontWeight: 400,
                         fontSize: "clamp(11px, 2vw, 13px)",
                         lineHeight: "117%",
@@ -786,7 +787,7 @@ function FaqContent() {
                     <span
                       className="text-white flex-1 pr-2 sm:pr-3"
                       style={{
-                        fontFamily: "var(--font-baloo-chettan)",
+                        fontFamily: "var(--font-rubik)",
                         fontWeight: 400,
                         fontSize: "clamp(12px, 2.2vw, 14px)",
                         lineHeight: "96%",
@@ -813,7 +814,7 @@ function FaqContent() {
                       className="text-white"
                       style={{
                         padding: `0 clamp(12px, 2.5vw, 16px) clamp(10px, 2vw, 12px) clamp(12px, 2.5vw, 16px)`,
-                        fontFamily: "var(--font-outfit)",
+                        fontFamily: "var(--font-rubik)",
                         fontWeight: 400,
                         fontSize: "clamp(11px, 2vw, 13px)",
                         lineHeight: "117%",

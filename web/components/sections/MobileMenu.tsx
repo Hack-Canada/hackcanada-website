@@ -62,11 +62,16 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
           <a href="#team" onClick={onClose}>Team</a>
         </nav>
         <div className="border-t border-white w-32 my-4"></div>
-        <nav className='flex gap-6'>
-          <a href="https://www.instagram.com/hackcanada/"><FontAwesomeIcon icon={faInstagram} className='text-white w-6 h-6' /></a>
-          <a href="linkedinLink"><FontAwesomeIcon icon={faLinkedin} className='text-white w-6 h-6' /></a>
-          <a href="mailto"><FontAwesomeIcon icon={faEnvelope} className='text-white w-6 h-6' /></a>
+
+        <nav className="flex justify-center items-center gap-6 w-full">
+          <a href="https://www.instagram.com/hackcanada/">
+            <FontAwesomeIcon icon={faInstagram} className="text-white w-6 h-6" />
+          </a>
+          <a href="https://www.linkedin.com/company/hack-canada/">
+            <FontAwesomeIcon icon={faLinkedin} className="text-white w-6 h-6" />
+          </a>
         </nav>
+
       </div>
     </div>
   );
