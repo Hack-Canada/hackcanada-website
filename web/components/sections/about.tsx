@@ -14,7 +14,7 @@ export default function About() {
   const [hoveredImage, setHoveredImage] = useState<number | null>(null);
   const [isInSection, setIsInSection] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  
+
   // Smooth interpolation for beaver position - both start at 0 (top)
   const currentBeaverPos = useRef(0);
   const targetBeaverPos = useRef(0);
@@ -29,7 +29,7 @@ export default function About() {
           setIsVisible(true);
         }
       },
-      { threshold: 0.15, rootMargin: "-50px" }
+      { threshold: 0.15, rootMargin: "-50px" },
     );
 
     if (sectionRef.current) {
@@ -52,26 +52,26 @@ export default function About() {
     let rafId: number;
     let isMouseInSection = false;
 
-    const lerp = (start: number, end: number, factor: number) => 
+    const lerp = (start: number, end: number, factor: number) =>
       start + (end - start) * factor;
 
     const animate = () => {
       // Smooth interpolation - higher value = more responsive
       currentX = lerp(currentX, targetX, 0.35);
       currentY = lerp(currentY, targetY, 0.35);
-      
+
       candle.style.transform = `translate3d(${currentX - 20}px, ${currentY - 60}px, 0)`;
       rafId = requestAnimationFrame(animate);
     };
 
     const checkMouseInSection = (e: MouseEvent) => {
       const rect = section.getBoundingClientRect();
-      const isInBounds = 
+      const isInBounds =
         e.clientX >= rect.left &&
         e.clientX <= rect.right &&
         e.clientY >= rect.top &&
         e.clientY <= rect.bottom;
-      
+
       if (isInBounds && !isMouseInSection) {
         isMouseInSection = true;
         setIsInSection(true);
@@ -86,7 +86,7 @@ export default function About() {
       // Calculate position relative to section
       targetX = e.clientX - rect.left;
       targetY = e.clientY - rect.top;
-      
+
       // Check if mouse is still in section bounds
       checkMouseInSection(e);
     };
@@ -114,7 +114,7 @@ export default function About() {
     section.addEventListener("mouseenter", onMouseEnter);
     section.addEventListener("mouseleave", onMouseLeave);
     window.addEventListener("scroll", onScroll, { passive: true });
-    
+
     return () => {
       cancelAnimationFrame(rafId);
       section.removeEventListener("mousemove", onMouseMove);
@@ -138,7 +138,7 @@ export default function About() {
       const diff = targetBeaverPos.current - currentBeaverPos.current;
       currentBeaverPos.current += diff * 0.05;
     }
-    
+
     beaverWrap.style.transform = `translate3d(0, ${currentBeaverPos.current}px, 0)`;
     animationFrameRef.current = requestAnimationFrame(animateBeaver);
   }, []);
@@ -155,9 +155,10 @@ export default function About() {
     const onScroll = () => {
       const rect = section.getBoundingClientRect();
       // Start animation only when section enters viewport
-      const rawProgress = (window.innerHeight - rect.top) / (rect.height + window.innerHeight);
+      const rawProgress =
+        (window.innerHeight - rect.top) / (rect.height + window.innerHeight);
       const progress = clamp(rawProgress, 0, 1);
-      
+
       // Linear progress - no easing so it starts at true 0
       const maxDrop = 740;
       targetBeaverPos.current = progress * maxDrop;
@@ -166,7 +167,7 @@ export default function About() {
     onScroll();
     animationFrameRef.current = requestAnimationFrame(animateBeaver);
     window.addEventListener("scroll", onScroll, { passive: true });
-    
+
     return () => {
       window.removeEventListener("scroll", onScroll);
       if (animationFrameRef.current) {
@@ -183,11 +184,11 @@ export default function About() {
       style={{ backgroundColor: "transparent", cursor: "none" }}
     >
       {/* Dark blue background - starts below the wavy edge */}
-      <div 
+      <div
         className="absolute top-[100px] left-0 right-0 bottom-0 -z-40"
         style={{ backgroundColor: "#0B1030" }}
       />
-      
+
       {/* Background wavy pattern - positioned to show the edge */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -298,11 +299,13 @@ export default function About() {
         {/* Keep About self-contained so images don't overlap next section */}
         <div className="relative lg:min-h-[940px] pt-24 pb-28 flex flex-col gap-10 lg:block">
           {/* Left title + paragraph - with scroll reveal */}
-          <div 
+          <div
             ref={titleRef}
             className={`static mx-auto max-w-[640px] lg:mx-0 lg:absolute lg:left-[120px] lg:top-[80px] xl:left-[160px] xl:top-[120px] transition-all duration-700 ease-out
-              ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            style={{ transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+              ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+            style={{
+              transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+            }}
           >
             <h2 className="text-5xl md:text-6xl font-semibold tracking-tight font-luckiest">
               About Hack Canada
@@ -310,29 +313,38 @@ export default function About() {
 
             <p
               className={`mt-6 max-w-[620px] text-base md:text-lg leading-relaxed text-white/80 transition-all duration-700 ease-out font-rubik
-                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-              style={{ transitionDelay: "150ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+                ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+              style={{
+                transitionDelay: "150ms",
+                transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
             >
-              Join us at Hack Canada this February, where innovators from around
-              the world will come together to create and connect in a dynamic
-              and supportive environment. Experience hands-on workshops, expert
-              mentorship, and exciting activities designed to fuel your
-              creativity and enhance your skills.
+              Hack Canada is built around tackling real Canadian challenges.
+              This year, we're extending that mission beyond the weekend with a
+              30-day building period—giving teams 1 on 1 access to sponsors and
+              funding to transform prototypes into lasting side projects or
+              startups.
             </p>
           </div>
 
           {/* Right paragraph - with staggered scroll reveal */}
-          <div 
+          <div
             ref={rightTextRef}
             className={`static mx-auto max-w-[520px] text-white/80 leading-relaxed lg:mx-0 lg:absolute lg:right-[120px] xl:right-[160px] lg:top-[340px] transition-all duration-700 ease-out
-              ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-            style={{ transitionDelay: "300ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+              ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+            style={{
+              transitionDelay: "300ms",
+              transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+            }}
           >
             <p className="text-base md:text-lg font-rubik">
-              We are a Canadian-focused hackathon, aiming to solve national
-              problems using the amazing hacker minds to help and focus on
-              changing Canada&apos;s future in many ways. Join us in shaping a
-              brighter future for Canada through innovation and collaboration.
+              Expect workshops, mentorship, late night coding sessions, and the
+              kind of energy that turns wild ideas into real products. You'll
+              meet sponsors who aren't just here to watch they want to see you
+              build with their tools and support your project beyond the
+              weekend. VCs will be in the room looking for the next big thing.
+              Whether you're here to learn, ship, or launch something real, it's
+              going to be a blast.
             </p>
           </div>
 
@@ -345,15 +357,18 @@ export default function About() {
           />
 
           {/* ===== Collage with candle cursor effect ===== */}
-          <div 
+          <div
             ref={collageRef}
             className="relative mx-auto flex w-full max-w-[560px] flex-col gap-6 cursor-none z-10 lg:block lg:max-w-none lg:gap-0 lg:absolute lg:left-[20px] lg:top-[320px] lg:w-[750px] lg:h-[620px]"
           >
             {/* TOP IMAGE (rect-403.svg) - top center */}
-            <div 
+            <div
               className={`relative mx-auto w-[320px] h-[250px] rotate-[2deg] z-10 transition-all duration-500 sm:w-[360px] sm:h-[280px] lg:absolute lg:left-[120px] lg:top-[0px]
-                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-              style={{ transitionDelay: "400ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+                ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
+              style={{
+                transitionDelay: "400ms",
+                transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
               onMouseEnter={() => setHoveredImage(0)}
               onMouseLeave={() => setHoveredImage(null)}
             >
@@ -372,19 +387,23 @@ export default function About() {
                 height={165}
                 className="absolute top-[58px] left-[60px] w-[240px] h-[165px]"
                 style={{
-                  filter: hoveredImage === 0 ? 'blur(0px)' : 'blur(2px)',
+                  filter: hoveredImage === 0 ? "blur(0px)" : "blur(2px)",
                   opacity: hoveredImage === 0 ? 1 : 0.6,
-                  transform: hoveredImage === 0 ? 'scale(1.02)' : 'scale(1)',
-                  transition: 'filter 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms cubic-bezier(0.16, 1, 0.3, 1), transform 350ms cubic-bezier(0.16, 1, 0.3, 1)'
+                  transform: hoveredImage === 0 ? "scale(1.02)" : "scale(1)",
+                  transition:
+                    "filter 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms cubic-bezier(0.16, 1, 0.3, 1), transform 350ms cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               />
             </div>
 
             {/* LEFT IMAGE (hackc-1071.svg) - bottom left */}
-            <div 
+            <div
               className={`relative mx-auto w-[320px] h-[250px] rotate-[-5deg] z-20 transition-all duration-500 sm:w-[380px] sm:h-[295px] lg:absolute lg:left-[0px] lg:top-[220px]
-                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-              style={{ transitionDelay: "550ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+                ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
+              style={{
+                transitionDelay: "550ms",
+                transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
               onMouseEnter={() => setHoveredImage(1)}
               onMouseLeave={() => setHoveredImage(null)}
             >
@@ -403,19 +422,23 @@ export default function About() {
                 height={175}
                 className="absolute top-[58px] left-[60px] w-[257px] h-[175px]"
                 style={{
-                  filter: hoveredImage === 1 ? 'blur(0px)' : 'blur(2px)',
+                  filter: hoveredImage === 1 ? "blur(0px)" : "blur(2px)",
                   opacity: hoveredImage === 1 ? 1 : 0.7,
-                  transform: hoveredImage === 1 ? 'scale(1.02)' : 'scale(1)',
-                  transition: 'filter 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms cubic-bezier(0.16, 1, 0.3, 1), transform 350ms cubic-bezier(0.16, 1, 0.3, 1)'
+                  transform: hoveredImage === 1 ? "scale(1.02)" : "scale(1)",
+                  transition:
+                    "filter 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms cubic-bezier(0.16, 1, 0.3, 1), transform 350ms cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               />
             </div>
 
             {/* RIGHT IMAGE (hackc-1078.svg) - bottom right */}
-            <div 
+            <div
               className={`relative mx-auto w-[320px] h-[250px] rotate-[4deg] z-30 transition-all duration-500 sm:w-[360px] sm:h-[280px] lg:absolute lg:left-[340px] lg:top-[280px]
-                ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-              style={{ transitionDelay: "700ms", transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)" }}
+                ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
+              style={{
+                transitionDelay: "700ms",
+                transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+              }}
               onMouseEnter={() => setHoveredImage(2)}
               onMouseLeave={() => setHoveredImage(null)}
             >
@@ -434,14 +457,14 @@ export default function About() {
                 height={165}
                 className="absolute top-[58px] left-[60px] w-[240px] h-[165px]"
                 style={{
-                  filter: hoveredImage === 2 ? 'blur(0px)' : 'blur(2px)',
+                  filter: hoveredImage === 2 ? "blur(0px)" : "blur(2px)",
                   opacity: hoveredImage === 2 ? 1 : 0.7,
-                  transform: hoveredImage === 2 ? 'scale(1.02)' : 'scale(1)',
-                  transition: 'filter 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms cubic-bezier(0.16, 1, 0.3, 1), transform 350ms cubic-bezier(0.16, 1, 0.3, 1)'
+                  transform: hoveredImage === 2 ? "scale(1.02)" : "scale(1)",
+                  transition:
+                    "filter 350ms cubic-bezier(0.16, 1, 0.3, 1), opacity 350ms cubic-bezier(0.16, 1, 0.3, 1), transform 350ms cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
               />
             </div>
-
           </div>
 
           {/* Candle cursor - smooth following with GPU acceleration - for entire section */}
@@ -451,12 +474,12 @@ export default function About() {
             src="/group-66.svg"
             alt="candle cursor"
             className="pointer-events-none absolute w-20 h-auto z-[9999]"
-            style={{ 
-              left: 0, 
+            style={{
+              left: 0,
               top: 0,
               opacity: isInSection ? 1 : 0,
-              transition: 'opacity 300ms cubic-bezier(0.16, 1, 0.3, 1)',
-              willChange: 'transform, opacity'
+              transition: "opacity 300ms cubic-bezier(0.16, 1, 0.3, 1)",
+              willChange: "transform, opacity",
             }}
           />
         </div>
