@@ -52,9 +52,7 @@ export default function Hero() {
         {/* Background layer - slower parallax */}
         <div 
           className="absolute inset-0 z-0"
-          style={{
-            transform: `translateY(${-100 + scrollY * 0.1}px)`,
-          }}
+        
         >
           <Image 
             ref={backgroundImgRef}
@@ -73,7 +71,7 @@ export default function Hero() {
       <div 
         className="absolute inset-0 z-10 pointer-events-none"
         style={{
-          transform: `translateY(${380 + scrollY * 0.001}px)`,
+          transform: `translateY(${250 + scrollY * 0.001}px)`,
           overflow: 'visible'
         }}
       >

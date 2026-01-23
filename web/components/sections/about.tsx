@@ -295,7 +295,7 @@ export default function About() {
         className="pointer-events-none absolute right-[165px] top-[700px] w-8 opacity-35"
       />
 
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 2xl:mt-20">
         {/* Keep About self-contained so images don't overlap next section */}
         <div className="relative lg:min-h-[940px] pt-24 pb-28 flex flex-col gap-10 lg:block">
           {/* Left title + paragraph - with scroll reveal */}
