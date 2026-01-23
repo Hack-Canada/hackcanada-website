@@ -19,8 +19,8 @@ export default function Footer() {
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-4">
               {/* <img src="beaver-footer.png" alt="beaver logo" className="h-12 mr-2" /> */}
-              <div className="flex flex-col text-neutral-300">
-                <h1 className="text-3xl font-bold sm:text-4xl">Hack Canada</h1>
+              <div className="flex flex-col text-neutral-300 font-rubik">
+                <h1 className="text-3xl font-bold sm:text-4xl font-luckiest">Hack Canada</h1>
                 <p>Powered by CUTC</p>
               </div>
             </div>
@@ -28,7 +28,7 @@ export default function Footer() {
               &copy; {new Date().getFullYear()} HackCanada. All rights reserved.
             </p>
           </div>
-          <div className="flex flex-col gap-4 text-neutral-300 md:items-end">
+          <div className="flex flex-col gap-4 text-neutral-300 md:items-end font-rubik">
             <div className="flex flex-col gap-2 sm:flex-row md:justify-end">
               <a
                 href=""
@@ -64,11 +64,7 @@ export default function Footer() {
               </a>
             </div>
             <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center md:justify-end">
-              <img
-                src="/navbar/hackcanadaLogo.png"
-                alt="Hack Canada Logo"
-                className="h-18 rounded-full p-4"
-              />
+              
               <p>A Hackathons Canada/CUTC/GDG Laurier Initiative</p>
             </div>
           </div>
