@@ -69,7 +69,7 @@ export default function Navbar() {
           <nav className='flex gap-6'>
             {/* social links */}
             <a href="https://www.instagram.com/hackcanada/"><FontAwesomeIcon icon={faInstagram} className='text-black' style={{ fontSize: 'clamp(20px, 2vw, 32px)' }}/></a>
-            <a href="linkedinLink"><FontAwesomeIcon icon={faLinkedin} className='text-black' style={{ fontSize: 'clamp(20px, 2vw, 32px)' }}/></a>
+            <a href="https://www.linkedin.com/company/hack-canada/"><FontAwesomeIcon icon={faLinkedin} className='text-black' style={{ fontSize: 'clamp(20px, 2vw, 32px)' }}/></a>
           </nav>
         </div>
         
