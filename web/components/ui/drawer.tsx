@@ -28,7 +28,11 @@ const DrawerOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Overlay
     ref={ref}
-    className={cn("fixed inset-0 z-50 bg-black/80", className)}
+    className={cn(
+      "fixed inset-0 z-50 backdrop-blur-sm",
+      "bg-black/40 dark:bg-black/60",
+      className
+    )}
     {...props}
   />
 ))
@@ -43,35 +47,44 @@ const DrawerContent = React.forwardRef<
     <DrawerPrimitive.Content
       ref={ref}
       className={cn(
-        "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background",
+        "fixed inset-x-0 bottom-0 z-50",
+        "max-h-[85vh] sm:max-h-[90vh]",
+        "pb-[calc(env(safe-area-inset-bottom)+1rem)]",
+        "flex flex-col",
+        "rounded-t-2xl border border-border",
+        "shadow-lg focus:outline-none",
+        // Light mode
+        "bg-white text-gray-900",
+        // Dark mode
+        "dark:bg-card dark:text-card-foreground dark:border-border",
         className
       )}
       {...props}
     >
-      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
-      {children}
+      {/* grab handle */}
+      <div className="mx-auto mt-3 h-1.5 w-16 rounded-full bg-gray-300 dark:bg-muted" />
+
+      {/* content wrapper: padding + scrolling */}
+      <div className="flex-1 overflow-y-auto px-4 pb-4 pt-3 sm:px-6">
+        {children}
+      </div>
     </DrawerPrimitive.Content>
   </DrawerPortal>
 ))
 DrawerContent.displayName = "DrawerContent"
 
-const DrawerHeader = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
+
+const DrawerHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn("grid gap-1.5 p-4 text-center sm:text-left", className)}
+    className={cn("grid gap-1.5 px-4 pt-2 text-center sm:text-left sm:px-6", className)}
     {...props}
   />
 )
 DrawerHeader.displayName = "DrawerHeader"
 
-const DrawerFooter = ({
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => (
+const DrawerFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn("mt-auto flex flex-col gap-2 p-4", className)}
+    className={cn("mt-auto flex flex-col gap-2 px-4 pb-4 sm:px-6", className)}
     {...props}
   />
 )
