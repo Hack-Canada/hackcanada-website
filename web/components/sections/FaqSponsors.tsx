@@ -29,7 +29,7 @@ interface SponsorBlock {
 const sponsorHighlights: SponsorHighlight[] = [
   {
     name: "Google",
-    logo: "/sponsors/GoogleLogo.webp",
+    logo: "/sponsors/google.svg",
     description:
       "A problem isn't truly solved until it's solved for all. Googlers build products that help create opportunities for everyone, whether down the street or across the globe. Bring your insight, imagination and a healthy disregard for the impossible. Bring everything that makes you unique. Together, we can build for everyone.",
     link: "https://www.google.com/about/careers/applications/",
@@ -48,11 +48,11 @@ const sponsorHighlights: SponsorHighlight[] = [
 // Sponsor blocks for the grid
 const goldBlock: SponsorBlock[] = [{
   name: "Google",
-  logo: "/sponsors/avalanche.png",
-}];
+  logo: "/sponsors/google.svg", link: "https://www.google.com/about/careers/applications/"
+}, { name: "SPUR Innovation Center", logo: "/sponsors/spur.png", link: "https://spuric.com/" }];
 const silverBlocks: SponsorBlock[] = [
-  { name: "Microsoft", logo: "/sponsors/microsoft.png" },
-  { name: "Microsoft", logo: "/sponsors/microsoft.png" },
+  { name: "Elegoo", logo: "/sponsors/elegooLogo.webp", link: "https://www.elegoo.com/" },
+  { name: "Backboard", logo: "/sponsors/Backboard.svg", link: "https://www.backboard.io/" },
 ];
 const bronzeBlocks: SponsorBlock[] = [
   { name: "NordVPN", logo: "/sponsors/nordvpn.png" },
@@ -349,9 +349,9 @@ function SponsorsContent() {
               href={sponsor.link || "#"}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative flex items-center justify-center w-full max-w-[954px]"
+              className="relative flex items-center justify-center my-5 w-full max-w-[954px]"
               style={{
-                height: "clamp(120px, 18vw, 200px)",
+                height: "clamp(120px, 19vw, 230px)",
               }}
             >
               <div
@@ -370,7 +370,7 @@ function SponsorsContent() {
                       alt={sponsor.name}
                       width={561}
                       height={294}
-                      className="object-contain"
+                      className="object-contain my-2"
                       style={{
                         width: "clamp(320px, 50vw, 560px)",
                         height: "auto",
@@ -393,7 +393,7 @@ function SponsorsContent() {
                 href={sponsor.link || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative flex items-center justify-center w-full"
+                className="relative flex items-center justify-center w-full py-2"
                 style={{
                   height: "clamp(100px, 14vw, 175px)",
                 }}
