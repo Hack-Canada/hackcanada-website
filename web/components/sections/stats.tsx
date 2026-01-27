@@ -96,7 +96,7 @@ export default function Stats() {
                     </filter>
                   </defs>
                   <text 
-                    className="font-bold"
+                    className=""
                     style={{ 
                       fontFamily: 'var(--font-luckiest-guy), system-ui, sans-serif',
                       fill: '#d8b4fe',

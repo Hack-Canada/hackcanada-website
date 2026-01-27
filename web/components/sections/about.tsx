@@ -307,7 +307,7 @@ export default function About() {
               transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
             }}
           >
-            <h2 className="text-5xl md:text-6xl font-semibold tracking-tight font-luckiest">
+            <h2 className="text-5xl md:text-6xl font-tight font-luckiest">
               About Hack Canada
             </h2>
 

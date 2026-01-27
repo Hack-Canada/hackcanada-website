@@ -8,7 +8,7 @@ import Hero from "@/components/sections/hero";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       <main className="flex-1">
         <Navbar />
         <Hero />
