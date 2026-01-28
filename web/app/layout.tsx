@@ -114,6 +114,19 @@ export default function RootLayout({
           ></img>
         </a> */}
         {children}
+        <Script
+          async
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-0EB9C7F9C0"
+        />
+        <Script strategy="afterInteractive" id="gtag-script">
+          {`
+          window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0EB9C7F9C0');`}
+        </Script>
         <Script strategy="afterInteractive" id="clarity-script">
           {`
           (function(c,l,a,r,i,t,y){
