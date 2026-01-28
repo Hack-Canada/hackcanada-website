@@ -105,10 +105,12 @@ export async function POST(request: NextRequest) {
 
     let insertedData;
     let scoreNotUpdated = false;
+    let existingHighScore: number | undefined = undefined;
     
     if (existingScores && existingScores.length > 0) {
       // User already has a score - only update if new score is higher
       const existingScore = existingScores[0].score;
+      existingHighScore = existingScore;
       
       if (finalScore > existingScore) {
         // Update existing entry with new higher score
@@ -205,7 +207,7 @@ export async function POST(request: NextRequest) {
       rank: rank > 0 ? rank : (allScores?.length || 0),
       leaderboard,
       scoreNotUpdated: scoreNotUpdated, // Indicates if score wasn't updated because it's lower
-      existingScore: scoreNotUpdated ? existingScores[0].score : undefined,
+      existingScore: existingHighScore, // The existing high score (only set if scoreNotUpdated is true)
     });
   } catch (error) {
     console.error('Unexpected error submitting score:', error);
