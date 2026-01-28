@@ -47,8 +47,8 @@ export default function Stats() {
   }, []);
 
   return (
-    <section id="stats" className="w-full relative overflow-hidden">
-      <div className="relative w-full h-screen bg-gradient-to-b from-[#17153D] via-[#4C40B3] to-[#5346C5]">
+    <section id="stats" className="w-full relative h-full overflow-hidden">
+      <div className="relative w-full h-[120vh] bg-gradient-to-b from-[#17153D] via-[#4C40B3] to-[#5346C5]">
         {/* Stars background */}
         <div className="absolute inset-0 overflow-hidden z-0">
           {stars.map((star, i) => (

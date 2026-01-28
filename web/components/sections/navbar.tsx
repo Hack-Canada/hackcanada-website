@@ -61,7 +61,8 @@ export default function Navbar() {
           <nav className="flex gap-8 text-lg xl:text-2xl font-bold font-rubik">
             {/* page link */}
             <a href="#about">About</a>
-            <a href="#stats">Stats</a>
+            {/* TODO: Change this to 2025.hackcanada.org */}
+            <a href="#stats">2025</a>
             <a href="#sponsors">Sponsors</a>
             <a href="#faq">FAQ</a>
             <a href="#team">Team</a>

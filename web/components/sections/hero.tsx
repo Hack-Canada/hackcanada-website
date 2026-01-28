@@ -90,7 +90,7 @@ export default function Hero() {
           transform: `translateY(${scrollY * 0.002}px)`,
         }}
       >
-        <h1 className='text-6xl lg:text-8xl font-bold text-[#441E0A] font-luckiest'>Hack Canada</h1>
+        <h1 className='text-6xl lg:text-8xl text-[#441E0A] font-luckiest'>Hack Canada</h1>
         <p className='text-[#441E0A] text lg:text-2xl mt-2 lg:mt-0 font-rubik'>March 6-8, 2025 | In-Person Event</p>
         <div className='mt-4 lg:mt-6 flex flex-col items-center'>
           <div className='bg-[#441E0A] text-white px-8 lg:px-10 py-2 lg:py-3 rounded-t-lg lg:rounded-lg hover:bg-[#5C2E0F] transition'>
