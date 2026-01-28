@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
-import {
-  Baloo_Chettan_2,
-  Lato,
-  Outfit,
-} from "next/font/google";
+import { Baloo_Chettan_2, Lato, Outfit } from "next/font/google";
 import { Geist, Geist_Mono, Luckiest_Guy, Rubik } from "next/font/google";
 import "./globals.css";
 import AbstractBackground from "../components/effects/AbstractBackground";
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -72,11 +69,13 @@ export const metadata: Metadata = {
     images: ["/navbar/hackcanadaLogo.png"],
   },
   icons: {
-    icon: [
-      { url: "/navbar/hackcanadaLogo.png", type: "image/png" },
-    ],
+    icon: [{ url: "/navbar/hackcanadaLogo.png", type: "image/png" }],
     apple: [
-      { url: "/navbar/hackcanadaLogo.png", sizes: "180x180", type: "image/png" },
+      {
+        url: "/navbar/hackcanadaLogo.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
     ],
     shortcut: "/navbar/hackcanadaLogo.png",
   },
@@ -115,6 +114,15 @@ export default function RootLayout({
           ></img>
         </a> */}
         {children}
+        <Script strategy="afterInteractive" id="clarity-script">
+          {`
+          (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "v8lm62mhkr");
+        `}
+        </Script>
       </body>
     </html>
   );
