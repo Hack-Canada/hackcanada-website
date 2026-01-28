@@ -37,7 +37,7 @@ const sponsorHighlights: SponsorHighlight[] = [
   },
   {
     name: "SPUR Innovation Center",
-    logo: "/sponsors/spur.png",
+    logo: "/sponsors/Spur.png",
     description:
       "SPUR Innovation/Ventures is building the largest venture studio in Canada, backed by the data and compute infrastructure of the SPUR ecosystem.",
     link: "https://spuric.com/",
@@ -46,13 +46,29 @@ const sponsorHighlights: SponsorHighlight[] = [
 ];
 
 // Sponsor blocks for the grid
-const goldBlock: SponsorBlock[] = [{
-  name: "Google",
-  logo: "/sponsors/google.svg", link: "https://www.google.com/about/careers/applications/"
-}, { name: "SPUR Innovation Center", logo: "/sponsors/spur.png", link: "https://spuric.com/" }];
+const goldBlock: SponsorBlock[] = [
+  {
+    name: "Google",
+    logo: "/sponsors/google.svg",
+    link: "https://www.google.com/about/careers/applications/",
+  },
+  {
+    name: "SPUR Innovation Center",
+    logo: "/sponsors/Spur.png",
+    link: "https://spuric.com/",
+  },
+];
 const silverBlocks: SponsorBlock[] = [
-  { name: "Elegoo", logo: "/sponsors/elegooLogo.webp", link: "https://www.elegoo.com/" },
-  { name: "Backboard", logo: "/sponsors/Backboard.svg", link: "https://www.backboard.io/" },
+  {
+    name: "Elegoo",
+    logo: "/sponsors/elegooLogo.webp",
+    link: "https://www.elegoo.com/",
+  },
+  {
+    name: "Backboard",
+    logo: "/sponsors/backboard.svg",
+    link: "https://www.backboard.io/",
+  },
 ];
 const bronzeBlocks: SponsorBlock[] = [
   { name: "NordVPN", logo: "/sponsors/nordvpn.png" },
@@ -314,8 +330,8 @@ function SponsorsContent() {
                   currentHighlight === 0
                     ? sponsorHighlights.length - 1
                     : currentHighlight === infiniteSlides.length - 1
-                      ? 0
-                      : currentHighlight - 1;
+                    ? 0
+                    : currentHighlight - 1;
                 return (
                   <button
                     key={index}
@@ -343,46 +359,49 @@ function SponsorsContent() {
         <div className="max-w-6xl mx-auto px-4">
           {/* Gold - Large Single Block */}
           <div>
-          {goldBlock.map((sponsor, index) => (
-          <div key = {index} className="flex justify-center mb-4 sm:mb-5 md:mb-6">
-            <a
-              href={sponsor.link || "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative flex items-center justify-center my-5 w-full max-w-[954px]"
-              style={{
-                height: "clamp(120px, 19vw, 230px)",
-              }}
-            >
+            {goldBlock.map((sponsor, index) => (
               <div
-                className="w-full h-full flex items-center justify-center transition-all duration-300 hover:scale-105"
-                style={{
-                  background: "#FFFFFF",
-                  borderRadius: "clamp(12px, 2vw, 20px)",
-                  transform: "rotate(-179.87deg)",
-                  transformStyle: "preserve-3d",
-                }}
+                key={index}
+                className="flex justify-center mb-4 sm:mb-5 md:mb-6"
               >
-                {sponsor.logo && (
-                  <div style={{ transform: "rotate(179.87deg)" }}>
-                    <Image
-                      src={sponsor.logo}
-                      alt={sponsor.name}
-                      width={561}
-                      height={294}
-                      className="object-contain my-2"
-                      style={{
-                        width: "clamp(320px, 50vw, 560px)",
-                        height: "auto",
-                        maxWidth: "100%",
-                      }}
-                    />
+                <a
+                  href={sponsor.link || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative flex items-center justify-center my-5 w-full max-w-[954px]"
+                  style={{
+                    height: "clamp(120px, 19vw, 230px)",
+                  }}
+                >
+                  <div
+                    className="w-full h-full flex items-center justify-center transition-all duration-300 hover:scale-105"
+                    style={{
+                      background: "#FFFFFF",
+                      borderRadius: "clamp(12px, 2vw, 20px)",
+                      transform: "rotate(-179.87deg)",
+                      transformStyle: "preserve-3d",
+                    }}
+                  >
+                    {sponsor.logo && (
+                      <div style={{ transform: "rotate(179.87deg)" }}>
+                        <Image
+                          src={sponsor.logo}
+                          alt={sponsor.name}
+                          width={561}
+                          height={294}
+                          className="object-contain my-2"
+                          style={{
+                            width: "clamp(320px, 50vw, 560px)",
+                            height: "auto",
+                            maxWidth: "100%",
+                          }}
+                        />
+                      </div>
+                    )}
                   </div>
-                )}
+                </a>
               </div>
-            </a>
-          </div>
-          ))}
+            ))}
           </div>
 
           {/* Silver - Two Blocks Side by Side */}
@@ -637,41 +656,43 @@ function FaqContent() {
         </div>
 
         {/* Frequently Asked Questions */}
-<div
-  className="font-luckiest"
-  style={{
-    transform: "rotate(-9.46deg)",
-    width: "clamp(280px, 90vw, 643px)",
-    height: "auto",
-    fontStyle: "normal",
-    fontWeight: 400,
-    fontSize: "clamp(32px, 5.5vw, 50px)",
-    lineHeight: "96%",
-    textAlign: "center",
-    color: "#FFDFF7",
-    overflow: "visible",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  }}
->
-  {/* Mobile: two lines */}
-  <span className="sm:hidden text-center font-luckiest">
-    Frequently <br />
-    Asked Questions
-  </span>
+        <div
+          className="font-luckiest"
+          style={{
+            transform: "rotate(-9.46deg)",
+            width: "clamp(280px, 90vw, 643px)",
+            height: "auto",
+            fontStyle: "normal",
+            fontWeight: 400,
+            fontSize: "clamp(32px, 5.5vw, 50px)",
+            lineHeight: "96%",
+            textAlign: "center",
+            color: "#FFDFF7",
+            overflow: "visible",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {/* Mobile: two lines */}
+          <span className="sm:hidden text-center font-luckiest">
+            Frequently <br />
+            Asked Questions
+          </span>
 
-  {/* Desktop: one line */}
-  <span className="hidden sm:inline whitespace-nowrap font-luckiest">
-    Frequently Asked Questions
-  </span>
-</div>
-</div>
+          {/* Desktop: one line */}
+          <span className="hidden sm:inline whitespace-nowrap font-luckiest">
+            Frequently Asked Questions
+          </span>
+        </div>
+      </div>
 
       <div className="container mx-auto px-3 pb-12 sm:px-4 md:px-6 lg:px-8 pt-[180px] sm:pt-[220px] sm:pb-8 md:pt-[260px] lg:pt-[300px] lg:pb-16 relative z-10">
         {/* Two Column Layout */}
-        <div className="max-w-full sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] mx-auto flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 justify-center pt-40 sm:pt-0
-">
+        <div
+          className="max-w-full sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] mx-auto flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 justify-center pt-40 sm:pt-0
+"
+        >
           {/* Left Column */}
           <Accordion
             type="multiple"
@@ -694,7 +715,7 @@ function FaqContent() {
                       "relative w-full transition-all duration-300",
                       "hover:no-underline",
                       "[&>svg]:hidden",
-                      "flex items-start justify-between",
+                      "flex items-start justify-between"
                     )}
                     style={{
                       padding:
@@ -771,7 +792,7 @@ function FaqContent() {
                       "relative w-full transition-all duration-300",
                       "hover:no-underline",
                       "[&>svg]:hidden",
-                      "flex items-start justify-between",
+                      "flex items-start justify-between"
                     )}
                     style={{
                       padding:
