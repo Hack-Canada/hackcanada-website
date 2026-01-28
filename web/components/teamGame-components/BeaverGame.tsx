@@ -5,6 +5,8 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { teamMembers, TeamMember } from '@/lib/teamGameData';
 import Beaver from './Beaver';
 import Obstacle from './Obstacle';
+import Leaderboard from './Leaderboard';
+import { ToastContainer } from '@/components/ui/Toast';
 import { faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -138,6 +140,11 @@ export default function BeaverGame() {
 
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
   const [hoveredMember, setHoveredMember] = useState<string | null>(null);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [toasts, setToasts] = useState<Array<{ id: string; message: string; type?: 'success' | 'error' | 'info' }>>([]);
+  const [showUsernamePrompt, setShowUsernamePrompt] = useState(false);
+  const [pendingScore, setPendingScore] = useState<number | null>(null);
+  const [username, setUsername] = useState<string | null>(null);
 
   const beaverRef = useRef<HTMLDivElement | null>(null);
   const laneRef = useRef<HTMLDivElement | null>(null);
@@ -150,6 +157,7 @@ export default function BeaverGame() {
 
   const scoreAccRef = useRef(0);
   const speedScaleRef = useRef(1);
+  const currentScoreRef = useRef(0);
 
   const yRef = useRef(0);
   const vyRef = useRef(0);
@@ -199,10 +207,10 @@ export default function BeaverGame() {
   }, []);
 
   useEffect(() => {
-    const savedHighScore = localStorage.getItem('highScore');
-    const savedMetMembers = localStorage.getItem('metMembers');
-    if (savedHighScore) setGameState(prev => ({ ...prev, highScore: parseInt(savedHighScore) }));
-    if (savedMetMembers) setMetMembers(JSON.parse(savedMetMembers));
+    const savedUsername = localStorage.getItem('gameUsername');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
   }, []);
 
   useEffect(() => {
@@ -223,6 +231,11 @@ export default function BeaverGame() {
     isPlayingRef.current = gameState.isPlaying;
   }, [gameState.isPlaying]);
 
+  // Keep score ref in sync with state
+  useEffect(() => {
+    currentScoreRef.current = gameState.score;
+  }, [gameState.score]);
+
   const markMet = useCallback((memberId: string) => {
     setMetMembers(prev => {
       if (prev.includes(memberId)) return prev;
@@ -232,18 +245,85 @@ export default function BeaverGame() {
     });
   }, []);
 
+  const addToast = useCallback((message: string, type: 'success' | 'error' | 'info' = 'success') => {
+    const id = Date.now().toString();
+    setToasts(prev => [...prev, { id, message, type }]);
+  }, []);
+
+  const removeToast = useCallback((id: string) => {
+    setToasts(prev => prev.filter(toast => toast.id !== id));
+  }, []);
+
+  const submitScore = useCallback(async (username: string, score: number) => {
+    console.log('submitScore called with:', { username, score });
+    try {
+      const response = await fetch('/api/leaderboard', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          score: score,
+        }),
+      });
+
+      if (!response.ok) {
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to submit score');
+        }
+        throw new Error('Failed to submit score');
+      }
+
+      const data = await response.json();
+      
+      // Check if score wasn't updated because it's lower than existing
+      if (data.scoreNotUpdated) {
+        addToast(`💪 Your best score is ${data.existingScore}. Try again to beat it!`, 'info');
+      } else {
+        // Show success toast
+        if (data.rank && data.rank <= 10) {
+          addToast(`🎉 New High Score! You're ranked #${data.rank}!`, 'success');
+        } else {
+          addToast('Score submitted successfully!', 'success');
+        }
+      }
+      
+      return data;
+    } catch (error) {
+      console.error('Error submitting score:', error);
+      addToast(error instanceof Error ? error.message : 'Failed to submit score', 'error');
+      throw error;
+    }
+  }, [addToast]);
+
   const endGame = useCallback(
-    (member: TeamMember) => {
+    async (member: TeamMember) => {
       if (!isPlayingRef.current) return;
 
       isPlayingRef.current = false;
       markMet(member.id);
+
+      // Check if this is a new high score before updating state
+      // Use ref to get the most current score value
+      const currentScore = currentScoreRef.current || gameState.score;
+      const currentHighScore = gameState.highScore;
+      const isNewHighScore = currentScore > currentHighScore;
 
       setGameState(prev => {
         const newHighScore = Math.max(prev.score, prev.highScore);
         localStorage.setItem('highScore', newHighScore.toString());
         return { ...prev, isPlaying: false, isGameOver: true, highScore: newHighScore };
       });
+
+      // Show toast if new high score achieved
+      if (isNewHighScore) {
+        setTimeout(() => {
+          addToast(`🏆 New Personal Best: ${currentScore} points!`, 'success');
+        }, 500);
+      }
 
       setHitMember(member);
 
@@ -255,8 +335,28 @@ export default function BeaverGame() {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
       lastTimeRef.current = null;
+
+      // Check if username exists, if not prompt for it
+      const savedUsername = localStorage.getItem('gameUsername');
+      console.log('Game ended. Score from ref:', currentScoreRef.current, 'Score from state:', gameState.score, 'Using:', currentScore, 'Username:', savedUsername);
+      if (savedUsername && savedUsername.trim()) {
+        // Username exists, automatically submit score
+        try {
+          console.log('Submitting score:', currentScore, 'for user:', savedUsername.trim());
+          await submitScore(savedUsername.trim(), currentScore);
+          setShowLeaderboard(true);
+        } catch (error) {
+          console.error('Auto-submit failed:', error);
+          setShowLeaderboard(true);
+        }
+      } else {
+        // New user - prompt for username
+        console.log('New user, prompting for username. Score:', currentScore);
+        setPendingScore(currentScore);
+        setShowUsernamePrompt(true);
+      }
     },
-    [markMet]
+    [markMet, submitScore, addToast]
   );
 
   const boxesOverlap = (a: DOMRect, b: DOMRect) =>
@@ -317,6 +417,7 @@ export default function BeaverGame() {
 
         setGameState(prev => {
           const nextScore = prev.score + steps;
+          currentScoreRef.current = nextScore; // Keep ref in sync
           const nextSpeed = Math.min(18, 6 + Math.floor(nextScore / 140));
           speedScaleRef.current = 1 + (nextSpeed - 6) * 0.06;
           return { ...prev, score: nextScore, speed: nextSpeed };
@@ -425,11 +526,16 @@ export default function BeaverGame() {
 
   useEffect(() => {
     const onEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedMember(null);
+      if (e.key === 'Escape') {
+        // Don't close username prompt - username is required
+        if (showUsernamePrompt) return;
+        setSelectedMember(null);
+        setShowLeaderboard(false);
+      }
     };
     window.addEventListener('keydown', onEsc);
     return () => window.removeEventListener('keydown', onEsc);
-  }, []);
+  }, [showUsernamePrompt]);
 
   const startGame = useCallback(() => {
     if (!laneWidth) return;
@@ -442,6 +548,7 @@ export default function BeaverGame() {
     setSelectedMember(null);
 
     isPlayingRef.current = true;
+    currentScoreRef.current = 0; // Reset score ref
 
     setGameState(prev => ({
       ...prev,
@@ -662,9 +769,17 @@ export default function BeaverGame() {
               )}
             </div>
 
-            <div className="shrink-0 text-white font-mono text-lg sm:text-2xl whitespace-nowrap">
-              <span className="opacity-80 mr-4">HI {displayHigh}</span>
-              <span className="tracking-wider">{displayScore}</span>
+            <div className="flex items-center gap-4">
+              <div className="shrink-0 text-white font-mono text-lg sm:text-2xl whitespace-nowrap">
+                <span className="opacity-80 mr-4">HI {displayHigh}</span>
+                <span className="tracking-wider">{displayScore}</span>
+              </div>
+              <button
+                onClick={() => setShowLeaderboard(true)}
+                className="shrink-0 px-3 py-1.5 sm:px-4 sm:py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg text-sm sm:text-base font-semibold transition-colors backdrop-blur-sm"
+              >
+                🏆 Leaderboard
+              </button>
             </div>
           </div>
         </div>
@@ -775,6 +890,121 @@ export default function BeaverGame() {
           />
         </div>
       </div>
+
+      {/* Username Prompt Modal */}
+      {showUsernamePrompt && (
+        <div
+          className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/60 px-4 animate-in fade-in duration-200"
+          onClick={(e) => {
+            // Don't close on backdrop click - username is required
+            e.stopPropagation();
+          }}
+        >
+          <div
+            className="w-full max-w-[400px] rounded-2xl bg-white text-black shadow-2xl p-6 sm:p-8 animate-in slide-in-from-bottom-4 duration-300"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 className="text-2xl sm:text-3xl font-bold mb-4">Enter Your Username</h2>
+            <p className="text-sm text-gray-600 mb-4">
+              Your score: <span className="font-bold text-lg">{pendingScore}</span>
+            </p>
+            <p className="text-sm text-gray-700 mb-4">
+              Enter a username to submit your score to the leaderboard.
+            </p>
+            <input
+              type="text"
+              id="username-input"
+              placeholder="Your username"
+              maxLength={20}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500 text-base"
+              onKeyDown={async (e) => {
+                if (e.key === 'Enter') {
+                  const input = e.currentTarget;
+                  const username = input.value.trim();
+                  if (username.length === 0) return;
+                  
+                  // Sanitize username
+                  const sanitized = username.slice(0, 20).replace(/[^a-zA-Z0-9\s\-_]/g, '');
+                  if (sanitized.length === 0) {
+                    addToast('Invalid username format', 'error');
+                    return;
+                  }
+                  
+                  // Save username
+                  localStorage.setItem('gameUsername', sanitized);
+                  setUsername(sanitized);
+                  
+                  // Submit score
+                  try {
+                    await submitScore(sanitized, pendingScore || 0);
+                    setShowUsernamePrompt(false);
+                    setPendingScore(null);
+                    setShowLeaderboard(true);
+                  } catch (error) {
+                    console.error('Failed to submit score:', error);
+                    // Still close prompt and show leaderboard
+                    setShowUsernamePrompt(false);
+                    setPendingScore(null);
+                    setShowLeaderboard(true);
+                  }
+                }
+              }}
+              autoFocus
+            />
+            <div className="flex gap-2">
+              <button
+                onClick={async () => {
+                  const input = document.getElementById('username-input') as HTMLInputElement;
+                  const username = input?.value.trim() || '';
+                  if (username.length === 0) {
+                    addToast('Please enter a username', 'error');
+                    return;
+                  }
+                  
+                  // Sanitize username
+                  const sanitized = username.slice(0, 20).replace(/[^a-zA-Z0-9\s\-_]/g, '');
+                  if (sanitized.length === 0) {
+                    addToast('Invalid username format', 'error');
+                    return;
+                  }
+                  
+                  // Save username
+                  localStorage.setItem('gameUsername', sanitized);
+                  setUsername(sanitized);
+                  
+                  // Submit score
+                  try {
+                    await submitScore(sanitized, pendingScore || 0);
+                    setShowUsernamePrompt(false);
+                    setPendingScore(null);
+                    setShowLeaderboard(true);
+                  } catch (error) {
+                    console.error('Failed to submit score:', error);
+                    // Still close prompt and show leaderboard
+                    setShowUsernamePrompt(false);
+                    setPendingScore(null);
+                    setShowLeaderboard(true);
+                  }
+                }}
+                className="flex-1 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+              >
+                Submit Score
+              </button>
+            </div>
+            <p className="text-xs text-gray-500 mt-4 text-center">
+              This username will be saved for future games
+            </p>
+          </div>
+        </div>
+      )}
+
+      <Leaderboard
+        isOpen={showLeaderboard}
+        onClose={() => setShowLeaderboard(false)}
+        username={username}
+      />
+
+      <ToastContainer toasts={toasts} onRemove={removeToast} />
     </div>
   );
 }
