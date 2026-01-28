@@ -28,39 +28,31 @@ interface SponsorBlock {
 // Sponsor highlights for the carousel
 const sponsorHighlights: SponsorHighlight[] = [
   {
-    name: "Meta",
-    logo: "/sponsors/meta.png",
+    name: "Google",
+    logo: "/sponsors/google.svg",
     description:
-      "Meta's mission is to give people the power to build community and bring the world closer together. Through our family of apps and services, we're building a different kind of company that connects billions of people around the world, gives them ways to share what matters most to them, and helps bring people closer together. Whether we're creating new products or helping a small business expand its reach, people at Meta are builders at heart. Our global teams are constantly iterating, solving problems, and working together to empower people around the world to build community and connect in meaningful ways. Together, we can help people build stronger communities — we're just getting started.",
-    link: "https://www.meta.com/careers",
-    linkText: "Explore careers at Meta →",
+      "A problem isn't truly solved until it's solved for all. Googlers build products that help create opportunities for everyone, whether down the street or across the globe. Bring your insight, imagination and a healthy disregard for the impossible. Bring everything that makes you unique. Together, we can build for everyone.",
+    link: "https://www.google.com/about/careers/applications/",
+    linkText: "Website →",
   },
   {
-    name: "Meta",
-    logo: "/sponsors/meta.png",
+    name: "SPUR Innovation Center",
+    logo: "/sponsors/spur.png",
     description:
-      "Meta's mission is to give people the power to build community and bring the world closer together. Through our family of apps and services, we're building a different kind of company that connects billions of people around the world, gives them ways to share what matters most to them, and helps bring people closer together. Whether we're creating new products or helping a small business expand its reach, people at Meta are builders at heart. Our global teams are constantly iterating, solving problems, and working together to empower people around the world to build community and connect in meaningful ways. Together, we can help people build stronger communities — we're just getting started.",
-    link: "https://www.meta.com/careers",
-    linkText: "Explore careers at Meta →",
-  },
-  {
-    name: "Meta",
-    logo: "/sponsors/meta.png",
-    description:
-      "Meta's mission is to give people the power to build community and bring the world closer together. Through our family of apps and services, we're building a different kind of company that connects billions of people around the world, gives them ways to share what matters most to them, and helps bring people closer together. Whether we're creating new products or helping a small business expand its reach, people at Meta are builders at heart. Our global teams are constantly iterating, solving problems, and working together to empower people around the world to build community and connect in meaningful ways. Together, we can help people build stronger communities — we're just getting started.",
-    link: "https://www.meta.com/careers",
-    linkText: "Explore careers at Meta →",
+      "SPUR Innovation/Ventures is building the largest venture studio in Canada, backed by the data and compute infrastructure of the SPUR ecosystem.",
+    link: "https://spuric.com/",
+    linkText: "Website →",
   },
 ];
 
 // Sponsor blocks for the grid
-const goldBlock: SponsorBlock = {
-  name: "Avalanche",
-  logo: "/sponsors/avalanche.png",
-};
+const goldBlock: SponsorBlock[] = [{
+  name: "Google",
+  logo: "/sponsors/google.svg", link: "https://www.google.com/about/careers/applications/"
+}, { name: "SPUR Innovation Center", logo: "/sponsors/spur.png", link: "https://spuric.com/" }];
 const silverBlocks: SponsorBlock[] = [
-  { name: "Microsoft", logo: "/sponsors/microsoft.png" },
-  { name: "Microsoft", logo: "/sponsors/microsoft.png" },
+  { name: "Elegoo", logo: "/sponsors/elegooLogo.webp", link: "https://www.elegoo.com/" },
+  { name: "Backboard", logo: "/sponsors/Backboard.svg", link: "https://www.backboard.io/" },
 ];
 const bronzeBlocks: SponsorBlock[] = [
   { name: "NordVPN", logo: "/sponsors/nordvpn.png" },
@@ -159,7 +151,7 @@ function SponsorsContent() {
           style={{ maxWidth: "1129px", width: "100%" }}
         >
           <h1
-            className="mb-6 text-center text-5xl md:text-6xl font-semibold tracking-tight font-luckiest"
+            className="mb-6 text-center text-5xl md:text-8xl mt-20 font-luckiest"
             style={{
               color: "#DBDAF3",
             }}
@@ -167,7 +159,7 @@ function SponsorsContent() {
             Sponsors
           </h1>
           <p
-            className="text-center mx-auto text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl px-4 font-rubik"
+            className="text-center mx-auto text-md sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-rubik"
             style={{
               fontSize: "clamp(18px, 3vw, 35px)",
               lineHeight: "clamp(28px, 4vw, 60px)",
@@ -203,7 +195,7 @@ function SponsorsContent() {
             {/* Carousel Container */}
             <div
               className="relative overflow-hidden"
-              style={{ minHeight: "clamp(400px, 50vw, 700px)" }}
+              style={{ minHeight: "clamp(400px, 50vw, 500px)" }}
             >
               <div
                 ref={carouselRef}
@@ -224,7 +216,7 @@ function SponsorsContent() {
                       className="relative flex flex-col items-center w-full max-w-[953.54px] mx-auto"
                       style={{
                         width: "953.54px",
-                        height: "638.36px",
+                        height: "500px",
                         maxWidth: "100%",
                         aspectRatio: "953.54/638.36",
                         background: "#FFFFFF",
@@ -248,11 +240,11 @@ function SponsorsContent() {
                             <Image
                               src={sponsor.logo}
                               alt={sponsor.name}
-                              width={318}
+                              width={400}
                               height={64}
                               className="object-contain"
                               style={{
-                                width: "clamp(200px, 30vw, 318px)",
+                                width: "clamp(200px, 30vw, 400px)",
                                 height: "auto",
                                 maxWidth: "100%",
                               }}
@@ -350,14 +342,16 @@ function SponsorsContent() {
         {/* Sponsor Blocks Grid */}
         <div className="max-w-6xl mx-auto px-4">
           {/* Gold - Large Single Block */}
-          <div className="flex justify-center mb-4 sm:mb-5 md:mb-6">
+          <div>
+          {goldBlock.map((sponsor, index) => (
+          <div key = {index} className="flex justify-center mb-4 sm:mb-5 md:mb-6">
             <a
-              href={goldBlock.link || "#"}
+              href={sponsor.link || "#"}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative flex items-center justify-center w-full max-w-[954px]"
+              className="relative flex items-center justify-center my-5 w-full max-w-[954px]"
               style={{
-                height: "clamp(120px, 18vw, 200px)",
+                height: "clamp(120px, 19vw, 230px)",
               }}
             >
               <div
@@ -369,14 +363,14 @@ function SponsorsContent() {
                   transformStyle: "preserve-3d",
                 }}
               >
-                {goldBlock.logo && (
+                {sponsor.logo && (
                   <div style={{ transform: "rotate(179.87deg)" }}>
                     <Image
-                      src={goldBlock.logo}
-                      alt={goldBlock.name}
+                      src={sponsor.logo}
+                      alt={sponsor.name}
                       width={561}
                       height={294}
-                      className="object-contain"
+                      className="object-contain my-2"
                       style={{
                         width: "clamp(320px, 50vw, 560px)",
                         height: "auto",
@@ -388,6 +382,8 @@ function SponsorsContent() {
               </div>
             </a>
           </div>
+          ))}
+          </div>
 
           {/* Silver - Two Blocks Side by Side */}
           <div className="flex flex-col md:flex-row justify-center gap-4 sm:gap-5 md:gap-6 mb-4 sm:mb-5 md:mb-6 max-w-[954px] mx-auto">
@@ -397,7 +393,7 @@ function SponsorsContent() {
                 href={sponsor.link || "#"}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative flex items-center justify-center w-full"
+                className="relative flex items-center justify-center w-full py-2"
                 style={{
                   height: "clamp(100px, 14vw, 175px)",
                 }}
@@ -672,9 +668,9 @@ function FaqContent() {
 </div>
 </div>
 
-      <div className="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 pt-[180px] pb-4 sm:pt-[220px] sm:pb-8 md:pt-[260px] md:pb-12 lg:pt-[300px] lg:pb-16 relative z-10">
+      <div className="container mx-auto px-3 pb-12 sm:px-4 md:px-6 lg:px-8 pt-[180px] sm:pt-[220px] sm:pb-8 md:pt-[260px] lg:pt-[300px] lg:pb-16 relative z-10">
         {/* Two Column Layout */}
-        <div className="max-w-full sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] mx-auto flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 justify-center pt-[200px] sm:pt-0
+        <div className="max-w-full sm:max-w-[500px] md:max-w-[700px] lg:max-w-[900px] mx-auto flex flex-col md:flex-row gap-2 sm:gap-3 md:gap-4 justify-center pt-40 sm:pt-0
 ">
           {/* Left Column */}
           <Accordion

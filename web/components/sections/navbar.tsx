@@ -60,11 +60,12 @@ export default function Navbar() {
         <div className='hidden lg:flex gap-8 justify-between items-center flex-1'>
           <nav className="flex gap-8 text-lg xl:text-2xl font-bold font-rubik">
             {/* page link */}
-            <a href="#about">About</a>
-            <a href="#stats">Stats</a>
-            <a href="#sponsors">Sponsors</a>
-            <a href="#faq">FAQ</a>
-            <a href="#team">Team</a>
+            <a href="#about" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">About</a>
+            {/* TODO: Change this to 2025.hackcanada.org */}
+            <a href="#stats" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">2025</a>
+            <a href="#sponsors" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">Sponsors</a>
+            <a href="#faq" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">FAQ</a>
+            <a href="#team" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">Team</a>
           </nav>
           <nav className='flex gap-6'>
             {/* social links */}

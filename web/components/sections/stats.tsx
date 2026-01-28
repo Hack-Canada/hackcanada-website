@@ -47,8 +47,8 @@ export default function Stats() {
   }, []);
 
   return (
-    <section id="stats" className="w-full relative overflow-hidden">
-      <div className="relative w-full h-screen bg-gradient-to-b from-[#17153D] via-[#4C40B3] to-[#5346C5]">
+    <section id="stats" className="w-full relative h-full overflow-hidden">
+      <div className="relative w-full h-screen md:h-[120vh] bg-gradient-to-b from-[#17153D] via-[#4C40B3] to-[#5346C5]">
         {/* Stars background */}
         <div className="absolute inset-0 overflow-hidden z-0">
           {stars.map((star, i) => (
@@ -96,7 +96,7 @@ export default function Stats() {
                     </filter>
                   </defs>
                   <text 
-                    className="font-bold"
+                    className=""
                     style={{ 
                       fontFamily: 'var(--font-luckiest-guy), system-ui, sans-serif',
                       fill: '#d8b4fe',
@@ -132,7 +132,7 @@ export default function Stats() {
                 src="/stat-images/city.svg"
                 alt="City skyline"
                 width={1920}
-                height={600}
+                height={1080}
                 className="w-full h-auto object-contain object-bottom"
                 priority
               />
@@ -185,7 +185,7 @@ export default function Stats() {
               </div>
 
               {/* Stats image - mobile */}
-              <div className="absolute bottom-[-50] left-1/2 -translate-x-1/2 z-30 w-[85%] max-w-[600px]">
+              <div className="absolute bottom-[-30] left-1/2 -translate-x-1/2 z-30 w-[85%] max-w-[600px]">
                 <Image
                   src="/statsNew.png"
                   alt="Hack Canada statistics"
@@ -204,7 +204,7 @@ export default function Stats() {
                 src="/stat-images/city.svg"
                 alt="City skyline"
                 width={1920}
-                height={600}
+                height={1080}
                 className="w-full h-auto object-contain object-bottom"
               />
             </div>
