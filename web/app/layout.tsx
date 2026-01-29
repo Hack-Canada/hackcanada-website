@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Baloo_Chettan_2, Lato, Outfit } from "next/font/google";
-import { Geist, Geist_Mono, Luckiest_Guy, Rubik } from "next/font/google";
+import { Lato, Outfit } from "next/font/google";
+import { Geist, Geist_Mono, Rubik } from "next/font/google";
 import "./globals.css";
 import AbstractBackground from "../components/effects/AbstractBackground";
 import Script from "next/script";
@@ -15,12 +15,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const balooChettan = Baloo_Chettan_2({
-  variable: "--font-baloo-chettan",
-  subsets: ["latin"],
-  weight: ["400"],
-});
-
 const outfit = Outfit({
   variable: "--font-outfit",
   subsets: ["latin"],
@@ -31,12 +25,6 @@ const lato = Lato({
   variable: "--font-lato",
   subsets: ["latin"],
   weight: ["100", "300", "400", "700", "900"],
-});
-
-const luckiestGuy = Luckiest_Guy({
-  weight: "400",
-  variable: "--font-luckiest-guy",
-  subsets: ["latin"],
 });
 
 const rubik = Rubik({
@@ -89,7 +77,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${balooChettan.variable} ${lato.variable} ${outfit.variable} ${luckiestGuy.variable} ${rubik.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${lato.variable} ${outfit.variable} ${rubik.variable} antialiased`}
       >
         <AbstractBackground />
         {/* <a

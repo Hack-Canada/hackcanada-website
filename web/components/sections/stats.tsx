@@ -98,7 +98,7 @@ export default function Stats() {
                   <text 
                     className=""
                     style={{ 
-                      fontFamily: 'var(--font-luckiest-guy), system-ui, sans-serif',
+                      fontFamily: 'var(--font-baloo-chettan), system-ui, sans-serif',
                       fill: '#d8b4fe',
                       filter: 'url(#glow)',
                       letterSpacing: '0.02em',
@@ -170,7 +170,7 @@ export default function Stats() {
                   <text 
                     className="font-bold"
                     style={{ 
-                      fontFamily: 'var(--font-luckiest-guy), system-ui, sans-serif',
+                      fontFamily: 'var(--font-baloo-chettan), system-ui, sans-serif',
                       fill: '#d8b4fe',
                       filter: 'url(#glow-mobile)',
                       letterSpacing: '0.02em',

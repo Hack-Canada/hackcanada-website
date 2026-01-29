@@ -1,10 +1,5 @@
 'use client';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faDiscord } from '@fortawesome/free-brands-svg-icons';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import { useState, useEffect } from 'react';
 
 interface MobileMenuProps {
@@ -64,12 +59,9 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <div className="border-t border-white w-32 my-4"></div>
 
         <nav className="flex justify-center items-center gap-6 w-full">
-          <a href="https://www.instagram.com/hackcanada/">
-            <FontAwesomeIcon icon={faInstagram} className="text-white w-6 h-6" />
-          </a>
-          <a href="https://www.linkedin.com/company/hack-canada/">
-            <FontAwesomeIcon icon={faLinkedin} className="text-white w-6 h-6" />
-          </a>
+          <a href="mailto:hi@hackcanada.org" aria-label="Email"><img src="/navbar/email.svg" alt="" className="w-6 h-6 invert" /></a>
+          <a href="https://www.instagram.com/hackcanada/" aria-label="Instagram"><img src="/navbar/instagram.svg" alt="" className="w-6 h-6 invert" /></a>
+          <a href="https://www.linkedin.com/company/hack-canada/" aria-label="LinkedIn"><img src="/navbar/linkedin.svg" alt="" className="w-6 h-6 invert" /></a>
         </nav>
 
       </div>
