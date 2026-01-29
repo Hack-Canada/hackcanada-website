@@ -1,9 +1,5 @@
 'use client';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import React, { useState, useEffect } from 'react';
 import MobileMenu from './MobileMenu';
 
@@ -58,7 +54,7 @@ export default function Navbar() {
         {/* logo */}
         <img src="/navbar/hackcanadaLogo.png" alt="Hack Canada Logo" className="h-18 rounded-full p-4" />
         <div className='hidden lg:flex gap-8 justify-between items-center flex-1'>
-          <nav className="flex gap-8 text-lg xl:text-2xl font-bold font-rubik">
+          <nav className="flex gap-8 text-lg xl:text-2xl font-bold font-baloo-chettan">
             {/* page link */}
             <a href="#about" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">About</a>
             {/* TODO: Change this to 2025.hackcanada.org */}
@@ -67,10 +63,10 @@ export default function Navbar() {
             <a href="#faq" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">FAQ</a>
             <a href="#team" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">Team</a>
           </nav>
-          <nav className='flex gap-6'>
-            {/* social links */}
-            <a href="https://www.instagram.com/hackcanada/"><FontAwesomeIcon icon={faInstagram} className='text-black' style={{ fontSize: 'clamp(20px, 2vw, 32px)' }}/></a>
-            <a href="https://www.linkedin.com/company/hack-canada/"><FontAwesomeIcon icon={faLinkedin} className='text-black' style={{ fontSize: 'clamp(20px, 2vw, 32px)' }}/></a>
+          <nav className='flex gap-6 items-center'>
+            <a href="mailto:hi@hackcanada.org" aria-label="Email"><img src="/navbar/email.svg" alt="" className="w-6 h-6" /></a>
+            <a href="https://www.instagram.com/hackcanada/" aria-label="Instagram"><img src="/navbar/instagram.svg" alt="" className="w-6 h-6" /></a>
+            <a href="https://www.linkedin.com/company/hack-canada/" aria-label="LinkedIn"><img src="/navbar/linkedin.svg" alt="" className="w-6 h-6" /></a>
           </nav>
         </div>
         
