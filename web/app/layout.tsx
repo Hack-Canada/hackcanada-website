@@ -45,10 +45,31 @@ const rubik = Rubik({
 });
 
 export const metadata: Metadata = {
-  title: "HackCanada - Canada's Premier Hackathon",
+  metadataBase: new URL("https://hackcanada.ca"),
+  title: {
+    default: "HackCanada - Canada's Premier Hackathon",
+    template: "%s | HackCanada",
+  },
   description:
     "Join Canada's premier hackathon event. Build, innovate, and connect with developers from across the country.",
+  keywords: [
+    "HackCanada",
+    "hackathon",
+    "Canada hackathon",
+    "student hackathon",
+    "coding competition",
+    "tech event",
+    "software engineering",
+    "developer event",
+  ],
+  applicationName: "HackCanada",
+  alternates: {
+    canonical: "https://hackcanada.ca",
+  },
   openGraph: {
+    type: "website",
+    url: "https://hackcanada.ca",
+    siteName: "HackCanada",
     title: "HackCanada - Canada's Premier Hackathon",
     description:
       "Join Canada's premier hackathon event. Build, innovate, and connect with developers from across the country.",
@@ -60,6 +81,7 @@ export const metadata: Metadata = {
         alt: "Hack Canada Logo",
       },
     ],
+    locale: "en_CA",
   },
   twitter: {
     card: "summary_large_image",
@@ -67,6 +89,19 @@ export const metadata: Metadata = {
     description:
       "Join Canada's premier hackathon event. Build, innovate, and connect with developers from across the country.",
     images: ["/navbar/hackcanadaLogo.png"],
+    site: "@hackcanada",
+    creator: "@hackathoncanada",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      maxSnippet: -1,
+      maxImagePreview: "large",
+      maxVideoPreview: -1,
+    },
   },
   icons: {
     icon: [{ url: "/navbar/hackcanadaLogo.png", type: "image/png" }],
@@ -86,6 +121,34 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLdOrganization = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "HackCanada",
+    url: "https://hackcanada.ca",
+    logo: "https://hackcanada.ca/navbar/hackcanadaLogo.png",
+    sameAs: [
+      "https://www.instagram.com/hackcanada",
+      "https://www.instagram.com/hackathoncanada/",
+    ],
+  };
+
+  const jsonLdEvent = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: "HackCanada Hackathon",
+    eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    url: "https://hackcanada.ca",
+    description:
+      "Canada's premier hackathon event for students and builders across the country.",
+    organizer: {
+      "@type": "Organization",
+      name: "HackCanada",
+      url: "https://hackcanada.ca",
+    },
+  };
+
   return (
     <html lang="en">
       <body
@@ -114,6 +177,12 @@ export default function RootLayout({
           ></img>
         </a> */}
         {children}
+        <Script id="ld-json-org" type="application/ld+json" strategy="afterInteractive">
+          {JSON.stringify(jsonLdOrganization)}
+        </Script>
+        <Script id="ld-json-event" type="application/ld+json" strategy="afterInteractive">
+          {JSON.stringify(jsonLdEvent)}
+        </Script>
         <Script
           async
           strategy="afterInteractive"
