@@ -190,7 +190,6 @@ export default function About() {
       />
 
       {/* Background wavy pattern - positioned to show the edge */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/rect-387.svg"
         alt=""
@@ -221,31 +220,26 @@ export default function About() {
       </div>
 
       {/* Stars scattered around - small and subtle */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/star-10.svg"
         alt=""
         className="pointer-events-none absolute left-[100px] top-[180px] w-3 opacity-60"
       />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/star-16.svg"
         alt=""
         className="pointer-events-none absolute left-[200px] top-[350px] w-4 opacity-50"
       />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/star-17.svg"
         alt=""
         className="pointer-events-none absolute right-[200px] top-[420px] w-5 opacity-45"
       />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/star-10.svg"
         alt=""
         className="pointer-events-none absolute left-[620px] top-[520px] w-3 opacity-55"
       />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/star-16.svg"
         alt=""
@@ -254,13 +248,11 @@ export default function About() {
 
       {/* Shooting lines / dashes - small subtle streaks */}
       {/* Top area */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/rect-408.svg"
         alt=""
         className="pointer-events-none absolute left-[80px] top-[280px] w-10 opacity-40"
       />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/rect-409.svg"
         alt=""
@@ -268,13 +260,11 @@ export default function About() {
       />
 
       {/* Middle left */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/rect-410.svg"
         alt=""
         className="pointer-events-none absolute left-[60px] top-[550px] w-10 opacity-40"
       />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/rect-408.svg"
         alt=""
@@ -282,13 +272,11 @@ export default function About() {
       />
 
       {/* Bottom right */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/rect-409.svg"
         alt=""
         className="pointer-events-none absolute right-[180px] top-[680px] w-10 opacity-40"
       />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/rect-410.svg"
         alt=""
@@ -349,7 +337,6 @@ export default function About() {
           </div>
 
           {/* Constellation line decoration - right side */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/Vector 99.svg"
             alt=""
@@ -373,7 +360,6 @@ export default function About() {
               onMouseLeave={() => setHoveredImage(null)}
             >
               {/* Postcard frame */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/clip-path-group.svg"
                 alt=""
@@ -408,7 +394,6 @@ export default function About() {
               onMouseLeave={() => setHoveredImage(null)}
             >
               {/* Postcard frame */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/clip-path-group.svg"
                 alt=""
@@ -443,7 +428,6 @@ export default function About() {
               onMouseLeave={() => setHoveredImage(null)}
             >
               {/* Postcard frame */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/clip-path-group.svg"
                 alt=""
@@ -468,7 +452,6 @@ export default function About() {
           </div>
 
           {/* Candle cursor - smooth following with GPU acceleration - for entire section */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             ref={candleRef}
             src="/group-66.svg"

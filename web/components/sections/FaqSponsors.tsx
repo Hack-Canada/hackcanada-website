@@ -92,7 +92,7 @@ function SponsorsContent() {
     if (!isTransitioning) {
       setIsTransitioning(true);
     }
-  }, [currentHighlight]);
+  }, [currentHighlight, isTransitioning]);
 
   useEffect(() => {
     const handleTransitionEnd = () => {
@@ -113,7 +113,7 @@ function SponsorsContent() {
       return () =>
         carousel.removeEventListener("transitionend", handleTransitionEnd);
     }
-  }, [currentHighlight, infiniteSlides.length, sponsorHighlights.length]);
+  }, [currentHighlight, infiniteSlides.length]);
 
   const nextHighlight = () => {
     if (currentHighlight < infiniteSlides.length - 1) {
