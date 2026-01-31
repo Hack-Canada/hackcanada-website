@@ -25,6 +25,14 @@ interface SponsorBlock {
   link?: string;
 }
 
+interface Partner {
+  name: string;
+  logo: string;
+  blurb: string;
+  team: string[];
+  link?: string;
+}
+
 // Sponsor highlights for the carousel
 const sponsorHighlights: SponsorHighlight[] = [
   {
@@ -74,6 +82,16 @@ const bronzeBlocks: SponsorBlock[] = [
   { name: "NordVPN", logo: "/sponsors/nordvpn.png" },
   { name: "1Password", logo: "/sponsors/1password.png" },
   { name: "Warp", logo: "/sponsors/warp.png" },
+];
+
+const partners: Partner[] = [
+  {
+    name: "GDG Laurier",
+    logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4cfKyMJNFvwqJ1BbG51ld9i8BbTIqDc4z2A&s",
+    blurb: "Google Developer Group Laurier brings together developers and tech enthusiasts at Wilfrid Laurier University to learn, build, and connect.",
+    team: [],
+    link: "https://gdg.community.dev/gdg-laurier/",
+  },
 ];
 
 function SponsorsContent() {
@@ -490,6 +508,88 @@ function SponsorsContent() {
                 </div>
               </a>
             ))}
+          </div>
+
+          {/* Partners */}
+          <div className="mt-16 max-w-[954px] mx-auto">
+            <h2
+              className="mb-8 text-center text-xl sm:text-2xl md:text-3xl lg:text-4xl px-4 font-luckiest"
+              style={{
+                fontWeight: 500,
+                fontSize: "clamp(20px, 3vw, 32px)",
+                lineHeight: "clamp(32px, 4vw, 60px)",
+                color: "#4a4a4a",
+              }}
+            >
+              Our Partners
+            </h2>
+            <div className="flex flex-col gap-6">
+              {partners.map((partner, index) => {
+                const card = (
+                  <div
+                    className="w-full flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 sm:p-8 font-rubik"
+                    style={{
+                      background: "#FFFFFF",
+                      borderRadius: "clamp(12px, 2vw, 20px)",
+                      color: "#282D5C",
+                    }}
+                  >
+                    <div className="shrink-0 flex justify-center">
+                      <img
+                        src={partner.logo}
+                        alt={partner.name}
+                        className="object-contain"
+                        style={{
+                          width: "clamp(120px, 20vw, 180px)",
+                          height: "auto",
+                        }}
+                      />
+                    </div>
+                    <div className="flex-1 text-center sm:text-left min-w-0">
+                      <h3
+                        className="font-luckiest text-lg sm:text-xl mb-2"
+                        style={{ color: "#282D5C" }}
+                      >
+                        {partner.name}
+                      </h3>
+                      <p
+                        className="text-sm sm:text-base mb-4"
+                        style={{
+                          fontWeight: 500,
+                          lineHeight: "150%",
+                          color: "#282D5C",
+                        }}
+                      >
+                        {partner.blurb}
+                      </p>
+                      {partner.team.length > 0 && (
+                        <p
+                          className="text-xs sm:text-sm opacity-90"
+                          style={{ color: "#282D5C" }}
+                        >
+                          Team: {partner.team.join(", ")}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                );
+                return partner.link ? (
+                  <a
+                    key={index}
+                    href={partner.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full transition-all duration-300 hover:scale-[1.01]"
+                  >
+                    {card}
+                  </a>
+                ) : (
+                  <div key={index} className="block w-full">
+                    {card}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

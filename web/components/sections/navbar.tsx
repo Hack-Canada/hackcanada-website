@@ -58,7 +58,7 @@ export default function Navbar() {
         {/* logo */}
         <img src="/navbar/hackcanadaLogo.png" alt="Hack Canada Logo" className="h-18 rounded-full p-4" />
         <div className='hidden lg:flex gap-8 justify-between items-center flex-1'>
-          <nav className="flex gap-8 text-lg xl:text-2xl font-bold font-baloo-chettan">
+          <nav className="flex gap-8 text-lg xl:text-2xl font-bold font-tight font-luckiest">
             {/* page link */}
             <a href="#about" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">About</a>
             {/* TODO: Change this to 2025.hackcanada.org */}
