@@ -516,8 +516,8 @@ function SponsorsContent() {
               className="mb-10 text-center px-4 font-luckiest"
               style={{
                 fontWeight: 500,
-                fontSize: "clamp(24px, 3.5vw, 40px)",
-                lineHeight: "clamp(36px, 4vw, 60px)",
+                fontSize: "clamp(30px, 4.2vw, 52px)",
+                lineHeight: "clamp(44px, 5vw, 68px)",
                 color: "#4a4a4a",
               }}
             >
@@ -551,7 +551,7 @@ function SponsorsContent() {
                         className="font-luckiest mb-3"
                         style={{
                           color: "#282D5C",
-                          fontSize: "clamp(20px, 2.5vw, 28px)",
+                          fontSize: "clamp(26px, 3.2vw, 40px)",
                         }}
                       >
                         {partner.name}
@@ -562,7 +562,7 @@ function SponsorsContent() {
                           fontWeight: 500,
                           lineHeight: "150%",
                           color: "#282D5C",
-                          fontSize: "clamp(16px, 1.8vw, 20px)",
+                          fontSize: "clamp(19px, 2.4vw, 26px)",
                         }}
                       >
                         {partner.blurb}
@@ -571,7 +571,7 @@ function SponsorsContent() {
                         className="pt-3 border-t border-gray-200"
                         style={{
                           color: "#282D5C",
-                          fontSize: "clamp(16px, 1.8vw, 20px)",
+                          fontSize: "clamp(19px, 2.4vw, 26px)",
                         }}
                       >
                         <span
