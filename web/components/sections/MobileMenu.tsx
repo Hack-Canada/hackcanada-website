@@ -62,6 +62,9 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
         <div className="border-t border-white w-32 my-4"></div>
 
         <nav className="flex justify-center items-center gap-6 w-full">
+          <a href="mailto:hi@hackcanada.org">
+            <FontAwesomeIcon icon={faEnvelope} className="text-white w-6 h-6" />
+          </a>
           <a href="https://www.instagram.com/hackcanada/">
             <FontAwesomeIcon icon={faInstagram} className="text-white w-6 h-6" />
           </a>

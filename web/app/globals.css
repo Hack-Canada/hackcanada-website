@@ -1,15 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400..800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
+
+@font-face {
+  font-family: "Baloo Chettan 2";
+  src: url("/BalooChettan-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-luckiest: var(--font-luckiest-guy);
+  --font-luckiest: var(--font-baloo-chettan);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -46,6 +52,7 @@
 }
 
 :root {
+  --font-baloo-chettan: "Baloo Chettan 2", system-ui, sans-serif;
   --radius: 0.625rem;
   --background: #111031;
   --foreground: oklch(0.145 0 0);
@@ -115,7 +122,11 @@
 }
 
 .font-luckiest {
-  font-family: var(--font-luckiest-guy), system-ui, sans-serif;
+  font-family: var(--font-baloo-chettan), system-ui, sans-serif;
+}
+
+.font-baloo-chettan {
+  font-family: var(--font-baloo-chettan), system-ui, sans-serif;
 }
 
 .font-rubik {
@@ -145,9 +156,9 @@
   50% { opacity: 1; }
 }
 
-/* Titles use Luckiest Guy */
+/* Titles use Baloo Chettan */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-luckiest-guy), system-ui, sans-serif;
+  font-family: var(--font-baloo-chettan), system-ui, sans-serif;
 }
 
 /* Body text uses Rubik */

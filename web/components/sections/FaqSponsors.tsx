@@ -25,6 +25,14 @@ interface SponsorBlock {
   link?: string;
 }
 
+interface Partner {
+  name: string;
+  logo: string;
+  blurb: string;
+  team: string[];
+  link?: string;
+}
+
 // Sponsor highlights for the carousel
 const sponsorHighlights: SponsorHighlight[] = [
   {
@@ -74,6 +82,16 @@ const bronzeBlocks: SponsorBlock[] = [
   { name: "NordVPN", logo: "/sponsors/nordvpn.png" },
   { name: "1Password", logo: "/sponsors/1password.png" },
   { name: "Warp", logo: "/sponsors/warp.png" },
+];
+
+const partners: Partner[] = [
+  {
+    name: "GDG Laurier",
+    logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4cfKyMJNFvwqJ1BbG51ld9i8BbTIqDc4z2A&s",
+    blurb: "Google Developer Group Laurier brings together developers and tech enthusiasts at Wilfrid Laurier University to learn, build, and connect.",
+    team: ["Abdul Aziz", "Yash Hiren Dave"],
+    link: "https://gdg.community.dev/gdg-laurier/",
+  },
 ];
 
 function SponsorsContent() {
@@ -179,7 +197,7 @@ function SponsorsContent() {
             style={{
               fontSize: "clamp(18px, 3vw, 35px)",
               lineHeight: "clamp(28px, 4vw, 60px)",
-              fontWeight: 500,
+              fontWeight: 400,
               color: "#E7DAE6",
               maxWidth: "1129px",
               width: "100%",
@@ -490,6 +508,105 @@ function SponsorsContent() {
                 </div>
               </a>
             ))}
+          </div>
+
+          {/* Partners */}
+          <div className="mt-20 mb-4 max-w-[1100px] mx-auto px-2">
+            <h2
+              className="mb-10 text-center px-4 font-luckiest"
+              style={{
+                fontWeight: 500,
+                fontSize: "clamp(30px, 4.2vw, 52px)",
+                lineHeight: "clamp(44px, 5vw, 68px)",
+                color: "#4a4a4a",
+              }}
+            >
+              Our Partners
+            </h2>
+            <div className="flex flex-col gap-8">
+              {partners.map((partner, index) => {
+                const card = (
+                  <div
+                    className="w-full flex flex-col sm:flex-row items-center sm:items-start gap-8 p-8 sm:p-10 md:p-12 font-rubik"
+                    style={{
+                      background: "#FFFFFF",
+                      borderRadius: "clamp(14px, 2vw, 24px)",
+                      color: "#282D5C",
+                      minHeight: "clamp(200px, 28vw, 280px)",
+                    }}
+                  >
+                    <div className="shrink-0 flex justify-center">
+                      <img
+                        src={partner.logo}
+                        alt={partner.name}
+                        className="object-contain"
+                        style={{
+                          width: "clamp(140px, 22vw, 220px)",
+                          height: "auto",
+                        }}
+                      />
+                    </div>
+                    <div className="flex-1 text-center sm:text-left min-w-0">
+                      <h3
+                        className="font-luckiest mb-3"
+                        style={{
+                          color: "#282D5C",
+                          fontSize: "clamp(26px, 3.2vw, 40px)",
+                        }}
+                      >
+                        {partner.name}
+                      </h3>
+                      <p
+                        className="mb-5"
+                        style={{
+                          fontWeight: 500,
+                          lineHeight: "150%",
+                          color: "#282D5C",
+                          fontSize: "clamp(19px, 2.4vw, 26px)",
+                        }}
+                      >
+                        {partner.blurb}
+                      </p>
+                      <div
+                        className="pt-3 border-t border-gray-200"
+                        style={{
+                          color: "#282D5C",
+                          fontSize: "clamp(19px, 2.4vw, 26px)",
+                        }}
+                      >
+                        <span
+                          className="font-luckiest opacity-90"
+                          style={{ fontWeight: 400 }}
+                        >
+                          Huge thank you to {" "}
+                        </span>
+                        <span style={{ fontWeight: 700 }}>
+                          {partner.team.length > 0
+                            ? partner.team.join(", ")
+                            : "—"}
+                            !
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+                return partner.link ? (
+                  <a
+                    key={index}
+                    href={partner.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full transition-all duration-300 hover:scale-[1.01]"
+                  >
+                    {card}
+                  </a>
+                ) : (
+                  <div key={index} className="block w-full">
+                    {card}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

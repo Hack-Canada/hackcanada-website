@@ -57,7 +57,7 @@ export default function Navbar() {
         {/* logo */}
         <img src="/navbar/hackcanadaLogo.png" alt="Hack Canada Logo" className="h-18 rounded-full p-4" />
         <div className='hidden lg:flex gap-8 justify-between items-center flex-1'>
-          <nav className="flex gap-8 text-lg xl:text-2xl font-bold font-rubik">
+          <nav className="flex gap-8 text-lg xl:text-2xl font-bold font-tight font-luckiest">
             {/* page link */}
             <a href="#about" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">About</a>
             {/* TODO: Change this to 2025.hackcanada.org */}
@@ -67,7 +67,7 @@ export default function Navbar() {
             <a href="#team" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">Team</a>
           </nav>
           <nav className='flex gap-6'>
-            {/* social links */}
+            <a href="mailto:hi@hackcanada.org"><FontAwesomeIcon icon={faEnvelope} className='text-black' style={{ fontSize: 'clamp(20px, 2vw, 32px)' }}/></a>
             <a href="https://www.instagram.com/hackcanada/"><FontAwesomeIcon icon={faInstagram} className='text-black' style={{ fontSize: 'clamp(20px, 2vw, 32px)' }}/></a>
             <a href="https://www.linkedin.com/company/hack-canada/"><FontAwesomeIcon icon={faLinkedin} className='text-black' style={{ fontSize: 'clamp(20px, 2vw, 32px)' }}/></a>
           </nav>
