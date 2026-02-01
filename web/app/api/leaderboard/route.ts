@@ -13,13 +13,13 @@ export async function GET() {
       );
     }
 
-    // Fetch top 100 scores, ordered by score descending, then by created_at ascending (earlier scores rank higher if tied)
+    // Fetch top 5 scores, ordered by score descending, then by created_at ascending (earlier scores rank higher if tied)
     const { data, error } = await supabase
       .from('leaderboards')
       .select('username, score, created_at')
       .order('score', { ascending: false })
       .order('created_at', { ascending: true })
-      .limit(100);
+      .limit(5);
 
     if (error) {
       console.error('Error fetching leaderboard:', error);
@@ -173,7 +173,7 @@ export async function POST(request: NextRequest) {
         .select('username, score, created_at')
         .order('score', { ascending: false })
         .order('created_at', { ascending: true })
-        .limit(100);
+        .limit(5);
 
       const leaderboard = (leaderboardData || []).map(entry => ({
         username: entry.username,
@@ -193,9 +193,9 @@ export async function POST(request: NextRequest) {
       entry => entry.id === insertedData.id
     ) + 1;
 
-    // Get top 100 for leaderboard response
+    // Get top 5 for leaderboard response
     const leaderboard = (allScores || [])
-      .slice(0, 100)
+      .slice(0, 5)
       .map(entry => ({
         username: entry.username,
         score: entry.score,
