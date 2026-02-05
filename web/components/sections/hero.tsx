@@ -101,7 +101,7 @@ export default function Hero() {
           </div>
           <div className="bg-[#EC294D] text-white px-8 lg:px-10 py-1 rounded-b-lg text-center flex items-center justify-center">
             <span className="font-semibold text-sm font-rubik">
-              Due Feb 20, 2026!
+              Due Feb 22, 2026!
             </span>
           </div>
         </div>
