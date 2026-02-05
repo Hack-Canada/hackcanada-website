@@ -89,7 +89,7 @@ const partners: Partner[] = [
     name: "GDG Laurier",
     logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4cfKyMJNFvwqJ1BbG51ld9i8BbTIqDc4z2A&s",
     blurb: "Google Developer Group Laurier brings together developers and tech enthusiasts at Wilfrid Laurier University to learn, build, and connect.",
-    team: ["Abdul Aziz", "Yash Hiren Dave"],
+    team: ["Abdul Aziz", "Yash Dave", "Khushi Patel", "Akif Rahman"],
     link: "https://gdg.community.dev/gdg-laurier/",
   },
 ];
@@ -568,19 +568,14 @@ function SponsorsContent() {
                         {partner.blurb}
                       </p>
                       <div
-                        className="pt-3 border-t border-gray-200"
-                        style={{
-                          color: "#282D5C",
-                          fontSize: "clamp(19px, 2.4vw, 26px)",
-                        }}
+                        className="pt-3 border-t border-gray-200 text-lg"
                       >
                         <span
                           className="font-luckiest opacity-90"
-                          style={{ fontWeight: 400 }}
                         >
                           Huge thank you to {" "}
                         </span>
-                        <span style={{ fontWeight: 700 }}>
+                        <span >
                           {partner.team.length > 0
                             ? partner.team.join(", ")
                             : "—"}
