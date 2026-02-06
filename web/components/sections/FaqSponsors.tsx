@@ -89,7 +89,7 @@ const partners: Partner[] = [
     name: "GDG Laurier",
     logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4cfKyMJNFvwqJ1BbG51ld9i8BbTIqDc4z2A&s",
     blurb: "Google Developer Group Laurier brings together developers and tech enthusiasts at Wilfrid Laurier University to learn, build, and connect.",
-    team: ["Abdul Aziz", "Yash Hiren Dave"],
+    team: ["Abdul Aziz", "Yash Dave", "Khushi Patel", "Akif Rahman"],
     link: "https://gdg.community.dev/gdg-laurier/",
   },
 ];
@@ -568,19 +568,14 @@ function SponsorsContent() {
                         {partner.blurb}
                       </p>
                       <div
-                        className="pt-3 border-t border-gray-200"
-                        style={{
-                          color: "#282D5C",
-                          fontSize: "clamp(19px, 2.4vw, 26px)",
-                        }}
+                        className="pt-3 border-t border-gray-200 text-lg"
                       >
                         <span
                           className="font-luckiest opacity-90"
-                          style={{ fontWeight: 400 }}
                         >
                           Huge thank you to {" "}
                         </span>
-                        <span style={{ fontWeight: 700 }}>
+                        <span >
                           {partner.team.length > 0
                             ? partner.team.join(", ")
                             : "—"}
@@ -653,9 +648,7 @@ const leftColumnItems: FAQItem[] = [
   },
   {
     question: "What is Hack Canada?",
-    answer:
-      "Hack Canada is a yearly held, in-person hackathon run by the Hackathons Canada, a community of tech-enthusiasts across Canada. Hack Canada 2026 will run from March 5th to 7th for 48 hours.",
-  },
+    answer: "Hack Canada is built around tackling real Canadian challenges. This year, we're extending that mission beyond the weekend with a 30-day building period—giving teams 1 on 1 access to sponsors and funding to transform prototypes into lasting side projects or startups."  },
   {
     question: "How much does it cost?",
     answer:
@@ -664,17 +657,17 @@ const leftColumnItems: FAQItem[] = [
   {
     question: "Where and when is Hack Canada?",
     answer:
-      "Hack Canada will be held overnight at the Lazaridis Centre at Wilfrid Laurier University, from March 4th to 6th.",
+      "Hack Canada will be held overnight at SPUR office, 2240 University Av east, from March 4th to 6th.",
   },
   {
     question: "What is the schedule like?",
     answer:
-      'Hack Canada will start with an opening ceremony, immediately followed by the "hacking period" lasting 48 hours and giving hackers the chance to work on their projects. Soon after it is over, judging will take place, and then our closing ceremony to wrap up the event.',
+      'Hack Canada runs like a normal hackathon weekend, but we\'ve added a 30 day building period afterwards. Teams get 1-on-1 access to sponsors and funding to turn their prototypes into real projects or startups. At the end, there\'s a demo day where you present to sponsors and VCs.',
   },
   {
     question: "Who is eligible to participate?",
     answer:
-      "Any student in high school or currently enrolled in an undergraduate degree can participate.",
+      "High schoolers, undergrad students, and recent graduates are all eligible.",
   },
 ];
 
