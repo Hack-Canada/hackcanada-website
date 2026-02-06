@@ -92,14 +92,14 @@ const MetBar = React.memo(({
           >
             <img
               src={member.photo}
-              alt={isMet ? member.name : 'Unknown'}
+              alt={member.name}
               draggable={false}
               className={[
-                'rounded-full border-2 transition-all select-none',
+                'rounded-full border-2 transition-all select-none cursor-pointer',
                 isMet
-                  ? 'border-white grayscale-0 cursor-pointer hover:scale-110 hover:shadow-[0_0_18px_rgba(255,255,255,0.55)]'
-                  : 'border-gray-600 grayscale opacity-30 cursor-not-allowed',
-                isMet && isHovered ? 'shadow-[0_0_22px_rgba(255,255,255,0.75)]' : '',
+                  ? 'border-white grayscale-0 hover:scale-110 hover:shadow-[0_0_18px_rgba(255,255,255,0.55)]'
+                  : 'border-gray-600 grayscale opacity-60 hover:opacity-90 hover:scale-110',
+                (isMet && isHovered) || (!isMet && isHovered) ? 'shadow-[0_0_22px_rgba(255,255,255,0.75)]' : '',
               ].join(' ')}
               style={{
                 width: isMobile ? 32 : 48,
@@ -470,14 +470,8 @@ export default function BeaverGame() {
   }, [groundOffset]);
 
   const openMemberModal = useCallback((id: string) => {
-    setMetMembers(currentMet => {
-      if (!currentMet.includes(id)) return currentMet;
-
-      const member = teamMembers.find(m => m.id === id) || null;
-      setSelectedMember(member);
-
-      return currentMet;
-    });
+    const member = teamMembers.find(m => m.id === id) || null;
+    setSelectedMember(member);
   }, []);
 
   return (
