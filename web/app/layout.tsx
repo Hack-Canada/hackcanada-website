@@ -124,11 +124,11 @@ export default function RootLayout({
   const jsonLdEvent = {
     "@context": "https://schema.org",
     "@type": "Event",
-    name: "HackCanada Hackathon",
+    name: "Hack Canada 2026 - In-Person Event",
     eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
     url: "https://hackcanada.org",
-    date: "2026-03-06",
+    startDate: "2026-03-06",
     endDate: "2026-03-08",
     location: {
       "@type": "Place",
@@ -146,7 +146,7 @@ export default function RootLayout({
       "Canada's premier hackathon event for students and builders across the country.",
     organizer: {
       "@type": "Organization",
-      name: "HackCanada",
+      name: "Hack Canada",
       url: "https://hackcanada.org",
     },
   };
