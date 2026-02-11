@@ -127,13 +127,27 @@ export default function RootLayout({
     name: "HackCanada Hackathon",
     eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
     eventStatus: "https://schema.org/EventScheduled",
-    url: "https://hackcanada.ca",
+    url: "https://hackcanada.org",
+    date: "2026-03-06",
+    endDate: "2026-03-08",
+    location: {
+      "@type": "Place",
+      name: "SPUR Campus - Spur Innovation Center",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "2240 University Ave W",
+        addressLocality: "Waterloo",
+        addressRegion: "ON",
+        postalCode: "N2K 0G3",
+        addressCountry: "CA",
+      },
+    },
     description:
       "Canada's premier hackathon event for students and builders across the country.",
     organizer: {
       "@type": "Organization",
       name: "HackCanada",
-      url: "https://hackcanada.ca",
+      url: "https://hackcanada.org",
     },
   };
 
@@ -165,10 +179,18 @@ export default function RootLayout({
           ></img>
         </a> */}
         {children}
-        <Script id="ld-json-org" type="application/ld+json" strategy="afterInteractive">
+        <Script
+          id="ld-json-org"
+          type="application/ld+json"
+          strategy="afterInteractive"
+        >
           {JSON.stringify(jsonLdOrganization)}
         </Script>
-        <Script id="ld-json-event" type="application/ld+json" strategy="afterInteractive">
+        <Script
+          id="ld-json-event"
+          type="application/ld+json"
+          strategy="afterInteractive"
+        >
           {JSON.stringify(jsonLdEvent)}
         </Script>
         <Script
