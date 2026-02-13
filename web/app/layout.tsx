@@ -157,7 +157,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${lato.variable} ${outfit.variable} ${rubik.variable} antialiased`}
       >
         <AbstractBackground />
-        {/* <a
+        <a
           id="mlh-trust-badge"
           style={{
             display: "block",
@@ -177,7 +177,7 @@ export default function RootLayout({
             alt="Major League Hacking 2026 Hackathon Season"
             style={{ width: "100%" }}
           ></img>
-        </a> */}
+        </a>
         {children}
         <Script
           id="ld-json-org"
