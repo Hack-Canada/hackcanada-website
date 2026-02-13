@@ -33,7 +33,7 @@ const rubik = Rubik({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hackcanada.ca"),
+  metadataBase: new URL("https://hackcanada.org"),
   title: {
     default: "HackCanada - Canada's Premier Hackathon",
     template: "%s | HackCanada",
@@ -52,11 +52,11 @@ export const metadata: Metadata = {
   ],
   applicationName: "HackCanada",
   alternates: {
-    canonical: "https://hackcanada.ca",
+    canonical: "https://hackcanada.org",
   },
   openGraph: {
     type: "website",
-    url: "https://hackcanada.ca",
+    url: "https://hackcanada.org",
     siteName: "HackCanada",
     title: "HackCanada - Canada's Premier Hackathon",
     description:
@@ -113,8 +113,8 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "HackCanada",
-    url: "https://hackcanada.ca",
-    logo: "https://hackcanada.ca/navbar/hackcanadaLogo.png",
+    url: "https://hackcanada.org",
+    logo: "https://hackcanada.org/navbar/hackcanadaLogo.png",
     sameAs: [
       "https://www.instagram.com/hackcanada",
       "https://www.instagram.com/hackathoncanada/",
