@@ -657,7 +657,7 @@ const leftColumnItems: FAQItem[] = [
   {
     question: "Where and when is Hack Canada?",
     answer:
-      "Hack Canada will be held overnight at SPUR office, 2240 University Av east, from March 4th to 6th.",
+      "Hack Canada will be held overnight at SPUR office, 2240 University Av east, from March 6th to 8th.",
   },
   {
     question: "What is the schedule like?",
