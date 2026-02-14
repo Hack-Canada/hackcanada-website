@@ -164,7 +164,7 @@ export default function RootLayout({
             maxWidth: "100px",
             minWidth: "60px",
             position: "fixed",
-            right: "50px",
+            right: "40px",
             top: "0",
             width: "10%",
             zIndex: "10000",
