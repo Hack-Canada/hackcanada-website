@@ -45,7 +45,7 @@ const sponsorHighlights: SponsorHighlight[] = [
   },
   {
     name: "SPUR Innovation Center",
-    logo: "/sponsors/spur.png",
+    logo: "/sponsors/Spur.png",
     description:
       "SPUR Innovation/Ventures is building the largest venture studio in Canada, backed by the data and compute infrastructure of the SPUR ecosystem.",
     link: "https://spuric.com/",
@@ -62,7 +62,7 @@ const goldBlock: SponsorBlock[] = [
   },
   {
     name: "SPUR Innovation Center",
-    logo: "/sponsors/spur.png",
+    logo: "/sponsors/Spur.png",
     link: "https://spuric.com/",
   },
 ];
