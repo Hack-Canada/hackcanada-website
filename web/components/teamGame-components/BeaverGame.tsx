@@ -297,9 +297,9 @@ export default function BeaverGame() {
       // Precompute obstacle-col → beaver-space bit mask (once per obstacle).
       // Sprites differ in size so we scale rather than shift.
       const scale = oCellW / bCellW;
-      const base = (o.left - b.left + 0.5 * oCellW) / bCellW;
+      const base = (o.left - b.left) / bCellW;
       for (let oc = 0; oc < OBS_MASK_SIZE; oc++) {
-        const bc = Math.floor(base + oc * scale);
+        const bc = Math.floor(base + (oc + 0.5) * scale);
         _colBits[oc] = (bc >= 0 && bc < MASK_SIZE) ? (1 << bc) : 0;
       }
 
@@ -318,7 +318,8 @@ export default function BeaverGame() {
         let aligned = 0;
         let bits = obsRowBits;
         while (bits) {
-          aligned |= _colBits[31 - Math.clz32(bits & -bits)];
+          const lsb = bits & -bits;
+          aligned |= _colBits[31 - Math.clz32(lsb)];
           bits &= bits - 1;
         }
 
