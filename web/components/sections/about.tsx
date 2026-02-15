@@ -55,72 +55,53 @@ export default function About() {
     const lerp = (start: number, end: number, factor: number) =>
       start + (end - start) * factor;
 
+    // Insets so the candle only appears in the visible content area and
+    // never gets clipped by overflow:hidden. The candle glow extends ~60px
+    // above the cursor, so the top inset covers the section padding (120px)
+    // plus glow overshoot.
+    const INSET_TOP = 130;
+    const INSET_BOTTOM = 40;
+    const INSET_X = 40;
+
     const animate = () => {
-      // Smooth interpolation - higher value = more responsive
       currentX = lerp(currentX, targetX, 0.35);
       currentY = lerp(currentY, targetY, 0.35);
-
-      candle.style.transform = `translate3d(${currentX - 20}px, ${currentY - 60}px, 0)`;
+      candle.style.transform = `translate3d(${currentX - 40}px, ${currentY - 60}px, 0)`;
       rafId = requestAnimationFrame(animate);
     };
 
-    const checkMouseInSection = (e: MouseEvent) => {
-      const rect = section.getBoundingClientRect();
-      const isInBounds =
-        e.clientX >= rect.left &&
-        e.clientX <= rect.right &&
-        e.clientY >= rect.top &&
-        e.clientY <= rect.bottom;
-
-      if (isInBounds && !isMouseInSection) {
-        isMouseInSection = true;
-        setIsInSection(true);
-      } else if (!isInBounds && isMouseInSection) {
-        isMouseInSection = false;
-        setIsInSection(false);
-      }
+    const updateInSection = (inBounds: boolean) => {
+      if (inBounds === isMouseInSection) return;
+      isMouseInSection = inBounds;
+      setIsInSection(inBounds);
+      section.style.cursor = inBounds ? "none" : "auto";
     };
 
     const onMouseMove = (e: MouseEvent) => {
       const rect = section.getBoundingClientRect();
-      // Calculate position relative to section
       targetX = e.clientX - rect.left;
       targetY = e.clientY - rect.top;
-
-      // Check if mouse is still in section bounds
-      checkMouseInSection(e);
-    };
-
-    const onMouseEnter = () => {
-      isMouseInSection = true;
-      setIsInSection(true);
+      const inZone =
+        e.clientX >= rect.left + INSET_X &&
+        e.clientX <= rect.right - INSET_X &&
+        e.clientY >= rect.top + INSET_TOP &&
+        e.clientY <= rect.bottom - INSET_BOTTOM;
+      updateInSection(inZone);
     };
 
     const onMouseLeave = () => {
-      isMouseInSection = false;
-      setIsInSection(false);
-    };
-
-    // Also check on scroll to handle cases where mouse doesn't move but section scrolls
-    const onScroll = () => {
-      if (isMouseInSection) {
-        // Re-check if mouse is still in section after scroll
-        // We can't get mouse position from scroll event, so we'll rely on next mousemove
-      }
+      updateInSection(false);
     };
 
     rafId = requestAnimationFrame(animate);
     section.addEventListener("mousemove", onMouseMove);
-    section.addEventListener("mouseenter", onMouseEnter);
     section.addEventListener("mouseleave", onMouseLeave);
-    window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
       cancelAnimationFrame(rafId);
       section.removeEventListener("mousemove", onMouseMove);
-      section.removeEventListener("mouseenter", onMouseEnter);
       section.removeEventListener("mouseleave", onMouseLeave);
-      window.removeEventListener("scroll", onScroll);
+      section.style.cursor = "auto";
     };
   }, []);
 
@@ -181,7 +162,7 @@ export default function About() {
       ref={sectionRef}
       id="about"
       className="relative w-full overflow-hidden text-white -mt-[60px] pt-[120px]"
-      style={{ backgroundColor: "transparent", cursor: "none" }}
+      style={{ backgroundColor: "transparent" }}
     >
       {/* Dark blue background - starts below the wavy edge */}
       <div
@@ -210,12 +191,12 @@ export default function About() {
         style={{ willChange: "transform", transform: "translate3d(0, 0, 0)" }}
       >
         <Image
-          src="/beaver.svg"
+          src="/beaver.webp"
           alt="Cartoon character"
           width={272}
           height={419}
           className="h-[419px] w-[272px] scale-x-[-1]"
-          priority
+          quality={80}
         />
       </div>
 
@@ -348,7 +329,6 @@ export default function About() {
             ref={collageRef}
             className="relative mx-auto flex w-full max-w-[560px] flex-col gap-6 cursor-none z-10 lg:block lg:max-w-none lg:gap-0 lg:absolute lg:left-[20px] lg:top-[320px] lg:w-[750px] lg:h-[620px]"
           >
-            {/* TOP IMAGE (rect-403.svg) - top center */}
             <div
               className={`relative mx-auto w-[320px] h-[250px] rotate-[2deg] z-10 transition-all duration-500 sm:w-[360px] sm:h-[280px] lg:absolute lg:left-[120px] lg:top-[0px]
                 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
@@ -367,10 +347,11 @@ export default function About() {
               />
               {/* Photo inside the frame - centered with padding */}
               <Image
-                src="/8Q3A2207.JPG.jpg"
+                src="/8Q3A2207.webp"
                 alt="Hack Canada photo"
                 width={240}
                 height={165}
+                quality={80}
                 className="absolute top-[58px] left-[60px] w-[240px] h-[165px]"
                 style={{
                   filter: hoveredImage === 0 ? "blur(0px)" : "blur(2px)",
@@ -382,7 +363,6 @@ export default function About() {
               />
             </div>
 
-            {/* LEFT IMAGE (hackc-1071.svg) - bottom left */}
             <div
               className={`relative mx-auto w-[320px] h-[250px] rotate-[-5deg] z-20 transition-all duration-500 sm:w-[380px] sm:h-[295px] lg:absolute lg:left-[0px] lg:top-[220px]
                 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
@@ -401,10 +381,11 @@ export default function About() {
               />
               {/* Photo inside the frame */}
               <Image
-                src="/HackC_399.JPG.jpg"
+                src="/HackC_399.webp"
                 alt="Hack Canada photo"
                 width={257}
                 height={175}
+                quality={80}
                 className="absolute top-[58px] left-[60px] w-[257px] h-[175px]"
                 style={{
                   filter: hoveredImage === 1 ? "blur(0px)" : "blur(2px)",
@@ -416,7 +397,6 @@ export default function About() {
               />
             </div>
 
-            {/* RIGHT IMAGE (hackc-1078.svg) - bottom right */}
             <div
               className={`relative mx-auto w-[320px] h-[250px] rotate-[4deg] z-30 transition-all duration-500 sm:w-[360px] sm:h-[280px] lg:absolute lg:left-[340px] lg:top-[280px]
                 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
@@ -435,10 +415,11 @@ export default function About() {
               />
               {/* Photo inside the frame */}
               <Image
-                src="/HackC_573.JPG.jpg"
+                src="/HackC_573.webp"
                 alt="Hack Canada photo"
                 width={240}
                 height={165}
+                quality={80}
                 className="absolute top-[58px] left-[60px] w-[240px] h-[165px]"
                 style={{
                   filter: hoveredImage === 2 ? "blur(0px)" : "blur(2px)",
@@ -451,22 +432,23 @@ export default function About() {
             </div>
           </div>
 
-          {/* Candle cursor - smooth following with GPU acceleration - for entire section */}
-          <img
-            ref={candleRef}
-            src="/group-66.svg"
-            alt="candle cursor"
-            className="pointer-events-none absolute w-20 h-auto z-[9999]"
-            style={{
-              left: 0,
-              top: 0,
-              opacity: isInSection ? 1 : 0,
-              transition: "opacity 300ms cubic-bezier(0.16, 1, 0.3, 1)",
-              willChange: "transform, opacity",
-            }}
-          />
         </div>
       </div>
+
+      {/* Candle cursor - direct child of section so positioning matches sectionRef coordinates */}
+      <img
+        ref={candleRef}
+        src="/group-66.svg"
+        alt="candle cursor"
+        className="pointer-events-none absolute w-20 h-auto z-[9999]"
+        style={{
+          left: 0,
+          top: 0,
+          opacity: isInSection ? 1 : 0,
+          transition: "opacity 300ms cubic-bezier(0.16, 1, 0.3, 1)",
+          willChange: "transform, opacity",
+        }}
+      />
     </section>
   );
 }

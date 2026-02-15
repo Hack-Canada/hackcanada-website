@@ -8,6 +8,57 @@ import Obstacle from './Obstacle';
 import { faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+// Fractional insets of opaque pixel bounds within the image
+type OpaqueBounds = { left: number; right: number; top: number; bottom: number };
+
+// Loads every sprite frame, scans alpha channels, returns the union bounding
+// box of all non-transparent pixels as fractions of image dimensions.
+function computeOpaqueBounds(srcs: string[]): Promise<OpaqueBounds> {
+  return Promise.all(
+    srcs.map(
+      (src) =>
+        new Promise<{ minX: number; maxX: number; minY: number; maxY: number; w: number; h: number }>((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d')!;
+            ctx.drawImage(img, 0, 0);
+            const data = ctx.getImageData(0, 0, img.width, img.height).data;
+            let minX = img.width, maxX = 0, minY = img.height, maxY = 0;
+            for (let y = 0; y < img.height; y++) {
+              for (let x = 0; x < img.width; x++) {
+                // alpha > 30 skips antialiasing fringe pixels
+                if (data[(y * img.width + x) * 4 + 3] > 30) {
+                  if (x < minX) minX = x;
+                  if (x > maxX) maxX = x;
+                  if (y < minY) minY = y;
+                  if (y > maxY) maxY = y;
+                }
+              }
+            }
+            resolve({ minX, maxX, minY, maxY, w: img.width, h: img.height });
+          };
+          img.src = src;
+        })
+    )
+  ).then((results) => {
+    const w = results[0].w;
+    const h = results[0].h;
+    const minX = Math.min(...results.map((r) => r.minX));
+    const maxX = Math.max(...results.map((r) => r.maxX));
+    const minY = Math.min(...results.map((r) => r.minY));
+    const maxY = Math.max(...results.map((r) => r.maxY));
+    return {
+      left: minX / w,
+      right: 1 - (maxX + 1) / w,
+      top: minY / h,
+      bottom: 1 - (maxY + 1) / h,
+    };
+  });
+}
+
 import {
   Drawer,
   DrawerClose,
@@ -159,6 +210,7 @@ export default function BeaverGame() {
   const nextWaveRef = useRef(0);
   const pendingClusterRef = useRef(0);
   const nextInClusterRef = useRef(0);
+  const beaverBoundsRef = useRef<OpaqueBounds | null>(null);
 
   const padX = isMobile ? '5vw' : '14vw';
   const laneTop = isMobile ? '38%' : '34%';
@@ -263,26 +315,31 @@ export default function BeaverGame() {
     a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
 
   const checkCollision = useCallback(() => {
-    if (jumpingRef.current) return;
-
     const beaverEl = beaverRef.current;
     if (!beaverEl) return;
 
     const b0 = beaverEl.getBoundingClientRect();
-    const shrink = 14;
+    const beaverShrink = 16;
+    const obstacleShrink = 8;
 
     const b = new DOMRect(
-      b0.x + shrink,
-      b0.y + shrink,
-      Math.max(0, b0.width - shrink * 2),
-      Math.max(0, b0.height - shrink * 2)
+      b0.x + beaverShrink,
+      b0.y + beaverShrink,
+      Math.max(0, b0.width - beaverShrink * 2),
+      Math.max(0, b0.height - beaverShrink * 2)
     );
 
     for (const obs of obstaclesRef.current) {
       const el = obstacleRefs.current[obs.id];
       if (!el) continue;
       const o0 = el.getBoundingClientRect();
-      if (boxesOverlap(b, o0)) {
+      const o = new DOMRect(
+        o0.x + obstacleShrink,
+        o0.y + obstacleShrink,
+        Math.max(0, o0.width - obstacleShrink * 2),
+        Math.max(0, o0.height - obstacleShrink * 2)
+      );
+      if (boxesOverlap(b, o)) {
         endGame(obs.member);
         return;
       }

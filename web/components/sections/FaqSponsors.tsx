@@ -707,15 +707,16 @@ function FaqContent() {
       }}
     >
       {/* Full Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: "url('/faq/full-bg.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/faq/full-bg.webp"
+          alt=""
+          fill
+          style={{ objectFit: "cover" }}
+          quality={75}
+          sizes="100vw"
+        />
+      </div>
 
       {/* FAQ Header Text Group */}
       <div
