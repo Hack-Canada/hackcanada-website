@@ -45,7 +45,7 @@ const sponsorHighlights: SponsorHighlight[] = [
   },
   {
     name: "SPUR Innovation Center",
-    logo: "/sponsors/Spur.png",
+    logo: "/sponsors/spur.png",
     description:
       "SPUR Innovation/Ventures is building the largest venture studio in Canada, backed by the data and compute infrastructure of the SPUR ecosystem.",
     link: "https://spuric.com/",
@@ -62,26 +62,24 @@ const goldBlock: SponsorBlock[] = [
   },
   {
     name: "SPUR Innovation Center",
-    logo: "/sponsors/Spur.png",
+    logo: "/sponsors/spur.png",
     link: "https://spuric.com/",
   },
 ];
 const silverBlocks: SponsorBlock[] = [
   {
-    name: "Elegoo",
-    logo: "/sponsors/elegooLogo.webp",
-    link: "https://www.elegoo.com/",
-  },
-  {
-    name: "Backboard",
-    logo: "/sponsors/backboard.svg",
-    link: "https://www.backboard.io/",
-  },
+    name: "Tailscale",
+    logo: "/sponsors/tailscale.png",
+    link: "https://tailscale.com/",
+  }
 ];
 const bronzeBlocks: SponsorBlock[] = [
-  { name: "NordVPN", logo: "/sponsors/nordvpn.png" },
-  { name: "1Password", logo: "/sponsors/1password.png" },
+  { name: "Backboard", logo: "/sponsors/backboard.svg" },
+  { name: "fantuan", logo: "/sponsors/fantuan.png" },
   { name: "Warp", logo: "/sponsors/warp.png" },
+  { name: "GitHub", logo: "/sponsors/github.png" },
+  { name: "pure buttons", logo: "/sponsors/PureButtons.png" },
+
 ];
 
 const partners: Partner[] = [
@@ -466,7 +464,7 @@ function SponsorsContent() {
           </div>
 
           {/* Bronze - Three Blocks */}
-          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-5 md:gap-6 max-w-[954px] mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 justify-center gap-4 sm:gap-5 md:gap-6 max-w-[954px] mx-auto">
             {bronzeBlocks.map((sponsor, index) => (
               <a
                 key={index}
@@ -657,7 +655,7 @@ const leftColumnItems: FAQItem[] = [
   {
     question: "Where and when is Hack Canada?",
     answer:
-      "Hack Canada will be held overnight at SPUR office, 2240 University Av east, from March 4th to 6th.",
+      "Hack Canada will be held overnight at SPUR office, 2240 University Av east, from March 6th to 8th.",
   },
   {
     question: "What is the schedule like?",
