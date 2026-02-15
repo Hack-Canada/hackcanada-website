@@ -11,6 +11,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { BEAVER_MASK, MASK_SIZE } from '@/lib/beaverCollisionMask';
 import { getObstacleMask, OBS_MASK_SIZE } from '@/lib/obstacleCollisionMasks';
 
+// Scratch buffer: obstacle col → beaver-space bit mask, reused every frame.
+// Precomputed once per obstacle, then pure lookup in the row loop.
+const _colBits = new Uint32Array(OBS_MASK_SIZE);
+
 import {
   Drawer,
   DrawerClose,
@@ -286,38 +290,42 @@ export default function BeaverGame() {
       const oCellW = o.width / OBS_MASK_SIZE;
       const oCellH = o.height / OBS_MASK_SIZE;
 
-      // Overlap region in beaver grid coords
-      const colStart = Math.max(0, Math.floor((Math.max(o.left, b.left) - b.left) / bCellW));
-      const colEnd = Math.min(MASK_SIZE, Math.ceil((Math.min(o.right, b.right) - b.left) / bCellW));
+      // Overlap rows in beaver grid coords
       const rowStart = Math.max(0, Math.floor((Math.max(o.top, b.top) - b.top) / bCellH));
       const rowEnd = Math.min(MASK_SIZE, Math.ceil((Math.min(o.bottom, b.bottom) - b.top) / bCellH));
 
-      let hit = false;
-      for (let row = rowStart; row < rowEnd; row++) {
-        const beaverRow = BEAVER_MASK[row];
-        if (beaverRow === 0) continue;
-
-        for (let col = colStart; col < colEnd; col++) {
-          if (!(beaverRow & (1 << col))) continue;
-
-          // Map beaver cell center to obstacle grid coords
-          const sx = b.left + (col + 0.5) * bCellW;
-          const sy = b.top + (row + 0.5) * bCellH;
-          const oc = Math.floor((sx - o.left) / oCellW);
-          const or_ = Math.floor((sy - o.top) / oCellH);
-
-          if (oc < 0 || oc >= OBS_MASK_SIZE || or_ < 0 || or_ >= OBS_MASK_SIZE) continue;
-          if (obsMask[or_] & (1 << oc)) {
-            hit = true;
-            break;
-          }
-        }
-        if (hit) break;
+      // Precompute obstacle-col → beaver-space bit mask (once per obstacle).
+      // Sprites differ in size so we scale rather than shift.
+      const scale = oCellW / bCellW;
+      const base = (o.left - b.left + 0.5 * oCellW) / bCellW;
+      for (let oc = 0; oc < OBS_MASK_SIZE; oc++) {
+        const bc = Math.floor(base + oc * scale);
+        _colBits[oc] = (bc >= 0 && bc < MASK_SIZE) ? (1 << bc) : 0;
       }
 
-      if (hit) {
-        endGame(obs.member);
-        return;
+      for (let row = rowStart; row < rowEnd; row++) {
+        const beaverRow = BEAVER_MASK[row];
+        if (!beaverRow) continue;
+
+        // Exact row mapping (handles different cell heights)
+        const oRow = Math.floor((b.top + (row + 0.5) * bCellH - o.top) / oCellH);
+        if (oRow < 0 || oRow >= OBS_MASK_SIZE) continue;
+
+        const obsRowBits = obsMask[oRow];
+        if (!obsRowBits) continue;
+
+        // Project obstacle row into beaver column space via LUT, then AND
+        let aligned = 0;
+        let bits = obsRowBits;
+        while (bits) {
+          aligned |= _colBits[31 - Math.clz32(bits & -bits)];
+          bits &= bits - 1;
+        }
+
+        if (beaverRow & aligned) {
+          endGame(obs.member);
+          return;
+        }
       }
     }
   }, [endGame]);
