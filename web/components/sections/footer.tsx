@@ -45,7 +45,7 @@ export default function Footer() {
             </div>
             <div className="flex flex-col gap-2 sm:flex-row md:justify-end">
               <a
-                href=""
+                href="https://github.com/MLH/mlh-policies/blob/main/code-of-conduct.md"
                 className="no-underline hover:underline transition-all duration-300 underline-offset-2"
               >
                 Code of Conduct
