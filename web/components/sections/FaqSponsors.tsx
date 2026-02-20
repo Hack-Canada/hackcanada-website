@@ -62,7 +62,7 @@ const goldBlock: SponsorBlock[] = [
   },
   {
     name: "SPUR Innovation Center",
-    logo: "/sponsors/spur.png",
+    logo: "/sponsors/Spur.png",
     link: "https://spuric.com/",
   },
 ];
