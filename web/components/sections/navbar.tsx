@@ -99,30 +99,27 @@ export default function Navbar() {
             </a>
           </nav>
           <nav className="flex gap-6">
-            <a href="mailto:hi@hackcanada.org" className="flex items-center">
+            <a href="mailto:hi@hackcanada.org" className="flex items-center transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">
               <FontAwesomeIcon
                 icon={faEnvelope}
-                className="text-black"
                 style={{ fontSize: "clamp(20px, 2vw, 32px)" }}
               />
             </a>
             <a
               href="https://www.instagram.com/hackcanada/"
-              className="flex items-center"
+              className="flex items-center transition-all duration-300 hover:scale-110 hover:text-[#441E0A]"
             >
               <FontAwesomeIcon
                 icon={faInstagram}
-                className="text-black"
                 style={{ fontSize: "clamp(20px, 2vw, 32px)" }}
               />
             </a>
             <a
               href="https://www.linkedin.com/company/hack-canada/"
-              className="flex items-center"
+              className="flex items-center transition-all duration-300 hover:scale-110 hover:text-[#441E0A]"
             >
               <FontAwesomeIcon
                 icon={faLinkedinIn}
-                className="text-black"
                 style={{ fontSize: "clamp(20px, 2vw, 30px)" }}
               />
             </a>
