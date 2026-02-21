@@ -7,6 +7,7 @@ import Beaver from './Beaver';
 import Obstacle from './Obstacle';
 import { faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SecretModal from './SecretModal';
 
 import {
   Drawer,
@@ -27,7 +28,8 @@ interface GameState {
 
 type ObstacleState = {
   id: string;
-  member: TeamMember;
+  member?: TeamMember;
+  isStar?: boolean;
   x: number;
 };
 
@@ -44,13 +46,13 @@ function useIsMobile(breakpoint = 640) {
   return isMobile;
 }
 
-const MetBar = React.memo(({ 
-  metMembers, 
-  teamMembers, 
-  isMobile, 
+const MetBar = React.memo(({
+  metMembers,
+  teamMembers,
+  isMobile,
   openMemberModal,
   hoveredMember,
-  setHoveredMember 
+  setHoveredMember
 }: {
   metMembers: string[];
   teamMembers: TeamMember[];
@@ -138,6 +140,7 @@ export default function BeaverGame() {
 
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
   const [hoveredMember, setHoveredMember] = useState<string | null>(null);
+  const [isSecretModalOpen, setIsSecretModalOpen] = useState(false);
 
   const beaverRef = useRef<HTMLDivElement | null>(null);
   const laneRef = useRef<HTMLDivElement | null>(null);
@@ -159,6 +162,7 @@ export default function BeaverGame() {
   const nextWaveRef = useRef(0);
   const pendingClusterRef = useRef(0);
   const nextInClusterRef = useRef(0);
+  const metMembersRef = useRef<string[]>([]);
 
   const padX = isMobile ? '5vw' : '14vw';
   const laneTop = isMobile ? '38%' : '34%';
@@ -202,7 +206,11 @@ export default function BeaverGame() {
     const savedHighScore = localStorage.getItem('highScore');
     const savedMetMembers = localStorage.getItem('metMembers');
     if (savedHighScore) setGameState(prev => ({ ...prev, highScore: parseInt(savedHighScore) }));
-    if (savedMetMembers) setMetMembers(JSON.parse(savedMetMembers));
+    if (savedMetMembers) {
+      const parsed = JSON.parse(savedMetMembers);
+      setMetMembers(parsed);
+      metMembersRef.current = parsed;
+    }
   }, []);
 
   useEffect(() => {
@@ -218,6 +226,10 @@ export default function BeaverGame() {
   useEffect(() => {
     obstaclesRef.current = obstacles;
   }, [obstacles]);
+
+  useEffect(() => {
+    metMembersRef.current = metMembers;
+  }, [metMembers]);
 
   useEffect(() => {
     isPlayingRef.current = gameState.isPlaying;
@@ -283,18 +295,40 @@ export default function BeaverGame() {
       if (!el) continue;
       const o0 = el.getBoundingClientRect();
       if (boxesOverlap(b, o0)) {
-        endGame(obs.member);
+        if (obs.isStar) {
+          // Collect star
+          const filtered = obstaclesRef.current.filter(o => o.id !== obs.id);
+          delete obstacleRefs.current[obs.id];
+          obstaclesRef.current = filtered;
+          setObstacles(filtered);
+
+          // Open Modal & Pause
+          setIsSecretModalOpen(true);
+          isPlayingRef.current = false;
+          setGameState(prev => ({ ...prev, isPlaying: false }));
+          return;
+        }
+        if (obs.member) {
+          endGame(obs.member);
+        }
         return;
       }
     }
   }, [endGame]);
 
   const spawnOne = useCallback(() => {
-    const member = teamMembers[Math.floor(Math.random() * teamMembers.length)];
+    const isStarChance = metMembersRef.current.length >= 10 && Math.random() < 0.4;
     const id = `${Date.now()}-${Math.random()}`;
     const startX = laneWidth + spawnPad;
 
-    const next = [...obstaclesRef.current, { id, member, x: startX }];
+    let next: ObstacleState[];
+    if (isStarChance) {
+      next = [...obstaclesRef.current, { id, isStar: true, x: startX }];
+    } else {
+      const member = teamMembers[Math.floor(Math.random() * teamMembers.length)];
+      next = [...obstaclesRef.current, { id, member, x: startX }];
+    }
+
     obstaclesRef.current = next;
     setObstacles(next);
   }, [laneWidth]);
@@ -473,6 +507,13 @@ export default function BeaverGame() {
     const member = teamMembers.find(m => m.id === id) || null;
     setSelectedMember(member);
   }, []);
+
+  const testCollectRandom = () => {
+    const shuffled = [...teamMembers].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, 20).map(m => m.id);
+    setMetMembers(selected);
+    localStorage.setItem('metMembers', JSON.stringify(selected));
+  };
 
   return (
     <div className="relative w-full overflow-visible">
@@ -656,9 +697,17 @@ export default function BeaverGame() {
               )}
             </div>
 
-            <div className="shrink-0 text-white font-mono text-lg sm:text-2xl whitespace-nowrap">
-              <span className="opacity-80 mr-4">HI {displayHigh}</span>
-              <span className="tracking-wider">{displayScore}</span>
+            <div className="shrink-0 flex flex-col items-end gap-2">
+              <div className="text-white font-mono text-lg sm:text-2xl whitespace-nowrap">
+                <span className="opacity-80 mr-4">HI {displayHigh}</span>
+                <span className="tracking-wider">{displayScore}</span>
+              </div>
+              <button
+                onClick={testCollectRandom}
+                className="text-[10px] bg-white/10 hover:bg-white/20 text-white/40 hover:text-white px-2 py-1 rounded border border-white/10 transition-all font-mono uppercase"
+              >
+                Test: Collect 20
+              </button>
             </div>
           </div>
         </div>
@@ -739,6 +788,7 @@ export default function BeaverGame() {
                   obstacleRefs.current[o.id] = el;
                 }}
                 member={o.member}
+                isStar={o.isStar}
                 x={o.x}
                 size={obstacleSize}
                 groundOffsetPx={groundH}
@@ -768,6 +818,17 @@ export default function BeaverGame() {
             setHoveredMember={setHoveredMember}
           />
         </div>
+
+        <SecretModal
+          isOpen={isSecretModalOpen}
+          onClose={() => {
+            setIsSecretModalOpen(false);
+            isPlayingRef.current = true;
+            setGameState(prev => ({ ...prev, isPlaying: true }));
+            lastTimeRef.current = null;
+            rafRef.current = requestAnimationFrame(updateLoop);
+          }}
+        />
       </div>
     </div>
   );

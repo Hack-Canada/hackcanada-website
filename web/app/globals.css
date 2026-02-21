@@ -144,6 +144,7 @@
   }
 
   @media (max-width: 768px) {
+
     html,
     body {
       overflow-x: hidden;
@@ -152,19 +153,42 @@
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 /* Titles use Baloo Chettan */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-baloo-chettan), system-ui, sans-serif;
 }
 
 /* Body text uses Rubik */
-body, p, span, a, li, td, th, label, input, textarea, button {
+body,
+p,
+span,
+a,
+li,
+td,
+th,
+label,
+input,
+textarea,
+button {
   font-family: var(--font-rubik), system-ui, sans-serif;
 }
+
 /* ---------- Meteor shower (top-right -> bottom-left) ---------- */
 
 .meteor-field {
@@ -206,9 +230,11 @@ body, p, span, a, li, td, th, label, input, textarea, button {
     transform: translate3d(0, 0, 0) scale(var(--scale, 1));
     opacity: var(--alpha, 0.6);
   }
+
   85% {
     opacity: calc(var(--alpha, 0.6) * 0.6);
   }
+
   100% {
     transform: translate3d(-140vw, 140vh, 0) scale(var(--scale, 1));
     opacity: 0;
