@@ -308,8 +308,9 @@ export default function BeaverGame() {
           setGameState(prev => ({ ...prev, isPlaying: false }));
           return;
         }
-        if (obs.member) {
-          endGame(obs.member);
+        const currentMember = obs.member;
+        if (currentMember) {
+          endGame(currentMember);
         }
         return;
       }
@@ -687,7 +688,7 @@ export default function BeaverGame() {
                     className="text-[28px] leading-[0.95] sm:text-6xl sm:leading-none text-white font-luckiest whitespace-normal"
                     style={{ maxWidth: isMobile ? '72vw' : 'none' }}
                   >
-                    YOU HIT {hitMember?.name.toUpperCase()}!
+                    YOU HIT {hitMember?.name?.toUpperCase()}!
                   </h1>
                   <p className="text-sm sm:text-xl text-white/90 mt-2">Team {hitMember?.team}</p>
                   <p className="text-[10px] sm:text-base text-white/75 italic mt-0.5 sm:mt-1 max-w-[55vw] sm:max-w-none">
