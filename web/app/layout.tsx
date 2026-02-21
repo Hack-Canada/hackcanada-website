@@ -152,7 +152,7 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${lato.variable} ${outfit.variable} ${rubik.variable} antialiased`}
       >
