@@ -1,21 +1,20 @@
-'use client';
+"use client";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInstagram } from '@fortawesome/free-brands-svg-icons';
-import { faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from '@fortawesome/free-solid-svg-icons';
-import React, { useState, useEffect } from 'react';
-import MobileMenu from './MobileMenu';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import React, { useState, useEffect } from "react";
+import MobileMenu from "./MobileMenu";
 
 /**
  * Navbar Component
- * 
+ *
  * This component should include:
  * - Logo/branding
  * - Navigation links
  * - Mobile menu (hamburger menu)
  * - Responsive design
- * 
+ *
  * TODO: Implement navigation functionality
  */
 export default function Navbar() {
@@ -26,7 +25,7 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       // Show navbar when scrolling up or at the top
       if (currentScrollY < lastScrollY || currentScrollY < 50) {
         setIsVisible(true);
@@ -34,12 +33,12 @@ export default function Navbar() {
         // Hide navbar when scrolling down
         setIsVisible(false);
       }
-      
+
       setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
   return (
@@ -54,28 +53,80 @@ export default function Navbar() {
         transition-transform duration-300
         ${isVisible ? "translate-y-0" : "-translate-y-[200%]"}`}
       >
-
         {/* logo */}
-        <img src="/navbar/hackcanadaLogo.png" alt="Hack Canada Logo" className="h-18 rounded-full p-4" />
-        <div className='hidden lg:flex gap-8 justify-between items-center flex-1'>
+        <img
+          src="/navbar/hackcanadaLogo.png"
+          alt="Hack Canada Logo"
+          className="h-18 rounded-full p-4"
+        />
+        <div className="hidden lg:flex gap-8 justify-between items-center flex-1">
           <nav className="flex gap-8 text-lg xl:text-2xl font-bold font-tight font-luckiest">
             {/* page link */}
-            <a href="#about" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">About</a>
+            <a
+              href="#about"
+              className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]"
+            >
+              About
+            </a>
             {/* TODO: Change this to 2025.hackcanada.org */}
-            <a href="#stats" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">2025</a>
-            <a href="#sponsors" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">Sponsors</a>
-            <a href="#faq" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">FAQ</a>
-            <a href="#team" className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">Team</a>
+            <a
+              href="#stats"
+              className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]"
+            >
+              2025
+            </a>
+            <a
+              href="#sponsors"
+              className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]"
+            >
+              Sponsors
+            </a>
+            <a
+              href="#faq"
+              className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]"
+            >
+              FAQ
+            </a>
+            <a
+              href="#team"
+              className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]"
+            >
+              Team
+            </a>
           </nav>
-          <nav className='flex gap-6'>
-            <a href="mailto:hi@hackcanada.org"><FontAwesomeIcon icon={faEnvelope} className='text-black' style={{ fontSize: 'clamp(20px, 2vw, 32px)' }}/></a>
-            <a href="https://www.instagram.com/hackcanada/"><FontAwesomeIcon icon={faInstagram} className='text-black' style={{ fontSize: 'clamp(20px, 2vw, 32px)' }}/></a>
-            <a href="https://www.linkedin.com/company/hack-canada/"><FontAwesomeIcon icon={faLinkedin} className='text-black' style={{ fontSize: 'clamp(20px, 2vw, 32px)' }}/></a>
+          <nav className="flex gap-6">
+            <a href="mailto:hi@hackcanada.org" className="flex items-center">
+              <FontAwesomeIcon
+                icon={faEnvelope}
+                className="text-black"
+                style={{ fontSize: "clamp(20px, 2vw, 32px)" }}
+              />
+            </a>
+            <a
+              href="https://www.instagram.com/hackcanada/"
+              className="flex items-center"
+            >
+              <FontAwesomeIcon
+                icon={faInstagram}
+                className="text-black"
+                style={{ fontSize: "clamp(20px, 2vw, 32px)" }}
+              />
+            </a>
+            <a
+              href="https://www.linkedin.com/company/hack-canada/"
+              className="flex items-center"
+            >
+              <FontAwesomeIcon
+                icon={faLinkedinIn}
+                className="text-black"
+                style={{ fontSize: "clamp(20px, 2vw, 30px)" }}
+              />
+            </a>
           </nav>
         </div>
-        
+
         {/* Mobile Hamburger Menu */}
-        <button 
+        <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           className="lg:hidden ml-auto"
         >
@@ -87,9 +138,8 @@ export default function Navbar() {
           </div>
         </button>
       </div>
-      
+
       <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>
   );
 }
-

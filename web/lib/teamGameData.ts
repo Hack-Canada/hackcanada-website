@@ -66,6 +66,9 @@ const rawTeamData: Array<Omit<TeamMember, 'id' | 'photo' | 'obstaclePhoto'>> = [
     { name: 'Claire L', role: 'Visual Design', team: 'Visual Design', oneLiner: 'animation!' },
     { name: 'Isabelle Dharma', role: 'Visual Design', team: 'Visual Design', oneLiner: 'naps are best taken when not needed' },
     { name: 'Jessica Zhang', role: 'Visual Design', team: 'Visual Design', oneLiner: 'One Must Imagine Sisyphus Happy', socials: { instagram: 'https://www.instagram.com/x.yuan.__', linkedin: 'https://www.linkedin.com/in/xinyuan-zhang-2228ba26a/?trk=public-profile-join-page' } },
+
+    // Alumni 
+    { name: 'Jason Cameron', role: 'Admin', team: 'Admin', oneLiner: 'I think, therefore Hack Canada.', socials: { linkedin: 'https://www.linkedin.com/in/jsoncameron/' } },
 ];
 
 // Helper to convert name to filename formats

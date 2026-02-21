@@ -68,20 +68,31 @@ const goldBlock: SponsorBlock[] = [
 ];
 const silverBlocks: SponsorBlock[] = [
   {
-    name: "Elegoo",
-    logo: "/sponsors/elegooLogo.webp",
-    link: "https://www.elegoo.com/",
+    name: "Tailscale",
+    logo: "/sponsors/tailscale.png",
+    link: "https://tailscale.com/",
+  },
+  {
+    name: "Stan",
+    logo: "/sponsors/stan.png",
+    link: "https://stan.store/",
+  }, {
+    name: "cloudinary",
+    logo: "/sponsors/cloudinary.png",
+    link: "https://cloudinary.com/",
   },
   {
     name: "Backboard",
     logo: "/sponsors/backboard.svg",
     link: "https://www.backboard.io/",
-  },
+  }
 ];
 const bronzeBlocks: SponsorBlock[] = [
-  { name: "NordVPN", logo: "/sponsors/nordvpn.png" },
-  { name: "1Password", logo: "/sponsors/1password.png" },
+  { name: "fantuan", logo: "/sponsors/fantuan.png" },
   { name: "Warp", logo: "/sponsors/warp.png" },
+  { name: "GitHub", logo: "/sponsors/github.png" },
+  { name: "pure buttons", logo: "/sponsors/PureButtons.png" },
+
 ];
 
 const partners: Partner[] = [
@@ -89,7 +100,7 @@ const partners: Partner[] = [
     name: "GDG Laurier",
     logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4cfKyMJNFvwqJ1BbG51ld9i8BbTIqDc4z2A&s",
     blurb: "Google Developer Group Laurier brings together developers and tech enthusiasts at Wilfrid Laurier University to learn, build, and connect.",
-    team: ["Abdul Aziz", "Yash Hiren Dave"],
+    team: ["Abdul Aziz", "Yash Dave", "Khushi Patel", "Akif Rahman"],
     link: "https://gdg.community.dev/gdg-laurier/",
   },
 ];
@@ -110,7 +121,7 @@ function SponsorsContent() {
     if (!isTransitioning) {
       setIsTransitioning(true);
     }
-  }, [currentHighlight]);
+  }, [currentHighlight, isTransitioning]);
 
   useEffect(() => {
     const handleTransitionEnd = () => {
@@ -131,7 +142,7 @@ function SponsorsContent() {
       return () =>
         carousel.removeEventListener("transitionend", handleTransitionEnd);
     }
-  }, [currentHighlight, infiniteSlides.length, sponsorHighlights.length]);
+  }, [currentHighlight, infiniteSlides.length]);
 
   const nextHighlight = () => {
     if (currentHighlight < infiniteSlides.length - 1) {
@@ -423,7 +434,7 @@ function SponsorsContent() {
           </div>
 
           {/* Silver - Two Blocks Side by Side */}
-          <div className="flex flex-col md:flex-row justify-center gap-4 sm:gap-5 md:gap-6 mb-4 sm:mb-5 md:mb-6 max-w-[954px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-4 sm:gap-5 md:gap-6 mb-4 sm:mb-5 md:mb-6 max-w-[954px] mx-auto">
             {silverBlocks.map((sponsor, index) => (
               <a
                 key={index}
@@ -466,7 +477,7 @@ function SponsorsContent() {
           </div>
 
           {/* Bronze - Three Blocks */}
-          <div className="flex flex-col sm:flex-row justify-center gap-4 sm:gap-5 md:gap-6 max-w-[954px] mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-3 justify-center gap-4 sm:gap-5 md:gap-6 max-w-[954px] mx-auto">
             {bronzeBlocks.map((sponsor, index) => (
               <a
                 key={index}
@@ -568,19 +579,14 @@ function SponsorsContent() {
                         {partner.blurb}
                       </p>
                       <div
-                        className="pt-3 border-t border-gray-200"
-                        style={{
-                          color: "#282D5C",
-                          fontSize: "clamp(19px, 2.4vw, 26px)",
-                        }}
+                        className="pt-3 border-t border-gray-200 text-lg"
                       >
                         <span
                           className="font-luckiest opacity-90"
-                          style={{ fontWeight: 400 }}
                         >
                           Huge thank you to {" "}
                         </span>
-                        <span style={{ fontWeight: 700 }}>
+                        <span >
                           {partner.team.length > 0
                             ? partner.team.join(", ")
                             : "—"}
@@ -653,9 +659,7 @@ const leftColumnItems: FAQItem[] = [
   },
   {
     question: "What is Hack Canada?",
-    answer:
-      "Hack Canada is a yearly held, in-person hackathon run by the Hackathons Canada, a community of tech-enthusiasts across Canada. Hack Canada 2026 will run from March 5th to 7th for 48 hours.",
-  },
+    answer: "Hack Canada is built around tackling real Canadian challenges. This year, we're extending that mission beyond the weekend with a 30-day building period—giving teams 1 on 1 access to sponsors and funding to transform prototypes into lasting side projects or startups."  },
   {
     question: "How much does it cost?",
     answer:
@@ -664,17 +668,17 @@ const leftColumnItems: FAQItem[] = [
   {
     question: "Where and when is Hack Canada?",
     answer:
-      "Hack Canada will be held overnight at the Lazaridis Centre at Wilfrid Laurier University, from March 4th to 6th.",
+      "Hack Canada will be held overnight at SPUR office, 2240 University Av east, from March 6th to 8th.",
   },
   {
     question: "What is the schedule like?",
     answer:
-      'Hack Canada will start with an opening ceremony, immediately followed by the "hacking period" lasting 48 hours and giving hackers the chance to work on their projects. Soon after it is over, judging will take place, and then our closing ceremony to wrap up the event.',
+      'Hack Canada runs like a normal hackathon weekend, but we\'ve added a 30 day building period afterwards. Teams get 1-on-1 access to sponsors and funding to turn their prototypes into real projects or startups. At the end, there\'s a demo day where you present to sponsors and VCs.',
   },
   {
     question: "Who is eligible to participate?",
     answer:
-      "Any student in high school or currently enrolled in an undergraduate degree can participate.",
+      "High schoolers, undergrad students, and recent graduates are all eligible.",
   },
 ];
 
@@ -716,15 +720,16 @@ function FaqContent() {
       }}
     >
       {/* Full Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: "url('/faq/full-bg.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/faq/full-bg.webp"
+          alt=""
+          fill
+          style={{ objectFit: "cover" }}
+          quality={75}
+          sizes="100vw"
+        />
+      </div>
 
       {/* FAQ Header Text Group */}
       <div
