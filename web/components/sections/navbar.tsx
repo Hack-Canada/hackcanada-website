@@ -54,11 +54,15 @@ export default function Navbar() {
         ${isVisible ? "translate-y-0" : "-translate-y-[200%]"}`}
       >
         {/* logo */}
-        <img
-          src="/navbar/hackcanadaLogo.png"
-          alt="Hack Canada Logo"
-          className="h-18 rounded-full p-4"
-        />
+        <a href="#" className="flex items-center py-4 hover:scale-110 transition-all duration-300">
+          <img
+            src="/navbar/hackcanadaLogo.png"
+            alt="Hack Canada Logo"
+            className="h-10 rounded-full"
+          />
+        </a>
+
+        {/* navigation links */}
         <div className="hidden lg:flex gap-8 justify-between items-center flex-1">
           <nav className="flex gap-8 text-lg xl:text-2xl font-bold font-tight font-luckiest">
             {/* page link */}
