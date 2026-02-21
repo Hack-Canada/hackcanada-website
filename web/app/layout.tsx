@@ -33,10 +33,31 @@ const rubik = Rubik({
 });
 
 export const metadata: Metadata = {
-  title: "HackCanada - Canada's Premier Hackathon",
+  metadataBase: new URL("https://hackcanada.org"),
+  title: {
+    default: "HackCanada - Canada's Premier Hackathon",
+    template: "%s | HackCanada",
+  },
   description:
     "Join Canada's premier hackathon event. Build, innovate, and connect with developers from across the country.",
+  keywords: [
+    "HackCanada",
+    "hackathon",
+    "Canada hackathon",
+    "student hackathon",
+    "coding competition",
+    "tech event",
+    "software engineering",
+    "developer event",
+  ],
+  applicationName: "HackCanada",
+  alternates: {
+    canonical: "https://hackcanada.org",
+  },
   openGraph: {
+    type: "website",
+    url: "https://hackcanada.org",
+    siteName: "HackCanada",
     title: "HackCanada - Canada's Premier Hackathon",
     description:
       "Join Canada's premier hackathon event. Build, innovate, and connect with developers from across the country.",
@@ -48,6 +69,7 @@ export const metadata: Metadata = {
         alt: "Hack Canada Logo",
       },
     ],
+    locale: "en_CA",
   },
   twitter: {
     card: "summary_large_image",
@@ -55,6 +77,19 @@ export const metadata: Metadata = {
     description:
       "Join Canada's premier hackathon event. Build, innovate, and connect with developers from across the country.",
     images: ["/navbar/hackcanadaLogo.png"],
+    site: "@hackcanada",
+    creator: "@hackathoncanada",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large",
+      "max-video-preview": -1,
+    },
   },
   icons: {
     icon: [{ url: "/navbar/hackcanadaLogo.png", type: "image/png" }],
@@ -74,20 +109,62 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLdOrganization = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "HackCanada",
+    url: "https://hackcanada.org",
+    logo: "https://hackcanada.org/navbar/hackcanadaLogo.png",
+    sameAs: [
+      "https://www.instagram.com/hackcanada",
+      "https://www.instagram.com/hackathoncanada/",
+    ],
+  };
+
+  const jsonLdEvent = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: "Hack Canada 2026 - In-Person Event",
+    eventAttendanceMode: "https://schema.org/MixedEventAttendanceMode",
+    eventStatus: "https://schema.org/EventScheduled",
+    url: "https://hackcanada.org",
+    startDate: "2026-03-06",
+    endDate: "2026-03-08",
+    location: {
+      "@type": "Place",
+      name: "SPUR Campus - Spur Innovation Center",
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "2240 University Ave W",
+        addressLocality: "Waterloo",
+        addressRegion: "ON",
+        postalCode: "N2K 0G3",
+        addressCountry: "CA",
+      },
+    },
+    description:
+      "Canada's premier hackathon event for students and builders across the country.",
+    organizer: {
+      "@type": "Organization",
+      name: "Hack Canada",
+      url: "https://hackcanada.org",
+    },
+  };
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${lato.variable} ${outfit.variable} ${rubik.variable} antialiased`}
       >
         <AbstractBackground />
-        {/* <a
+        <a
           id="mlh-trust-badge"
           style={{
             display: "block",
             maxWidth: "100px",
             minWidth: "60px",
             position: "fixed",
-            right: "50px",
+            right: "40px",
             top: "0",
             width: "10%",
             zIndex: "10000",
@@ -100,8 +177,35 @@ export default function RootLayout({
             alt="Major League Hacking 2026 Hackathon Season"
             style={{ width: "100%" }}
           ></img>
-        </a> */}
+        </a>
         {children}
+        <Script
+          id="ld-json-org"
+          type="application/ld+json"
+          strategy="afterInteractive"
+        >
+          {JSON.stringify(jsonLdOrganization)}
+        </Script>
+        <Script
+          id="ld-json-event"
+          type="application/ld+json"
+          strategy="afterInteractive"
+        >
+          {JSON.stringify(jsonLdEvent)}
+        </Script>
+        <Script
+          async
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-0EB9C7F9C0"
+        />
+        <Script strategy="afterInteractive" id="gtag-script">
+          {`
+          window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0EB9C7F9C0');`}
+        </Script>
         <Script strategy="afterInteractive" id="clarity-script">
           {`
           (function(c,l,a,r,i,t,y){

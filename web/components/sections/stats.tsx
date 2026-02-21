@@ -115,12 +115,13 @@ export default function Stats() {
               {/* Stats image */}
               <div className="absolute bottom-[-75] left-1/2 -translate-x-1/2 z-30 w-[70%] md:w-[60%] lg:w-[70%] xl:w-[75%] max-w-[750px]">
                 <Image
-                  src="/statsNew.png"
+                  src="/statsNew.webp"
                   alt="Hack Canada statistics"
                   width={1100}
                   height={1100}
                   className="w-full h-auto drop-shadow-[0_0_35px_rgba(147,197,253,0.5)]"
-                  priority
+                  sizes="(max-width: 768px) 85vw, 75vw"
+                  quality={80}
                 />
               </div>
 
@@ -129,12 +130,13 @@ export default function Stats() {
             {/* City skyline */}
             <div className="absolute bottom-0 left-0 right-0 z-10 w-full">
               <Image
-                src="/stat-images/city.svg"
+                src="/stat-images/city.webp"
                 alt="City skyline"
                 width={1920}
                 height={1080}
                 className="w-full h-auto object-contain object-bottom"
-                priority
+                sizes="100vw"
+                quality={80}
               />
             </div>
           </div>
@@ -187,12 +189,13 @@ export default function Stats() {
               {/* Stats image - mobile */}
               <div className="absolute bottom-[-30] left-1/2 -translate-x-1/2 z-30 w-[85%] max-w-[600px]">
                 <Image
-                  src="/statsNew.png"
+                  src="/statsNew.webp"
                   alt="Hack Canada statistics"
                   width={1100}
                   height={1100}
                   className="w-full h-auto drop-shadow-[0_0_25px_rgba(147,197,253,0.5)]"
-                  priority
+                  sizes="85vw"
+                  quality={80}
                 />
               </div>
 
@@ -201,11 +204,13 @@ export default function Stats() {
             {/* City skyline - mobile */}
             <div className="absolute bottom-0 left-0 right-0 z-10 w-full">
               <Image
-                src="/stat-images/city.svg"
+                src="/stat-images/city.webp"
                 alt="City skyline"
                 width={1920}
                 height={1080}
                 className="w-full h-auto object-contain object-bottom"
+                sizes="100vw"
+                quality={80}
               />
             </div>
           </div>

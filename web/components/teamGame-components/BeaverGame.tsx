@@ -9,6 +9,13 @@ import { faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SecretModal from './SecretModal';
 
+import { BEAVER_MASK, MASK_SIZE } from '@/lib/beaverCollisionMask';
+import { getObstacleMask, OBS_MASK_SIZE } from '@/lib/obstacleCollisionMasks';
+
+// Scratch buffer: obstacle col → beaver-space bit mask, reused every frame.
+// Precomputed once per obstacle, then pure lookup in the row loop.
+const _colBits = new Uint32Array(OBS_MASK_SIZE);
+
 import {
   Drawer,
   DrawerClose,
@@ -271,48 +278,68 @@ export default function BeaverGame() {
     [markMet]
   );
 
-  const boxesOverlap = (a: DOMRect, b: DOMRect) =>
-    a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
-
   const checkCollision = useCallback(() => {
-    if (jumpingRef.current) return;
-
     const beaverEl = beaverRef.current;
     if (!beaverEl) return;
-
-    const b0 = beaverEl.getBoundingClientRect();
-    const shrink = 14;
-
-    const b = new DOMRect(
-      b0.x + shrink,
-      b0.y + shrink,
-      Math.max(0, b0.width - shrink * 2),
-      Math.max(0, b0.height - shrink * 2)
-    );
-
+    const b = beaverEl.getBoundingClientRect();
+    const bCellW = b.width / MASK_SIZE;
+    const bCellH = b.height / MASK_SIZE;
     for (const obs of obstaclesRef.current) {
       const el = obstacleRefs.current[obs.id];
       if (!el) continue;
-      const o0 = el.getBoundingClientRect();
-      if (boxesOverlap(b, o0)) {
-        if (obs.isStar) {
-          // Collect star
-          const filtered = obstaclesRef.current.filter(o => o.id !== obs.id);
-          delete obstacleRefs.current[obs.id];
-          obstaclesRef.current = filtered;
-          setObstacles(filtered);
+      const o = el.getBoundingClientRect();
+      // AABB rejection
+      if (o.right <= b.left || o.left >= b.right || o.bottom <= b.top || o.top >= b.bottom) {
+        continue;
+      }
+      if (obs.isStar) {
+        // Collect star
+        const filtered = obstaclesRef.current.filter(o => o.id !== obs.id);
+        delete obstacleRefs.current[obs.id];
+        obstaclesRef.current = filtered;
+        setObstacles(filtered);
+        // Open Modal & Pause
+        setIsSecretModalOpen(true);
+        isPlayingRef.current = false;
+        setGameState(prev => ({ ...prev, isPlaying: false }));
+        return;
+      }
 
-          // Open Modal & Pause
-          setIsSecretModalOpen(true);
-          isPlayingRef.current = false;
-          setGameState(prev => ({ ...prev, isPlaying: false }));
+      const currentMember = obs.member;
+      if (!currentMember) continue;
+      const obsMask = getObstacleMask(currentMember.obstaclePhoto);
+      if (!obsMask) continue;
+      const oCellW = o.width / OBS_MASK_SIZE;
+      const oCellH = o.height / OBS_MASK_SIZE;
+      // Overlap rows in beaver grid coords
+      const rowStart = Math.max(0, Math.floor((Math.max(o.top, b.top) - b.top) / bCellH));
+      const rowEnd = Math.min(MASK_SIZE, Math.ceil((Math.min(o.bottom, b.bottom) - b.top) / bCellH));
+      // Precompute obstacle-col → beaver-space bit mask (once per obstacle).
+      const scale = oCellW / bCellW;
+      const base = (o.left - b.left) / bCellW;
+      for (let oc = 0; oc < OBS_MASK_SIZE; oc++) {
+        const bc = Math.floor(base + (oc + 0.5) * scale);
+        _colBits[oc] = bc >= 0 && bc < MASK_SIZE ? 1 << bc : 0;
+      }
+      for (let row = rowStart; row < rowEnd; row++) {
+        const beaverRow = BEAVER_MASK[row];
+        if (!beaverRow) continue;
+        const oRow = Math.floor((b.top + (row + 0.5) * bCellH - o.top) / oCellH);
+        if (oRow < 0 || oRow >= OBS_MASK_SIZE) continue;
+        const obsRowBits = obsMask[oRow];
+        if (!obsRowBits) continue;
+        // Project obstacle row into beaver column space via LUT, then AND
+        let aligned = 0;
+        let bits = obsRowBits;
+        while (bits) {
+          const lsb = bits & -bits;
+          aligned |= _colBits[31 - Math.clz32(lsb)];
+          bits &= bits - 1;
+        }
+        if (beaverRow & aligned) {
+          endGame(currentMember);
           return;
         }
-        const currentMember = obs.member;
-        if (currentMember) {
-          endGame(currentMember);
-        }
-        return;
       }
     }
   }, [endGame]);
