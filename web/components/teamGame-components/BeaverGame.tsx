@@ -170,6 +170,7 @@ export default function BeaverGame() {
   const pendingClusterRef = useRef(0);
   const nextInClusterRef = useRef(0);
   const metMembersRef = useRef<string[]>([]);
+  const scoreRef = useRef(0);
 
   const padX = isMobile ? '5vw' : '14vw';
   const laneTop = isMobile ? '38%' : '34%';
@@ -205,6 +206,7 @@ export default function BeaverGame() {
     setGroundOffset(0);
 
     nextWaveRef.current = 600;
+    scoreRef.current = 0;
     pendingClusterRef.current = 0;
     nextInClusterRef.current = 0;
   }, []);
@@ -345,7 +347,11 @@ export default function BeaverGame() {
   }, [endGame]);
 
   const spawnOne = useCallback(() => {
-    const isStarChance = metMembersRef.current.length >= 10 && Math.random() < 0.4;
+    const hasStarOnScreen = obstaclesRef.current.some(o => o.isStar);
+    const isStarChance = metMembersRef.current.length >= 10 &&
+      scoreRef.current > 30 &&
+      !hasStarOnScreen &&
+      Math.random() < 0.06;
     const id = `${Date.now()}-${Math.random()}`;
     const startX = laneWidth + spawnPad;
 
@@ -379,6 +385,7 @@ export default function BeaverGame() {
 
         setGameState(prev => {
           const nextScore = prev.score + steps;
+          scoreRef.current = nextScore;
           const nextSpeed = Math.min(18, 6 + Math.floor(nextScore / 140));
           speedScaleRef.current = 1 + (nextSpeed - 6) * 0.06;
           return { ...prev, score: nextScore, speed: nextSpeed };

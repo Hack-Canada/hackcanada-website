@@ -32,9 +32,12 @@ const Obstacle = forwardRef<HTMLDivElement, ObstacleProps>(function Obstacle(
         <div className="w-full h-full flex items-center justify-center">
           <svg
             viewBox="0 0 24 24"
-            className="w-full h-full drop-shadow-[0_0_8px_rgba(255,223,0,0.8)] fill-yellow-400"
+            className="w-full h-full drop-shadow-[0_0_15px_rgba(255,255,255,0.8)] filter drop-shadow-[0_0_5px_rgba(255,255,0,1)] fill-yellow-200 stroke-yellow-200"
+            strokeWidth="3.5"
+            strokeLinejoin="round"
+            strokeLinecap="round"
           >
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            <path d="M12 2.5l2.45 5.51 6.05.54-4.59 4l1.37 5.95L12 15.3l-5.28 3.2 1.37-5.95-4.59-4 6.05-.54L12 2.5z" />
           </svg>
         </div>
       ) : (
