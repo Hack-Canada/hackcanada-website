@@ -1,8 +1,7 @@
 "use client";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInstagram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import { faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
+import { faInstagram, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { useState, useEffect } from "react";
 
@@ -45,18 +44,17 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
 
   return (
     <div
-      className={`fixed inset-0 bg-[#111031] md:hidden z-50 flex flex-col items-center justify-center transition-transform duration-500 ${
+      className={`fixed inset-0 bg-[#111031] lg:hidden z-[10001] flex flex-col items-center justify-center transition-transform duration-500 ${
         isSliding ? "translate-y-0" : "-translate-y-full"
       }`}
     >
       <div
-        className={`transition-opacity duration-300 ${
-          isAnimating ? "opacity-100" : "opacity-0"
-        }`}
+        className={`transition-opacity duration-300 ${isAnimating ? "opacity-100" : "opacity-0"
+          }`}
       >
         <button
           onClick={onClose}
-          className="absolute top-7 right-41 text-white text-3xl font-light hover:opacity-70 transition-opacity"
+          className="fixed top-2 right-13 h-[72px] flex items-center text-white text-3xl font-light hover:opacity-70 transition-opacity"
           aria-label="Close menu"
         >
           ×

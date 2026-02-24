@@ -7,6 +7,14 @@ import Beaver from './Beaver';
 import Obstacle from './Obstacle';
 import { faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import SecretModal from './SecretModal';
+
+import { BEAVER_MASK, MASK_SIZE } from '@/lib/beaverCollisionMask';
+import { getObstacleMask, OBS_MASK_SIZE } from '@/lib/obstacleCollisionMasks';
+
+// Scratch buffer: obstacle col → beaver-space bit mask, reused every frame.
+// Precomputed once per obstacle, then pure lookup in the row loop.
+const _colBits = new Uint32Array(OBS_MASK_SIZE);
 
 import {
   Drawer,
@@ -27,7 +35,8 @@ interface GameState {
 
 type ObstacleState = {
   id: string;
-  member: TeamMember;
+  member?: TeamMember;
+  isStar?: boolean;
   x: number;
 };
 
@@ -44,13 +53,13 @@ function useIsMobile(breakpoint = 640) {
   return isMobile;
 }
 
-const MetBar = React.memo(({ 
-  metMembers, 
-  teamMembers, 
-  isMobile, 
+const MetBar = React.memo(({
+  metMembers,
+  teamMembers,
+  isMobile,
   openMemberModal,
   hoveredMember,
-  setHoveredMember 
+  setHoveredMember
 }: {
   metMembers: string[];
   teamMembers: TeamMember[];
@@ -138,6 +147,7 @@ export default function BeaverGame() {
 
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
   const [hoveredMember, setHoveredMember] = useState<string | null>(null);
+  const [isSecretModalOpen, setIsSecretModalOpen] = useState(false);
 
   const beaverRef = useRef<HTMLDivElement | null>(null);
   const laneRef = useRef<HTMLDivElement | null>(null);
@@ -159,6 +169,8 @@ export default function BeaverGame() {
   const nextWaveRef = useRef(0);
   const pendingClusterRef = useRef(0);
   const nextInClusterRef = useRef(0);
+  const metMembersRef = useRef<string[]>([]);
+  const scoreRef = useRef(0);
 
   const padX = isMobile ? '5vw' : '14vw';
   const laneTop = isMobile ? '38%' : '34%';
@@ -194,6 +206,7 @@ export default function BeaverGame() {
     setGroundOffset(0);
 
     nextWaveRef.current = 600;
+    scoreRef.current = 0;
     pendingClusterRef.current = 0;
     nextInClusterRef.current = 0;
   }, []);
@@ -202,7 +215,11 @@ export default function BeaverGame() {
     const savedHighScore = localStorage.getItem('highScore');
     const savedMetMembers = localStorage.getItem('metMembers');
     if (savedHighScore) setGameState(prev => ({ ...prev, highScore: parseInt(savedHighScore) }));
-    if (savedMetMembers) setMetMembers(JSON.parse(savedMetMembers));
+    if (savedMetMembers) {
+      const parsed = JSON.parse(savedMetMembers);
+      setMetMembers(parsed);
+      metMembersRef.current = parsed;
+    }
   }, []);
 
   useEffect(() => {
@@ -218,6 +235,10 @@ export default function BeaverGame() {
   useEffect(() => {
     obstaclesRef.current = obstacles;
   }, [obstacles]);
+
+  useEffect(() => {
+    metMembersRef.current = metMembers;
+  }, [metMembers]);
 
   useEffect(() => {
     isPlayingRef.current = gameState.isPlaying;
@@ -259,42 +280,89 @@ export default function BeaverGame() {
     [markMet]
   );
 
-  const boxesOverlap = (a: DOMRect, b: DOMRect) =>
-    a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
-
   const checkCollision = useCallback(() => {
-    if (jumpingRef.current) return;
-
     const beaverEl = beaverRef.current;
     if (!beaverEl) return;
-
-    const b0 = beaverEl.getBoundingClientRect();
-    const shrink = 14;
-
-    const b = new DOMRect(
-      b0.x + shrink,
-      b0.y + shrink,
-      Math.max(0, b0.width - shrink * 2),
-      Math.max(0, b0.height - shrink * 2)
-    );
-
+    const b = beaverEl.getBoundingClientRect();
+    const bCellW = b.width / MASK_SIZE;
+    const bCellH = b.height / MASK_SIZE;
     for (const obs of obstaclesRef.current) {
       const el = obstacleRefs.current[obs.id];
       if (!el) continue;
-      const o0 = el.getBoundingClientRect();
-      if (boxesOverlap(b, o0)) {
-        endGame(obs.member);
+      const o = el.getBoundingClientRect();
+      // AABB rejection
+      if (o.right <= b.left || o.left >= b.right || o.bottom <= b.top || o.top >= b.bottom) {
+        continue;
+      }
+      if (obs.isStar) {
+        // Collect star
+        const filtered = obstaclesRef.current.filter(o => o.id !== obs.id);
+        delete obstacleRefs.current[obs.id];
+        obstaclesRef.current = filtered;
+        setObstacles(filtered);
+        // Open Modal & Pause
+        setIsSecretModalOpen(true);
+        isPlayingRef.current = false;
+        setGameState(prev => ({ ...prev, isPlaying: false }));
         return;
+      }
+
+      const currentMember = obs.member;
+      if (!currentMember) continue;
+      const obsMask = getObstacleMask(currentMember.obstaclePhoto);
+      if (!obsMask) continue;
+      const oCellW = o.width / OBS_MASK_SIZE;
+      const oCellH = o.height / OBS_MASK_SIZE;
+      // Overlap rows in beaver grid coords
+      const rowStart = Math.max(0, Math.floor((Math.max(o.top, b.top) - b.top) / bCellH));
+      const rowEnd = Math.min(MASK_SIZE, Math.ceil((Math.min(o.bottom, b.bottom) - b.top) / bCellH));
+      // Precompute obstacle-col → beaver-space bit mask (once per obstacle).
+      const scale = oCellW / bCellW;
+      const base = (o.left - b.left) / bCellW;
+      for (let oc = 0; oc < OBS_MASK_SIZE; oc++) {
+        const bc = Math.floor(base + (oc + 0.5) * scale);
+        _colBits[oc] = bc >= 0 && bc < MASK_SIZE ? 1 << bc : 0;
+      }
+      for (let row = rowStart; row < rowEnd; row++) {
+        const beaverRow = BEAVER_MASK[row];
+        if (!beaverRow) continue;
+        const oRow = Math.floor((b.top + (row + 0.5) * bCellH - o.top) / oCellH);
+        if (oRow < 0 || oRow >= OBS_MASK_SIZE) continue;
+        const obsRowBits = obsMask[oRow];
+        if (!obsRowBits) continue;
+        // Project obstacle row into beaver column space via LUT, then AND
+        let aligned = 0;
+        let bits = obsRowBits;
+        while (bits) {
+          const lsb = bits & -bits;
+          aligned |= _colBits[31 - Math.clz32(lsb)];
+          bits &= bits - 1;
+        }
+        if (beaverRow & aligned) {
+          endGame(currentMember);
+          return;
+        }
       }
     }
   }, [endGame]);
 
   const spawnOne = useCallback(() => {
-    const member = teamMembers[Math.floor(Math.random() * teamMembers.length)];
+    const hasStarOnScreen = obstaclesRef.current.some(o => o.isStar);
+    const isStarChance = metMembersRef.current.length >= 10 &&
+      scoreRef.current > 30 &&
+      !hasStarOnScreen &&
+      Math.random() < 0.06;
     const id = `${Date.now()}-${Math.random()}`;
     const startX = laneWidth + spawnPad;
 
-    const next = [...obstaclesRef.current, { id, member, x: startX }];
+    let next: ObstacleState[];
+    if (isStarChance) {
+      next = [...obstaclesRef.current, { id, isStar: true, x: startX }];
+    } else {
+      const member = teamMembers[Math.floor(Math.random() * teamMembers.length)];
+      next = [...obstaclesRef.current, { id, member, x: startX }];
+    }
+
     obstaclesRef.current = next;
     setObstacles(next);
   }, [laneWidth]);
@@ -317,6 +385,7 @@ export default function BeaverGame() {
 
         setGameState(prev => {
           const nextScore = prev.score + steps;
+          scoreRef.current = nextScore;
           const nextSpeed = Math.min(18, 6 + Math.floor(nextScore / 140));
           speedScaleRef.current = 1 + (nextSpeed - 6) * 0.06;
           return { ...prev, score: nextScore, speed: nextSpeed };
@@ -473,6 +542,13 @@ export default function BeaverGame() {
     const member = teamMembers.find(m => m.id === id) || null;
     setSelectedMember(member);
   }, []);
+
+  const testCollectRandom = () => {
+    const shuffled = [...teamMembers].sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, 20).map(m => m.id);
+    setMetMembers(selected);
+    localStorage.setItem('metMembers', JSON.stringify(selected));
+  };
 
   return (
     <div className="relative w-full overflow-visible">
@@ -646,7 +722,7 @@ export default function BeaverGame() {
                     className="text-[28px] leading-[0.95] sm:text-6xl sm:leading-none text-white font-luckiest whitespace-normal"
                     style={{ maxWidth: isMobile ? '72vw' : 'none' }}
                   >
-                    YOU HIT {hitMember?.name.toUpperCase()}!
+                    YOU HIT {hitMember?.name?.toUpperCase()}!
                   </h1>
                   <p className="text-sm sm:text-xl text-white/90 mt-2">Team {hitMember?.team}</p>
                   <p className="text-[10px] sm:text-base text-white/75 italic mt-0.5 sm:mt-1 max-w-[55vw] sm:max-w-none">
@@ -656,9 +732,17 @@ export default function BeaverGame() {
               )}
             </div>
 
-            <div className="shrink-0 text-white font-mono text-lg sm:text-2xl whitespace-nowrap">
-              <span className="opacity-80 mr-4">HI {displayHigh}</span>
-              <span className="tracking-wider">{displayScore}</span>
+            <div className="shrink-0 flex flex-col items-end gap-2">
+              <div className="text-white font-mono text-lg sm:text-2xl whitespace-nowrap">
+                <span className="opacity-80 mr-4">HI {displayHigh}</span>
+                <span className="tracking-wider">{displayScore}</span>
+              </div>
+              <button
+                onClick={testCollectRandom}
+                className="text-[10px] bg-white/10 hover:bg-white/20 text-white/40 hover:text-white px-2 py-1 rounded border border-white/10 transition-all font-mono uppercase"
+              >
+                Test: Collect 20
+              </button>
             </div>
           </div>
         </div>
@@ -739,6 +823,7 @@ export default function BeaverGame() {
                   obstacleRefs.current[o.id] = el;
                 }}
                 member={o.member}
+                isStar={o.isStar}
                 x={o.x}
                 size={obstacleSize}
                 groundOffsetPx={groundH}
@@ -768,6 +853,17 @@ export default function BeaverGame() {
             setHoveredMember={setHoveredMember}
           />
         </div>
+
+        <SecretModal
+          isOpen={isSecretModalOpen}
+          onClose={() => {
+            setIsSecretModalOpen(false);
+            isPlayingRef.current = true;
+            setGameState(prev => ({ ...prev, isPlaying: true }));
+            lastTimeRef.current = null;
+            rafRef.current = requestAnimationFrame(updateLoop);
+          }}
+        />
       </div>
     </div>
   );

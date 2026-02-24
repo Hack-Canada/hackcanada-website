@@ -56,12 +56,14 @@ export default function Hero() {
           <div className="relative left-1/2 -translate-x-1/2 min-w-[1920px] w-screen flex justify-center">
             <Image
               ref={backgroundImgRef}
-              src="/background.png"
+              src="/background.webp"
               alt="Background"
               width={1920}
               height={1080}
               className="object-top w-full h-auto origin-top"
               priority
+              sizes="100vw"
+              quality={80}
               onLoad={handleImageLoad}
             />
           </div>
@@ -72,12 +74,14 @@ export default function Hero() {
         >
           <div className="relative left-1/2 -translate-x-1/2 min-w-[1920px] w-screen">
             <Image
-              src="/foreground.png"
+              src="/foreground.webp"
               alt="Foreground"
               width={1920}
               height={1080}
               className="object-top w-full h-auto scale-105"
               priority
+              sizes="100vw"
+              quality={80}
             />
           </div>
         </div>

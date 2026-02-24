@@ -45,7 +45,7 @@ const sponsorHighlights: SponsorHighlight[] = [
   },
   {
     name: "SPUR Innovation Center",
-    logo: "/sponsors/spur.png",
+    logo: "/sponsors/Spur.png",
     description:
       "SPUR Innovation/Ventures is building the largest venture studio in Canada, backed by the data and compute infrastructure of the SPUR ecosystem.",
     link: "https://spuric.com/",
@@ -62,7 +62,7 @@ const goldBlock: SponsorBlock[] = [
   },
   {
     name: "SPUR Innovation Center",
-    logo: "/sponsors/spur.png",
+    logo: "/sponsors/Spur.png",
     link: "https://spuric.com/",
   },
 ];
@@ -71,10 +71,23 @@ const silverBlocks: SponsorBlock[] = [
     name: "Tailscale",
     logo: "/sponsors/tailscale.png",
     link: "https://tailscale.com/",
+  },
+  {
+    name: "Stan",
+    logo: "/sponsors/stan.png",
+    link: "https://stan.store/",
+  }, {
+    name: "cloudinary",
+    logo: "/sponsors/cloudinary.png",
+    link: "https://cloudinary.com/",
+  },
+  {
+    name: "Backboard",
+    logo: "/sponsors/backboard.svg",
+    link: "https://www.backboard.io/",
   }
 ];
 const bronzeBlocks: SponsorBlock[] = [
-  { name: "Backboard", logo: "/sponsors/backboard.svg" },
   { name: "fantuan", logo: "/sponsors/fantuan.png" },
   { name: "Warp", logo: "/sponsors/warp.png" },
   { name: "GitHub", logo: "/sponsors/github.png" },
@@ -421,7 +434,7 @@ function SponsorsContent() {
           </div>
 
           {/* Silver - Two Blocks Side by Side */}
-          <div className="flex flex-col md:flex-row justify-center gap-4 sm:gap-5 md:gap-6 mb-4 sm:mb-5 md:mb-6 max-w-[954px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-4 sm:gap-5 md:gap-6 mb-4 sm:mb-5 md:mb-6 max-w-[954px] mx-auto">
             {silverBlocks.map((sponsor, index) => (
               <a
                 key={index}
@@ -707,15 +720,16 @@ function FaqContent() {
       }}
     >
       {/* Full Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: "url('/faq/full-bg.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/faq/full-bg.webp"
+          alt=""
+          fill
+          style={{ objectFit: "cover" }}
+          quality={75}
+          sizes="100vw"
+        />
+      </div>
 
       {/* FAQ Header Text Group */}
       <div

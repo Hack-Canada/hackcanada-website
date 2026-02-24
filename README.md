@@ -21,8 +21,8 @@ cd hackcanada-website
 
 ```bash
 cd web
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 **3. Open in your browser**
