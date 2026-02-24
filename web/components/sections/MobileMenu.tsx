@@ -1,8 +1,7 @@
 "use client";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInstagram, faLinkedin } from "@fortawesome/free-brands-svg-icons";
-import { faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
+import { faInstagram, faLinkedinIn } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { useState, useEffect } from "react";
 
@@ -50,9 +49,8 @@ export default function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
       }`}
     >
       <div
-        className={`transition-opacity duration-300 ${
-          isAnimating ? "opacity-100" : "opacity-0"
-        }`}
+        className={`transition-opacity duration-300 ${isAnimating ? "opacity-100" : "opacity-0"
+          }`}
       >
         <button
           onClick={onClose}
