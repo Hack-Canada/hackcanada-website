@@ -10,7 +10,7 @@ interface SecretModalProps {
 
 export default function SecretModal({ isOpen, onClose }: SecretModalProps) {
     const [displayedText, setDisplayedText] = useState('');
-    const fullText = "cGluZyBqYW1lcyBjYW8gb24gdGhlIGhhY2sgY2FuYWRhIHNlcnZlciB3aXRoIHRoZSBtZXNzYWdlICJjaGlwIGxpa2VzIGNoaXBzIiBmb3IgYSBzZWNyZXQgcHJpemUh";
+    const fullText = "cGluZyBuYW1hbiBvbiB0aGUgaGFjayBjYW5hZGEgc2VydmVyIHdpdGggdGhlIG1lc3NhZ2UgImNoaXAgbGlrZXMgY2hpcHMiIGZvciBhIHNlY3JldCBwcml6ZSE";
 
     useEffect(() => {
         if (isOpen) {
