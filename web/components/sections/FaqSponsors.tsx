@@ -101,7 +101,7 @@ const partners: Partner[] = [
     logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4cfKyMJNFvwqJ1BbG51ld9i8BbTIqDc4z2A&s",
     blurb: "Google Developer Group Laurier brings together developers and tech enthusiasts at Wilfrid Laurier University to learn, build, and connect.",
     team: ["Abdul Aziz", "Yash Dave", "Khushi Patel", "Akif Rahman"],
-    link: "https://gdg.community.dev/gdg-laurier/",
+    link: "https://gdg.community.dev/gdg-on-campus-wilfrid-laurier-university-waterloo-canada/",
   },
 ];
 
