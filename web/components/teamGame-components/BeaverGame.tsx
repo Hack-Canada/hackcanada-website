@@ -348,7 +348,7 @@ export default function BeaverGame() {
 
   const spawnOne = useCallback(() => {
     const hasStarOnScreen = obstaclesRef.current.some(o => o.isStar);
-    const isStarChance = metMembersRef.current.length >= 10 &&
+    const isStarChance = metMembersRef.current.length >= 25 &&
       scoreRef.current > 30 &&
       !hasStarOnScreen &&
       Math.random() < 0.06;
