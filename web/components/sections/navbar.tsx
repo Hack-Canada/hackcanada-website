@@ -48,7 +48,7 @@ export default function Navbar() {
       <div
         className={`fixed top-2 xl:top-6 left-1/2 -translate-x-1/2 z-[100]
         w-[calc(100%-2rem)] max-w-[1200px]
-        flex items-center gap-8 px-8
+        flex items-center gap-8 pl-8 pr-[90px] min-[1280px]:pr-[110px] min-[1650px]:px-8
         border border-white rounded-lg bg-white/50 backdrop-blur
         transition-transform duration-300
         ${isVisible ? "translate-y-0" : "-translate-y-[200%]"}`}
@@ -138,6 +138,19 @@ export default function Navbar() {
             <div className="w-6 h-0.5 bg-black transition-all"></div>
           </div>
         </button>
+
+        {/* MLH Trust Badge - inside navbar, below 1650px */}
+        <a
+          href="https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2026-season&utm_content=white"
+          target="_blank"
+          className="absolute -top-2 xl:-top-6 right-2 w-[60px] min-[1280px]:w-[85px] min-[1650px]:hidden"
+        >
+          <img
+            src="https://s3.amazonaws.com/logged-assets/trust-badge/2026/mlh-trust-badge-2026-white.svg"
+            alt="Major League Hacking 2026 Hackathon Season"
+            className="w-full"
+          />
+        </a>
       </div>
 
       <MobileMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
