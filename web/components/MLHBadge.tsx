@@ -29,7 +29,6 @@ export default function MLHBadge() {
     <a
       id="mlh-trust-badge"
       style={{
-        display: "block",
         maxWidth: "100px",
         minWidth: "60px",
         position: "fixed",
@@ -38,7 +37,7 @@ export default function MLHBadge() {
         width: "10%",
         zIndex: "10000",
       }}
-      className={`lg:block transition-transform duration-300 ${isVisible ? "translate-y-0" : "-translate-y-[200%]"}`}
+      className={`hidden min-[1650px]:block transition-transform duration-300 ${isVisible ? "translate-y-0" : "-translate-y-[200%]"}`}
       href="https://mlh.io/na?utm_source=na-hackathon&utm_medium=TrustBadge&utm_campaign=2026-season&utm_content=white"
       target="_blank"
     >
