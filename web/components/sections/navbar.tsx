@@ -51,7 +51,7 @@ export default function Navbar() {
         flex items-center gap-8 pl-8 pr-[90px] min-[1280px]:pr-[110px] min-[1650px]:px-8
         border border-white rounded-lg bg-white/50 backdrop-blur
         transition-transform duration-300
-        ${isVisible ? "translate-y-0" : "-translate-y-[200%]"}`}
+        ${isVisible ? "translate-y-0" : "-translate-y-[calc(200%+12px)]"}`}
       >
         {/* logo */}
         <a href="#" className="flex items-center py-4 hover:scale-110 transition-all duration-300">
