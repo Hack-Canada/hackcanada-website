@@ -187,7 +187,7 @@ export default function About() {
       {/* Beaver (facing RIGHT) - GPU accelerated */}
       <div
         ref={beaverWrapRef}
-        className="pointer-events-none absolute right-[250px] -top-12 z-50"
+        className="pointer-events-none absolute right-[250px] -top-12 z-5 hidden min-[1650px]:block"
         style={{ willChange: "transform", transform: "translate3d(0, 0, 0)" }}
       >
         <Image
@@ -270,7 +270,7 @@ export default function About() {
           {/* Left title + paragraph - with scroll reveal */}
           <div
             ref={titleRef}
-            className={`static mx-auto max-w-[640px] lg:mx-0 lg:absolute lg:left-[120px] lg:top-[80px] xl:left-[160px] xl:top-[120px] transition-all duration-700 ease-out
+            className={`static mx-auto max-w-[640px] lg:mx-0 lg:absolute lg:left-[120px] lg:top-[80px] xl:left-[160px] xl:top-[120px] z-10 transition-all duration-700 ease-out
               ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
             style={{
               transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
@@ -299,7 +299,7 @@ export default function About() {
           {/* Right paragraph - with staggered scroll reveal */}
           <div
             ref={rightTextRef}
-            className={`static mx-auto max-w-[520px] text-white/80 leading-relaxed lg:mx-0 lg:absolute lg:right-[120px] xl:right-[160px] lg:top-[340px] transition-all duration-700 ease-out
+            className={`static mx-auto max-w-[520px] text-white/80 leading-relaxed lg:mx-0 lg:absolute lg:right-[120px] xl:right-[160px] lg:top-[340px] z-10 transition-all duration-700 ease-out
               ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
             style={{
               transitionDelay: "300ms",
