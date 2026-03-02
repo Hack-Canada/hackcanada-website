@@ -65,6 +65,11 @@ const goldBlock: SponsorBlock[] = [
     logo: "/sponsors/Spur.png",
     link: "https://spuric.com/",
   },
+  {
+    name: "reactiv",
+    logo: "/sponsors/reactiv.png",
+    link: "https://www.reactiv.ai/",
+  }
 ];
 const silverBlocks: SponsorBlock[] = [
   {
@@ -92,6 +97,7 @@ const bronzeBlocks: SponsorBlock[] = [
   { name: "Warp", logo: "/sponsors/warp.png" },
   { name: "GitHub", logo: "/sponsors/github.png" },
   { name: "pure buttons", logo: "/sponsors/PureButtons.png" },
+  { name: "redbull", logo: "/sponsors/redbull.png" },
 
 ];
 
