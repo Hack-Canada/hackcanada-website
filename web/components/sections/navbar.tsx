@@ -54,7 +54,10 @@ export default function Navbar() {
         ${isVisible ? "translate-y-0" : "-translate-y-[200%]"}`}
       >
         {/* logo */}
-        <a href="#" className="flex items-center py-4 hover:scale-110 transition-all duration-300">
+        <a
+          href="#"
+          className="flex items-center py-4 hover:scale-110 transition-all duration-300"
+        >
           <img
             src="/navbar/hackcanadaLogo.png"
             alt="Hack Canada Logo"
@@ -74,7 +77,7 @@ export default function Navbar() {
             </a>
             {/* TODO: Change this to 2025.hackcanada.org */}
             <a
-              href="#stats"
+              href="https://2025.hackcanada.org"
               className="transition-all duration-300 hover:scale-110 hover:text-[#441E0A]"
             >
               2025
@@ -99,7 +102,10 @@ export default function Navbar() {
             </a>
           </nav>
           <nav className="flex gap-6">
-            <a href="mailto:hi@hackcanada.org" className="flex items-center transition-all duration-300 hover:scale-110 hover:text-[#441E0A]">
+            <a
+              href="mailto:hi@hackcanada.org"
+              className="flex items-center transition-all duration-300 hover:scale-110 hover:text-[#441E0A]"
+            >
               <FontAwesomeIcon
                 icon={faEnvelope}
                 style={{ fontSize: "clamp(20px, 2vw, 32px)" }}
