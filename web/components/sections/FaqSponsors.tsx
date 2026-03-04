@@ -214,6 +214,39 @@ function SponsorsContent() {
             opacity: 0.95,
           }}
         />
+
+        {/* Decorative Floating Background Clouds */}
+        <div
+          className="absolute pointer-events-none hidden lg:block"
+          style={{
+            top: "15%",
+            left: "5%",
+            width: "350px",
+            height: "200px",
+            backgroundImage: "url(/sponsors/cloud.png)",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            opacity: 0.4,
+            zIndex: 5,
+            animation: "float-random 8s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute pointer-events-none hidden lg:block"
+          style={{
+            top: "25%",
+            right: "2%",
+            width: "450px",
+            height: "250px",
+            backgroundImage: "url(/sponsors/cloud.png)",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            opacity: 0.4,
+            zIndex: 5,
+            animation: "float-random 11s ease-in-out infinite",
+            animationDelay: "-2s",
+          }}
+        />
         <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16 lg:py-20 relative z-10 pt-20 md:pt-32">
           {/* Header */}
           <div
@@ -572,7 +605,7 @@ function SponsorsContent() {
                       }}
                     />
                     {/* Content */}
-                    <div className="relative z-10 flex flex-row items-center text-left px-2 sm:px-4 gap-2 sm:gap-4 scale-90 sm:scale-95 2xl:scale-[0.8]">
+                    <div className="relative z-10 flex flex-row items-center text-left px-2 sm:px-4 gap-2 sm:gap-4 scale-85 sm:scale-85 2xl:scale-[0.7]">
                       <div className="w-[65px] h-[65px] sm:w-[85px] sm:h-[85px] 2xl:w-[75px] 2xl:h-[75px] rounded-full overflow-hidden shrink-0 border-[3px] sm:border-4 border-white shadow-md bg-gray-200">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
