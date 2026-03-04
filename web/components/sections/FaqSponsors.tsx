@@ -183,7 +183,7 @@ function SponsorsContent() {
       <style>{`
         @keyframes float-random {
           0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-12px); }
+          50% { transform: translateY(-24px); }
         }
       `}</style>
       <section
@@ -583,30 +583,56 @@ function SponsorsContent() {
               >
                 Our Judges
               </h2>
-              <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-12 lg:gap-x-20 2xl:gap-x-24 gap-y-0 max-w-[1550px] mx-auto justify-items-center">
+              <div className="relative grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 justify-center gap-4 sm:gap-5 md:gap-6 max-w-[954px] mx-auto mb-4 sm:mb-5 md:mb-6">
+                {/* Decorative Floating Background Clouds for Judges Section */}
+                <div
+                  className="absolute pointer-events-none hidden lg:block"
+                  style={{
+                    top: "10%",
+                    left: "-25%",
+                    width: "300px",
+                    height: "180px",
+                    backgroundImage: "url(/sponsors/cloud.png)",
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    opacity: 0.35,
+                    zIndex: 0,
+                    animation: "float-random 9s ease-in-out infinite",
+                  }}
+                />
+                <div
+                  className="absolute pointer-events-none hidden lg:block"
+                  style={{
+                    top: "40%",
+                    right: "-22%",
+                    width: "400px",
+                    height: "220px",
+                    backgroundImage: "url(/sponsors/cloud.png)",
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
+                    opacity: 0.3,
+                    zIndex: 0,
+                    animation: "float-random 12s ease-in-out infinite",
+                    animationDelay: "-3s",
+                  }}
+                />
                 {judges.map((judge, index) => (
                   <div
                     key={index}
-                    className="w-full max-w-[320px] relative flex flex-col items-center justify-center transition-transform hover:scale-105 -my-4 sm:-my-10 shrink-0"
+                    className="relative flex items-center justify-center w-full"
                     style={{
-                      minHeight: "280px",
-                      animation: `float-random ${5 + (index % 3) * 1.5}s ease-in-out infinite`,
-                      animationDelay: `${(index % 5) * 0.7}s`,
+                      height: "clamp(90px, 12vw, 150px)",
                     }}
                   >
-                    {/* Cloud Background */}
                     <div
-                      className="absolute inset-0 z-0 scale-[1.2] sm:scale-[1.35] 2xl:scale-[1.6]"
+                      className="w-full h-full flex items-center gap-4 px-6 transition-all duration-300 hover:scale-105"
                       style={{
-                        backgroundImage: "url(/sponsors/cloud.png)",
-                        backgroundSize: "contain",
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
+                        background: "#FFFFFF",
+                        borderRadius: "clamp(12px, 2vw, 20px)",
                       }}
-                    />
-                    {/* Content */}
-                    <div className="relative z-10 flex flex-row items-center text-left px-2 sm:px-4 gap-2 sm:gap-4 scale-85 sm:scale-85 2xl:scale-[0.7]">
-                      <div className="w-[65px] h-[65px] sm:w-[85px] sm:h-[85px] 2xl:w-[75px] 2xl:h-[75px] rounded-full overflow-hidden shrink-0 border-[3px] sm:border-4 border-white shadow-md bg-gray-200">
+                    >
+                      {/* Content */}
+                      <div className="w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] rounded-full overflow-hidden shrink-0 border-2 border-gray-100 bg-gray-50">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={judge.photo}
@@ -616,14 +642,14 @@ function SponsorsContent() {
                       </div>
                       <div className="flex flex-col flex-1 min-w-0">
                         <h3
-                          className="font-luckiest text-xl sm:text-2xl 2xl:text-xl mb-1 leading-tight truncate"
+                          className="font-luckiest text-lg sm:text-xl mb-0.5 leading-tight truncate"
                           style={{ color: "#282D5C" }}
                           title={judge.name}
                         >
                           {judge.name}
                         </h3>
                         <p
-                          className="font-rubik text-xs sm:text-sm 2xl:text-[10px] font-medium leading-snug"
+                          className="font-rubik text-xs sm:text-sm font-medium leading-snug"
                           style={{ color: "#282D5C" }}
                         >
                           {judge.position}
