@@ -651,7 +651,7 @@ function SponsorsContent() {
                 {judges.map((judge, index) => (
                   <div
                     key={index}
-                    className="w-full max-w-[320px] relative flex flex-col items-center justify-center transition-transform hover:scale-105 -my-4 sm:-my-10 shrink-0"
+                    className="w-full max-w-[320px] relative flex flex-col items-center justify-center -my-4 sm:-my-10 shrink-0"
                     style={{
                       minHeight: "280px",
                       animation: `float-random ${5 + (index % 3) * 1.5}s ease-in-out infinite`,
