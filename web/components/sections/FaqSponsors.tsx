@@ -111,6 +111,18 @@ const partners: Partner[] = [
   },
 ];
 
+interface Judge {
+  name: string;
+  position: string;
+  photo: string;
+}
+
+const judges: Judge[] = Array.from({ length: 12 }).map((_, i) => ({
+  name: `Judge Name ${i + 1}`,
+  position: `Judge Position ${i + 1}`,
+  photo: `https://placehold.co/400x400/png?text=Judge+${i + 1}`,
+}));
+
 function SponsorsContent() {
   const [currentHighlight, setCurrentHighlight] = useState(1); // Start at 1 because we duplicate first slide
   const [isTransitioning, setIsTransitioning] = useState(true);
@@ -167,245 +179,326 @@ function SponsorsContent() {
   };
 
   return (
-    <section
-      id="sponsors"
-      className="w-full relative overflow-visible"
-      style={{ minHeight: "clamp(800px, 100vh, 2585px)" }}
-    >
-      {/* Full Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: "url(/sponsors/asdfasdfasdfasdfadsf%201.svg)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      />
-      {/* Mountains Overlay - Sits on top of background */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: "url(/sponsors/asdfasfasdfasfasd%201.svg)",
-          backgroundSize: "contain",
-          backgroundPosition: "bottom center",
-          backgroundRepeat: "no-repeat",
-          height: "100%",
-          zIndex: 1,
-          opacity: 0.95,
-        }}
-      />
-      <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16 lg:py-20 relative z-10 pt-20 md:pt-32">
-        {/* Header */}
+    <>
+      <style>{`
+        @keyframes float-random {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-12px); }
+        }
+      `}</style>
+      <section
+        id="sponsors"
+        className="w-full relative overflow-visible"
+        style={{ minHeight: "clamp(800px, 100vh, 2585px)" }}
+      >
+        {/* Full Background */}
         <div
-          className="mx-auto mb-16"
-          style={{ maxWidth: "1129px", width: "100%" }}
-        >
-          <h1
-            className="mb-6 text-center text-5xl md:text-8xl mt-20 font-luckiest"
-            style={{
-              color: "#DBDAF3",
-            }}
-          >
-            Sponsors
-          </h1>
-          <p
-            className="text-center mx-auto text-md sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-rubik"
-            style={{
-              fontSize: "clamp(18px, 3vw, 35px)",
-              lineHeight: "clamp(28px, 4vw, 60px)",
-              fontWeight: 400,
-              color: "#E7DAE6",
-              maxWidth: "1129px",
-              width: "100%",
-            }}
-          >
-            A huge thank you to our sponsors for making Hack Canada possible!
-            Your support helps us reach new heights across the tech landscape.
-          </p>
-        </div>
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: "url(/sponsors/asdfasdfasdfasdfadsf%201.svg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+        {/* Mountains Overlay - Sits on top of background */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: "url(/sponsors/asdfasfasdfasfasd%201.svg)",
+            backgroundSize: "contain",
+            backgroundPosition: "bottom center",
+            backgroundRepeat: "no-repeat",
+            height: "100%",
+            zIndex: 1,
+            opacity: 0.95,
+          }}
+        />
 
-        {/* Sponsor Highlights Carousel */}
-        <div className="mb-20 hidden sm:block">
-          <h2
-            className="mb-8 text-center mx-auto text-xl sm:text-2xl md:text-3xl lg:text-4xl px-4 font-luckiest"
-            style={{
-              fontStyle: "italic",
-              fontWeight: 500,
-              fontSize: "clamp(20px, 3vw, 32px)",
-              lineHeight: "clamp(32px, 4vw, 60px)",
-              color: "#FBDCDC",
-              maxWidth: "1129px",
-              width: "100%",
-            }}
+        {/* Decorative Floating Background Clouds */}
+        <div
+          className="absolute pointer-events-none hidden lg:block"
+          style={{
+            top: "15%",
+            left: "5%",
+            width: "350px",
+            height: "200px",
+            backgroundImage: "url(/sponsors/cloud.png)",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            opacity: 0.4,
+            zIndex: 5,
+            animation: "float-random 8s ease-in-out infinite",
+          }}
+        />
+        <div
+          className="absolute pointer-events-none hidden lg:block"
+          style={{
+            top: "25%",
+            right: "2%",
+            width: "450px",
+            height: "250px",
+            backgroundImage: "url(/sponsors/cloud.png)",
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            opacity: 0.4,
+            zIndex: 5,
+            animation: "float-random 11s ease-in-out infinite",
+            animationDelay: "-2s",
+          }}
+        />
+        <div className="container mx-auto px-4 py-8 sm:py-12 md:py-16 lg:py-20 relative z-10 pt-20 md:pt-32">
+          {/* Header */}
+          <div
+            className="mx-auto mb-16"
+            style={{ maxWidth: "1129px", width: "100%" }}
           >
-            Sponsor Highlights
-          </h2>
-
-          <div className="relative max-w-[954.94px] mx-auto px-4">
-            {/* Carousel Container */}
-            <div
-              className="relative overflow-hidden"
-              style={{ minHeight: "clamp(400px, 50vw, 500px)" }}
+            <h1
+              className="mb-6 text-center text-5xl md:text-8xl mt-20 font-luckiest"
+              style={{
+                color: "#DBDAF3",
+              }}
             >
+              Sponsors
+            </h1>
+            <p
+              className="text-center mx-auto text-md sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-rubik"
+              style={{
+                fontSize: "clamp(18px, 3vw, 35px)",
+                lineHeight: "clamp(28px, 4vw, 60px)",
+                fontWeight: 400,
+                color: "#E7DAE6",
+                maxWidth: "1129px",
+                width: "100%",
+              }}
+            >
+              A huge thank you to our sponsors for making Hack Canada possible!
+              Your support helps us reach new heights across the tech landscape.
+            </p>
+          </div>
+
+          {/* Sponsor Highlights Carousel */}
+          <div className="mb-20 hidden sm:block">
+            <h2
+              className="mb-8 text-center mx-auto text-xl sm:text-2xl md:text-3xl lg:text-4xl px-4 font-luckiest"
+              style={{
+                fontStyle: "italic",
+                fontWeight: 500,
+                fontSize: "clamp(20px, 3vw, 32px)",
+                lineHeight: "clamp(32px, 4vw, 60px)",
+                color: "#FBDCDC",
+                maxWidth: "1129px",
+                width: "100%",
+              }}
+            >
+              Sponsor Highlights
+            </h2>
+
+            <div className="relative max-w-[954.94px] mx-auto px-4">
+              {/* Carousel Container */}
               <div
-                ref={carouselRef}
-                className="flex"
-                style={{
-                  transform: `translateX(-${currentHighlight * 100}%)`,
-                  transition: isTransitioning
-                    ? "transform 0.5s ease-in-out"
-                    : "none",
-                }}
+                className="relative overflow-hidden"
+                style={{ minHeight: "clamp(400px, 50vw, 500px)" }}
               >
-                {infiniteSlides.map((sponsor, index) => (
-                  <div
-                    key={index}
-                    className="min-w-full flex justify-center px-4"
-                  >
+                <div
+                  ref={carouselRef}
+                  className="flex"
+                  style={{
+                    transform: `translateX(-${currentHighlight * 100}%)`,
+                    transition: isTransitioning
+                      ? "transform 0.5s ease-in-out"
+                      : "none",
+                  }}
+                >
+                  {infiniteSlides.map((sponsor, index) => (
                     <div
-                      className="relative flex flex-col items-center w-full max-w-[953.54px] mx-auto"
-                      style={{
-                        width: "953.54px",
-                        height: "500px",
-                        maxWidth: "100%",
-                        aspectRatio: "953.54/638.36",
-                        background: "#FFFFFF",
-                        borderRadius: "20px",
-                        zIndex: index === currentHighlight ? 10 : 1,
-                      }}
+                      key={index}
+                      className="min-w-full flex justify-center px-4"
                     >
                       <div
+                        className="relative flex flex-col items-center w-full max-w-[953.54px] mx-auto"
                         style={{
-                          width: "100%",
-                          height: "100%",
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          padding: "clamp(20px, 4vw, 40px)",
+                          width: "953.54px",
+                          height: "500px",
+                          maxWidth: "100%",
+                          aspectRatio: "953.54/638.36",
+                          background: "#FFFFFF",
+                          borderRadius: "20px",
+                          zIndex: index === currentHighlight ? 10 : 1,
                         }}
                       >
-                        {sponsor.logo && (
-                          <div className="mb-8">
-                            <Image
-                              src={sponsor.logo}
-                              alt={sponsor.name}
-                              width={400}
-                              height={64}
-                              className="object-contain"
-                              style={{
-                                width: "clamp(200px, 30vw, 400px)",
-                                height: "auto",
-                                maxWidth: "100%",
-                              }}
-                            />
-                          </div>
-                        )}
-                        <p
-                          className="text-center mb-8 text-sm sm:text-base md:text-lg lg:text-xl px-4 font-rubik"
+                        <div
                           style={{
-                            fontWeight: 500,
-                            fontSize: "clamp(14px, 2vw, 20px)",
-                            lineHeight: "150%",
-                            color: "#282D5C",
-                            maxWidth: "708px",
                             width: "100%",
+                            height: "100%",
+                            display: "flex",
+                            flexDirection: "column",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            padding: "clamp(20px, 4vw, 40px)",
                           }}
                         >
-                          {sponsor.description}
-                        </p>
-                        {sponsor.link && (
-                          <a
-                            href={sponsor.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-sm sm:text-base md:text-lg lg:text-xl font-rubik"
+                          {sponsor.logo && (
+                            <div className="mb-8">
+                              <Image
+                                src={sponsor.logo}
+                                alt={sponsor.name}
+                                width={400}
+                                height={64}
+                                className="object-contain"
+                                style={{
+                                  width: "clamp(200px, 30vw, 400px)",
+                                  height: "auto",
+                                  maxWidth: "100%",
+                                }}
+                              />
+                            </div>
+                          )}
+                          <p
+                            className="text-center mb-8 text-sm sm:text-base md:text-lg lg:text-xl px-4 font-rubik"
                             style={{
                               fontWeight: 500,
                               fontSize: "clamp(14px, 2vw, 20px)",
                               lineHeight: "150%",
                               color: "#282D5C",
-                              textDecoration: "underline",
+                              maxWidth: "708px",
+                              width: "100%",
                             }}
                           >
-                            {sponsor.linkText || "Learn more →"}
-                          </a>
-                        )}
+                            {sponsor.description}
+                          </p>
+                          {sponsor.link && (
+                            <a
+                              href={sponsor.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-sm sm:text-base md:text-lg lg:text-xl font-rubik"
+                              style={{
+                                fontWeight: 500,
+                                fontSize: "clamp(14px, 2vw, 20px)",
+                                lineHeight: "150%",
+                                color: "#282D5C",
+                                textDecoration: "underline",
+                              }}
+                            >
+                              {sponsor.linkText || "Learn more →"}
+                            </a>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
 
-            {/* Navigation Arrows */}
-            <button
-              onClick={prevHighlight}
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white border-2 border-gray-300 rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors z-20"
-              aria-label="Previous sponsor"
-              style={{ backgroundColor: "#FFFFFF", borderColor: "#D1D5DB" }}
-            >
-              <ChevronLeft className="w-6 h-6 text-gray-700" />
-            </button>
-            <button
-              onClick={nextHighlight}
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white border-2 border-gray-300 rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors z-20"
-              aria-label="Next sponsor"
-              style={{ backgroundColor: "#FFFFFF", borderColor: "#D1D5DB" }}
-            >
-              <ChevronRight className="w-6 h-6 text-gray-700" />
-            </button>
+              {/* Navigation Arrows */}
+              <button
+                onClick={prevHighlight}
+                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white border-2 border-gray-300 rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors z-20"
+                aria-label="Previous sponsor"
+                style={{ backgroundColor: "#FFFFFF", borderColor: "#D1D5DB" }}
+              >
+                <ChevronLeft className="w-6 h-6 text-gray-700" />
+              </button>
+              <button
+                onClick={nextHighlight}
+                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white border-2 border-gray-300 rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors z-20"
+                aria-label="Next sponsor"
+                style={{ backgroundColor: "#FFFFFF", borderColor: "#D1D5DB" }}
+              >
+                <ChevronRight className="w-6 h-6 text-gray-700" />
+              </button>
 
-            {/* Pagination Dots */}
-            <div className="flex justify-center gap-2 mt-8 z-20 relative">
-              {sponsorHighlights.map((_, index) => {
-                // Map the infinite carousel index to the real index for pagination
-                const realIndex =
-                  currentHighlight === 0
-                    ? sponsorHighlights.length - 1
-                    : currentHighlight === infiniteSlides.length - 1
-                    ? 0
-                    : currentHighlight - 1;
-                return (
-                  <button
-                    key={index}
-                    onClick={() => goToHighlight(index)}
-                    className={`rounded-full transition-all ${
-                      index === realIndex
+              {/* Pagination Dots */}
+              <div className="flex justify-center gap-2 mt-8 z-20 relative">
+                {sponsorHighlights.map((_, index) => {
+                  // Map the infinite carousel index to the real index for pagination
+                  const realIndex =
+                    currentHighlight === 0
+                      ? sponsorHighlights.length - 1
+                      : currentHighlight === infiniteSlides.length - 1
+                        ? 0
+                        : currentHighlight - 1;
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => goToHighlight(index)}
+                      className={`rounded-full transition-all ${index === realIndex
                         ? "bg-white w-8 h-2"
                         : "bg-white/50 w-2 h-2 hover:bg-white/75"
-                    }`}
-                    style={{
-                      backgroundColor:
-                        index === realIndex
-                          ? "#FFFFFF"
-                          : "rgba(255, 255, 255, 0.5)",
-                    }}
-                    aria-label={`Go to sponsor ${index + 1}`}
-                  />
-                );
-              })}
+                        }`}
+                      style={{
+                        backgroundColor:
+                          index === realIndex
+                            ? "#FFFFFF"
+                            : "rgba(255, 255, 255, 0.5)",
+                      }}
+                      aria-label={`Go to sponsor ${index + 1}`}
+                    />
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Sponsor Blocks Grid */}
-        <div className="max-w-6xl mx-auto px-4">
-          {/* Gold - Large Single Block */}
-          <div>
-            {goldBlock.map((sponsor, index) => (
-              <div
-                key={index}
-                className="flex justify-center mb-4 sm:mb-5 md:mb-6"
-              >
+          {/* Sponsor Blocks Grid */}
+          <div className="max-w-6xl mx-auto px-4">
+            {/* Gold - Large Single Block */}
+            <div>
+              {goldBlock.map((sponsor, index) => (
+                <div
+                  key={index}
+                  className="flex justify-center mb-4 sm:mb-5 md:mb-6"
+                >
+                  <a
+                    href={sponsor.link || "#"}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="relative flex items-center justify-center my-5 w-full max-w-[954px]"
+                    style={{
+                      height: "clamp(120px, 19vw, 230px)",
+                    }}
+                  >
+                    <div
+                      className="w-full h-full flex items-center justify-center transition-all duration-300 hover:scale-105"
+                      style={{
+                        background: "#FFFFFF",
+                        borderRadius: "clamp(12px, 2vw, 20px)",
+                      }}
+                    >
+                      {sponsor.logo && (
+                        <div>
+                          <Image
+                            src={sponsor.logo}
+                            alt={sponsor.name}
+                            width={561}
+                            height={294}
+                            className="object-contain my-2"
+                            style={{
+                              width: "clamp(320px, 50vw, 560px)",
+                              height: "auto",
+                              maxWidth: "100%",
+                            }}
+                          />
+                        </div>
+                      )}
+                    </div>
+                  </a>
+                </div>
+              ))}
+            </div>
+
+            {/* Silver - Two Blocks Side by Side */}
+            <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-4 sm:gap-5 md:gap-6 mb-4 sm:mb-5 md:mb-6 max-w-[954px] mx-auto">
+              {silverBlocks.map((sponsor, index) => (
                 <a
+                  key={index}
                   href={sponsor.link || "#"}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative flex items-center justify-center my-5 w-full max-w-[954px]"
+                  className="relative flex items-center justify-center w-full py-2"
                   style={{
-                    height: "clamp(120px, 19vw, 230px)",
+                    height: "clamp(100px, 14vw, 175px)",
                   }}
                 >
                   <div
@@ -413,20 +506,18 @@ function SponsorsContent() {
                     style={{
                       background: "#FFFFFF",
                       borderRadius: "clamp(12px, 2vw, 20px)",
-                      transform: "rotate(-179.87deg)",
-                      transformStyle: "preserve-3d",
                     }}
                   >
                     {sponsor.logo && (
-                      <div style={{ transform: "rotate(179.87deg)" }}>
+                      <div>
                         <Image
                           src={sponsor.logo}
                           alt={sponsor.name}
-                          width={561}
-                          height={294}
-                          className="object-contain my-2"
+                          width={294}
+                          height={63}
+                          className="object-contain"
                           style={{
-                            width: "clamp(320px, 50vw, 560px)",
+                            width: "clamp(180px, 32vw, 320px)",
                             height: "auto",
                             maxWidth: "100%",
                           }}
@@ -435,220 +526,238 @@ function SponsorsContent() {
                     )}
                   </div>
                 </a>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          {/* Silver - Two Blocks Side by Side */}
-          <div className="grid grid-cols-1 md:grid-cols-2 justify-center gap-4 sm:gap-5 md:gap-6 mb-4 sm:mb-5 md:mb-6 max-w-[954px] mx-auto">
-            {silverBlocks.map((sponsor, index) => (
-              <a
-                key={index}
-                href={sponsor.link || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative flex items-center justify-center w-full py-2"
-                style={{
-                  height: "clamp(100px, 14vw, 175px)",
-                }}
-              >
-                <div
-                  className="w-full h-full flex items-center justify-center transition-all duration-300 hover:scale-105"
+            {/* Bronze - Three Blocks */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 justify-center gap-4 sm:gap-5 md:gap-6 max-w-[954px] mx-auto">
+              {bronzeBlocks.map((sponsor, index) => (
+                <a
+                  key={index}
+                  href={sponsor.link || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative flex items-center justify-center w-full"
                   style={{
-                    background: "#FFFFFF",
-                    borderRadius: "clamp(12px, 2vw, 20px)",
-                    transform: "matrix(-1, 0, 0, -1, 0, 0)",
-                    transformStyle: "preserve-3d",
+                    height: "clamp(70px, 12vw, 140px)",
                   }}
                 >
-                  {sponsor.logo && (
-                    <div style={{ transform: "matrix(-1, 0, 0, -1, 0, 0)" }}>
-                      <Image
-                        src={sponsor.logo}
-                        alt={sponsor.name}
-                        width={294}
-                        height={63}
-                        className="object-contain"
-                        style={{
-                          width: "clamp(180px, 32vw, 320px)",
-                          height: "auto",
-                          maxWidth: "100%",
-                        }}
-                      />
-                    </div>
-                  )}
-                </div>
-              </a>
-            ))}
-          </div>
-
-          {/* Bronze - Three Blocks */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 justify-center gap-4 sm:gap-5 md:gap-6 max-w-[954px] mx-auto">
-            {bronzeBlocks.map((sponsor, index) => (
-              <a
-                key={index}
-                href={sponsor.link || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative flex items-center justify-center w-full"
-                style={{
-                  height: "clamp(70px, 12vw, 140px)",
-                }}
-              >
-                <div
-                  className="w-full h-full flex items-center justify-center p-1.5 sm:p-3 md:p-4 transition-all duration-300 hover:scale-105"
-                  style={{
-                    background: "#FFFFFF",
-                    borderRadius: "clamp(10px, 2vw, 20px)",
-                    transform: "matrix(-1, -0.01, 0, -1, 0, 0)",
-                    transformStyle: "preserve-3d",
-                  }}
-                >
-                  {sponsor.logo && (
-                    <div
-                      style={{ transform: "matrix(-1, -0.01, 0, -1, 0, 0)" }}
-                    >
-                      <Image
-                        src={sponsor.logo}
-                        alt={sponsor.name}
-                        width={174}
-                        height={161}
-                        className="object-contain"
-                        style={{
-                          width: "clamp(90px, 20vw, 200px)",
-                          height: "auto",
-                          maxWidth: "100%",
-                        }}
-                      />
-                    </div>
-                  )}
-                </div>
-              </a>
-            ))}
-          </div>
-
-          {/* Partners */}
-          <div className="mt-20 mb-4 max-w-[1100px] mx-auto px-2">
-            <h2
-              className="mb-10 text-center px-4 font-luckiest"
-              style={{
-                fontWeight: 500,
-                fontSize: "clamp(30px, 4.2vw, 52px)",
-                lineHeight: "clamp(44px, 5vw, 68px)",
-                color: "#4a4a4a",
-              }}
-            >
-              Our Partners
-            </h2>
-            <div className="flex flex-col gap-8">
-              {partners.map((partner, index) => {
-                const card = (
                   <div
-                    className="w-full flex flex-col sm:flex-row items-center sm:items-start gap-8 p-8 sm:p-10 md:p-12 font-rubik"
+                    className="w-full h-full flex items-center justify-center p-1.5 sm:p-3 md:p-4 transition-all duration-300 hover:scale-105"
                     style={{
                       background: "#FFFFFF",
-                      borderRadius: "clamp(14px, 2vw, 24px)",
-                      color: "#282D5C",
-                      minHeight: "clamp(200px, 28vw, 280px)",
+                      borderRadius: "clamp(10px, 2vw, 20px)",
                     }}
                   >
-                    <div className="shrink-0 flex justify-center">
-                      <img
-                        src={partner.logo}
-                        alt={partner.name}
-                        className="object-contain"
-                        style={{
-                          width: "clamp(140px, 22vw, 220px)",
-                          height: "auto",
-                        }}
-                      />
-                    </div>
-                    <div className="flex-1 text-center sm:text-left min-w-0">
-                      <h3
-                        className="font-luckiest mb-3"
-                        style={{
-                          color: "#282D5C",
-                          fontSize: "clamp(26px, 3.2vw, 40px)",
-                        }}
-                      >
-                        {partner.name}
-                      </h3>
-                      <p
-                        className="mb-5"
-                        style={{
-                          fontWeight: 500,
-                          lineHeight: "150%",
-                          color: "#282D5C",
-                          fontSize: "clamp(19px, 2.4vw, 26px)",
-                        }}
-                      >
-                        {partner.blurb}
-                      </p>
-                      <div
-                        className="pt-3 border-t border-gray-200 text-lg"
-                      >
-                        <span
-                          className="font-luckiest opacity-90"
+                    {sponsor.logo && (
+                      <div>
+                        <Image
+                          src={sponsor.logo}
+                          alt={sponsor.name}
+                          width={174}
+                          height={161}
+                          className="object-contain"
+                          style={{
+                            width: "clamp(90px, 20vw, 200px)",
+                            height: "auto",
+                            maxWidth: "100%",
+                          }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </a>
+              ))}
+            </div>
+
+            {/* Judges */}
+            <div className="mt-20 mb-4 max-w-[950px] mx-auto px-2">
+              <h2
+                className="mb-10 text-center px-4 font-luckiest"
+                style={{
+                  fontWeight: 500,
+                  fontSize: "clamp(30px, 4.2vw, 52px)",
+                  lineHeight: "clamp(44px, 5vw, 68px)",
+                  color: "#4a4a4a",
+                }}
+              >
+                Our Judges
+              </h2>
+              <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-0 gap-y-0 max-w-[950px] mx-auto justify-items-center">
+                {judges.map((judge, index) => (
+                  <div
+                    key={index}
+                    className="w-full max-w-[320px] relative flex flex-col items-center justify-center transition-transform hover:scale-105 -my-4 sm:-my-10 shrink-0"
+                    style={{
+                      minHeight: "280px",
+                      animation: `float-random ${5 + (index % 3) * 1.5}s ease-in-out infinite`,
+                      animationDelay: `${(index % 5) * 0.7}s`,
+                    }}
+                  >
+                    {/* Cloud Background */}
+                    <div
+                      className="absolute inset-0 z-0 scale-[1.2] sm:scale-[1.35] 2xl:scale-[1.6]"
+                      style={{
+                        backgroundImage: "url(/sponsors/cloud.png)",
+                        backgroundSize: "contain",
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
+                      }}
+                    />
+                    {/* Content */}
+                    <div className="relative z-10 flex flex-row items-center text-left px-2 sm:px-4 gap-2 sm:gap-4 scale-85 sm:scale-85 2xl:scale-[0.7] translate-y-3 sm:translate-y-5">
+                      <div className="w-[65px] h-[65px] sm:w-[85px] sm:h-[85px] 2xl:w-[75px] 2xl:h-[75px] rounded-full overflow-hidden shrink-0 border-[3px] sm:border-4 border-white shadow-md bg-gray-200">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={judge.photo}
+                          alt={judge.name}
+                          className="object-cover w-full h-full"
+                        />
+                      </div>
+                      <div className="flex flex-col flex-1 min-w-0">
+                        <h3
+                          className="font-luckiest text-xl sm:text-2xl 2xl:text-xl mb-1 leading-tight truncate"
+                          style={{ color: "#282D5C" }}
+                          title={judge.name}
                         >
-                          Huge thank you to {" "}
-                        </span>
-                        <span >
-                          {partner.team.length > 0
-                            ? partner.team.join(", ")
-                            : "—"}
-                            !
-                        </span>
+                          {judge.name}
+                        </h3>
+                        <p
+                          className="font-rubik text-xs sm:text-sm 2xl:text-[10px] font-medium leading-snug"
+                          style={{ color: "#282D5C" }}
+                        >
+                          {judge.position}
+                        </p>
                       </div>
                     </div>
                   </div>
-                );
-                return partner.link ? (
-                  <a
-                    key={index}
-                    href={partner.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full transition-all duration-300 hover:scale-[1.01]"
-                  >
-                    {card}
-                  </a>
-                ) : (
-                  <div key={index} className="block w-full">
-                    {card}
-                  </div>
-                );
-              })}
+                ))}
+              </div>
+            </div>
+
+            {/* Partners */}
+            <div className="mt-20 mb-4 max-w-[1100px] mx-auto px-2 translate-y-8">
+              <h2
+                className="mb-10 text-center px-4 font-luckiest"
+                style={{
+                  fontWeight: 500,
+                  fontSize: "clamp(30px, 4.2vw, 52px)",
+                  lineHeight: "clamp(44px, 5vw, 68px)",
+                  color: "#4a4a4a",
+                }}
+              >
+                Our Partners
+              </h2>
+              <div className="flex flex-col gap-8">
+                {partners.map((partner, index) => {
+                  const card = (
+                    <div
+                      className="w-full flex flex-col sm:flex-row items-center sm:items-start gap-8 p-8 sm:p-10 md:p-12 font-rubik"
+                      style={{
+                        background: "#FFFFFF",
+                        borderRadius: "clamp(14px, 2vw, 24px)",
+                        color: "#282D5C",
+                        minHeight: "clamp(200px, 28vw, 280px)",
+                      }}
+                    >
+                      <div className="shrink-0 flex justify-center">
+                        <img
+                          src={partner.logo}
+                          alt={partner.name}
+                          className="object-contain"
+                          style={{
+                            width: "clamp(140px, 22vw, 220px)",
+                            height: "auto",
+                          }}
+                        />
+                      </div>
+                      <div className="flex-1 text-center sm:text-left min-w-0">
+                        <h3
+                          className="font-luckiest mb-3"
+                          style={{
+                            color: "#282D5C",
+                            fontSize: "clamp(26px, 3.2vw, 40px)",
+                          }}
+                        >
+                          {partner.name}
+                        </h3>
+                        <p
+                          className="mb-5"
+                          style={{
+                            fontWeight: 500,
+                            lineHeight: "150%",
+                            color: "#282D5C",
+                            fontSize: "clamp(19px, 2.4vw, 26px)",
+                          }}
+                        >
+                          {partner.blurb}
+                        </p>
+                        <div
+                          className="pt-3 border-t border-gray-200 text-lg"
+                        >
+                          <span
+                            className="font-luckiest opacity-90"
+                          >
+                            Huge thank you to {" "}
+                          </span>
+                          <span >
+                            {partner.team.length > 0
+                              ? partner.team.join(", ")
+                              : "—"}
+                            !
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                  return partner.link ? (
+                    <a
+                      key={index}
+                      href={partner.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block w-full transition-all duration-300 hover:scale-[1.01]"
+                    >
+                      {card}
+                    </a>
+                  ) : (
+                    <div key={index} className="block w-full">
+                      {card}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div
-        className="pointer-events-none absolute left-0 right-0 z-20"
-        style={{
-          bottom: 0,
-          height: "clamp(120px, 16vw, 200px)",
-          transform: "translateY(50%)",
-          backgroundImage: "url('/faq-qa.svg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-        aria-hidden="true"
-      />
-      <div
-        className="pointer-events-none absolute left-0 right-0 z-20"
-        style={{
-          bottom: 0,
-          height: "clamp(160px, 20vw, 260px)",
-          transform: "translateY(calc(50% + clamp(120px, 16vw, 200px)))",
-          backgroundImage: "url('/additional.svg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-        aria-hidden="true"
-      />
-    </section>
+        <div
+          className="pointer-events-none absolute left-0 right-0 z-20"
+          style={{
+            bottom: 0,
+            height: "clamp(120px, 16vw, 200px)",
+            transform: "translateY(50%)",
+            backgroundImage: "url('/faq-qa.svg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute left-0 right-0 z-20"
+          style={{
+            bottom: 0,
+            height: "clamp(160px, 20vw, 260px)",
+            transform: "translateY(calc(50% + clamp(120px, 16vw, 200px)))",
+            backgroundImage: "url('/additional.svg')",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+          aria-hidden="true"
+        />
+      </section>
+    </>
   );
 }
 
@@ -665,7 +774,8 @@ const leftColumnItems: FAQItem[] = [
   },
   {
     question: "What is Hack Canada?",
-    answer: "Hack Canada is built around tackling real Canadian challenges. This year, we're extending that mission beyond the weekend with a 30-day building period—giving teams 1 on 1 access to sponsors and funding to transform prototypes into lasting side projects or startups."  },
+    answer: "Hack Canada is built around tackling real Canadian challenges. This year, we're extending that mission beyond the weekend with a 30-day building period—giving teams 1 on 1 access to sponsors and funding to transform prototypes into lasting side projects or startups."
+  },
   {
     question: "How much does it cost?",
     answer:
