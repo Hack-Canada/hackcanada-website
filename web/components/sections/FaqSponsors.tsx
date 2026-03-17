@@ -605,7 +605,7 @@ function SponsorsContent() {
                       }}
                     />
                     {/* Content */}
-                    <div className="relative z-10 flex flex-row items-center text-left px-2 sm:px-4 gap-2 sm:gap-4 scale-85 sm:scale-85 2xl:scale-[0.7]">
+                    <div className="relative z-10 flex flex-row items-center text-left px-2 sm:px-4 gap-2 sm:gap-4 scale-85 sm:scale-85 2xl:scale-[0.7] translate-y-3 sm:translate-y-5">
                       <div className="w-[65px] h-[65px] sm:w-[85px] sm:h-[85px] 2xl:w-[75px] 2xl:h-[75px] rounded-full overflow-hidden shrink-0 border-[3px] sm:border-4 border-white shadow-md bg-gray-200">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
