@@ -129,11 +129,6 @@ const judges: Judge[] = [
     photo: "/judges/simerus-mahesh.jpg",
   },
   {
-    name: "Andrii Kaplia",
-    position: "Judge",
-    photo: "https://placehold.co/400x400/png?text=AK",
-  },
-  {
     name: "Sammy Lam",
     position: "SWE 2",
     photo: "/judges/sammy-lam.jpg",
@@ -174,7 +169,7 @@ const judges: Judge[] = [
     photo: "/judges/james-liang.jpg",
   },
   {
-    name: "Hendryck De Los Santos",
+    name: "Hendryck Santos",
     position: "Startups @ Google Cloud",
     photo: "/judges/hendryck-santos.jpg",
   },
@@ -652,7 +647,7 @@ function SponsorsContent() {
               >
                 Our Judges
               </h2>
-              <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-0 gap-y-0 max-w-[950px] mx-auto justify-items-center">
+              <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-2 sm:gap-x-6 gap-y-0 max-w-[1000px] mx-auto justify-items-center">
                 {judges.map((judge, index) => (
                   <div
                     key={index}
