@@ -117,11 +117,78 @@ interface Judge {
   photo: string;
 }
 
-const judges: Judge[] = Array.from({ length: 12 }).map((_, i) => ({
-  name: `Judge Name ${i + 1}`,
-  position: `Judge Position ${i + 1}`,
-  photo: `https://placehold.co/400x400/png?text=Judge+${i + 1}`,
-}));
+const judges: Judge[] = [
+  {
+    name: "Jaskirat Singh",
+    position: "CEO",
+    photo: "/judges/jaskirat-singh.jpg",
+  },
+  {
+    name: "Simerus Mahesh",
+    position: "Founding Engineer",
+    photo: "/judges/simerus-mahesh.jpg",
+  },
+  {
+    name: "Andrii Kaplia",
+    position: "Judge",
+    photo: "https://placehold.co/400x400/png?text=AK",
+  },
+  {
+    name: "Sammy Lam",
+    position: "SWE 2",
+    photo: "/judges/sammy-lam.jpg",
+  },
+  {
+    name: "Pravesh Mansharamani",
+    position: "Founder / CEO",
+    photo: "/judges/pravesh-mansharamani.jpg",
+  },
+  {
+    name: "Osher Ahn-Clifford",
+    position: "Software Development at Wealthsimple",
+    photo: "/judges/osher.jpg",
+  },
+  {
+    name: "Michael Clifford",
+    position: "Design at Jobber",
+    photo: "/judges/michael-clifford.jpg",
+  },
+  {
+    name: "Gaurav Shah",
+    position: "Incoming Product Manager @ BetterUp",
+    photo: "/judges/gaurav-shah.jpeg",
+  },
+  {
+    name: "Neal Panamdanam",
+    position: "Lead DevOps Engineer @ HONK",
+    photo: "/judges/neal-panamdanam.jpg",
+  },
+  {
+    name: "Eric Liu",
+    position: "CTO",
+    photo: "/judges/eric-liu.jpg",
+  },
+  {
+    name: "James Liang",
+    position: "Business System Analyst",
+    photo: "/judges/james-liang.jpg",
+  },
+  {
+    name: "Hendryck De Los Santos",
+    position: "Startups @ Google Cloud",
+    photo: "/judges/hendryck-santos.jpg",
+  },
+  {
+    name: "Jacqline Geng",
+    position: "Senior Financial Engineer",
+    photo: "/judges/jacqline-geng.jpg",
+  },
+  {
+    name: "Kaivalya Gandhi",
+    position: "Director, CUTC Foundation",
+    photo: "/judges/kaivalya-gandhi.jpg",
+  },
+];
 
 function SponsorsContent() {
   const [currentHighlight, setCurrentHighlight] = useState(1); // Start at 1 because we duplicate first slide
@@ -227,6 +294,7 @@ function SponsorsContent() {
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
             opacity: 0.4,
+            filter: "drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.2))",
             zIndex: 5,
             animation: "float-random 8s ease-in-out infinite",
           }}
@@ -242,6 +310,7 @@ function SponsorsContent() {
             backgroundSize: "contain",
             backgroundRepeat: "no-repeat",
             opacity: 0.4,
+            filter: "drop-shadow(0px 12px 24px rgba(0, 0, 0, 0.2))",
             zIndex: 5,
             animation: "float-random 11s ease-in-out infinite",
             animationDelay: "-2s",
@@ -602,6 +671,7 @@ function SponsorsContent() {
                         backgroundSize: "contain",
                         backgroundPosition: "center",
                         backgroundRepeat: "no-repeat",
+                        filter: "drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.15))",
                       }}
                     />
                     {/* Content */}
