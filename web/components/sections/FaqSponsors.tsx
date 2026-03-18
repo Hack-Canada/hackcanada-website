@@ -120,12 +120,12 @@ interface Judge {
 const judges: Judge[] = [
   {
     name: "Jaskirat Singh",
-    position: "CEO",
+    position: "CEO @ Humonos",
     photo: "/judges/jaskirat-singh.jpg",
   },
   {
     name: "Simerus Mahesh",
-    position: "Founding Engineer",
+    position: "a37; prev. Meta, Sony",
     photo: "/judges/simerus-mahesh.jpg",
   },
   {
@@ -135,12 +135,12 @@ const judges: Judge[] = [
   },
   {
     name: "Pravesh Mansharamani",
-    position: "Founder / CEO",
+    position: "Co-Founder @ Totalis",
     photo: "/judges/pravesh-mansharamani.jpg",
   },
   {
     name: "Osher Ahn-Clifford",
-    position: "Software Development at Wealthsimple",
+    position: "Software Dev Intern @ Wealthsimple",
     photo: "/judges/osher.jpg",
   },
   {
@@ -150,7 +150,7 @@ const judges: Judge[] = [
   },
   {
     name: "Gaurav Shah",
-    position: "Incoming Product Manager @ BetterUp",
+    position: "Product design @ Cresta",
     photo: "/judges/gaurav-shah.jpeg",
   },
   {
@@ -182,6 +182,31 @@ const judges: Judge[] = [
     name: "Kaivalya Gandhi",
     position: "Director, CUTC Foundation",
     photo: "/judges/kaivalya-gandhi.jpg",
+  },
+  {
+    name: "Terry Zha",
+    position: "Prev SWE Intern @ Roblox/Warp",
+    photo: "/judges/terry-zha.jpg",
+  },
+  {
+    name: "William Zeng",
+    position: "SWE @ Polymarket",
+    photo: "/judges/william-zeng.jpg",
+  },
+  {
+    name: "Lucas Crupi",
+    position: "CEO of Loombotic (YC F24)",
+    photo: "/judges/lucas-crupi.png",
+  },
+  {
+    name: "Ethan Breit",
+    position: "CTO of Loombotic (YC F24)",
+    photo: "/judges/ethan-breit.jpg",
+  },
+  {
+    name: "Adam Ghandour",
+    position: "VC Analyst @ Access Bridge Ventures",
+    photo: "/judges/adam-ghandour.jpg",
   },
 ];
 
@@ -647,56 +672,78 @@ function SponsorsContent() {
               >
                 Our Judges
               </h2>
-              <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-2 sm:gap-x-6 gap-y-0 max-w-[1000px] mx-auto justify-items-center">
-                {judges.map((judge, index) => (
-                  <div
-                    key={index}
-                    className="w-full max-w-[320px] relative flex flex-col items-center justify-center -my-4 sm:-my-10 shrink-0"
-                    style={{
-                      minHeight: "280px",
-                      animation: `float-random ${5 + (index % 3) * 1.5}s ease-in-out infinite`,
-                      animationDelay: `${(index % 5) * 0.7}s`,
-                    }}
-                  >
-                    {/* Cloud Background */}
+              <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-2 sm:gap-x-6 gap-y-8 max-w-[1000px] mx-auto justify-items-center">
+                {judges.map((judge, index) => {
+                  const seed = index + 1;
+                  const tx = ((seed * 456) % 100) - 50; // -50 to 50 px
+                  let ty = ((seed * 789) % 140) - 70; // -70 to 70 px
+                  const zIndex = (seed * 345) % 30;
+                  const duration = 5 + (index % 4) * 1.2;
+                  const delay = -(index % 5) * 0.8;
+
+                  // Move Hendryck a bit more up
+                  if (judge.name === "Hendryck Santos") {
+                    ty -= 30;
+                  }
+
+                  return (
                     <div
-                      className="absolute inset-0 z-0 scale-[1.2] sm:scale-[1.35] 2xl:scale-[1.6]"
+                      key={index}
+                      className="w-full max-w-[320px] relative flex flex-col items-center justify-center -my-8 sm:-my-16 shrink-0 transition-transform duration-500 hover:scale-110 hover:z-[100]"
                       style={{
-                        backgroundImage: "url(/sponsors/cloud.png)",
-                        backgroundSize: "contain",
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                        filter: "drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.15))",
+                        minHeight: "320px",
+                        transform: `translate(${tx}px, ${ty}px)`,
+                        zIndex: zIndex,
                       }}
-                    />
-                    {/* Content */}
-                    <div className="relative z-10 flex flex-row items-center text-left px-2 sm:px-4 gap-2 sm:gap-4 scale-85 sm:scale-85 2xl:scale-[0.7] translate-y-3 sm:translate-y-5">
-                      <div className="w-[65px] h-[65px] sm:w-[85px] sm:h-[85px] 2xl:w-[75px] 2xl:h-[75px] rounded-full overflow-hidden shrink-0 border-[3px] sm:border-4 border-white shadow-md bg-gray-200">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
-                          src={judge.photo}
-                          alt={judge.name}
-                          className="object-cover w-full h-full"
+                    >
+                      <div
+                        className="w-full h-full relative flex flex-col items-center justify-center"
+                        style={{
+                          animation: `float-random ${duration}s ease-in-out infinite`,
+                          animationDelay: `${delay}s`,
+                        }}
+                      >
+                        {/* Cloud Background */}
+                        <div
+                          className="absolute inset-0 z-0 scale-[1.2] sm:scale-[1.35] 2xl:scale-[1.6]"
+                          style={{
+                            backgroundImage: "url(/sponsors/cloud.png)",
+                            backgroundSize: "contain",
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                            filter: "drop-shadow(0px 10px 20px rgba(0, 0, 0, 0.15))",
+                          }}
                         />
-                      </div>
-                      <div className="flex flex-col flex-1 min-w-0">
-                        <h3
-                          className="font-luckiest text-xl sm:text-2xl 2xl:text-xl mb-1 leading-tight truncate"
-                          style={{ color: "#282D5C" }}
-                          title={judge.name}
-                        >
-                          {judge.name}
-                        </h3>
-                        <p
-                          className="font-rubik text-xs sm:text-sm 2xl:text-[10px] font-medium leading-snug"
-                          style={{ color: "#282D5C" }}
-                        >
-                          {judge.position}
-                        </p>
+                        {/* Content */}
+                        <div className="relative z-10 flex flex-row items-center text-left px-2 sm:px-4 gap-2 sm:gap-4 scale-85 sm:scale-85 2xl:scale-[0.7] translate-y-3 sm:translate-y-5">
+                          <div className="w-[65px] h-[65px] sm:w-[85px] sm:h-[85px] 2xl:w-[75px] 2xl:h-[75px] rounded-full overflow-hidden shrink-0 border-[3px] sm:border-4 border-white shadow-md bg-gray-200">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src={judge.photo}
+                              alt={judge.name}
+                              className="object-cover w-full h-full"
+                            />
+                          </div>
+                          <div className="flex flex-col flex-1 min-w-0">
+                            <h3
+                              className="font-luckiest text-xl sm:text-2xl 2xl:text-xl mb-1 leading-tight truncate"
+                              style={{ color: "#282D5C" }}
+                              title={judge.name}
+                            >
+                              {judge.name}
+                            </h3>
+                            <p
+                              className="font-rubik text-xs sm:text-sm 2xl:text-[10px] font-medium leading-snug"
+                              style={{ color: "#282D5C" }}
+                            >
+                              {judge.position}
+                            </p>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
