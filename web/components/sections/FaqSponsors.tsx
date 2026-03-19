@@ -672,11 +672,14 @@ function SponsorsContent() {
               >
                 Our Judges
               </h2>
-              <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-2 sm:gap-x-6 gap-y-8 max-w-[1000px] mx-auto justify-items-center">
+              <div className="grid grid-cols-1 min-[480px]:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-x-2 sm:gap-x-6 gap-y-0 sm:gap-y-8 max-w-[1000px] mx-auto justify-items-center">
                 {judges.map((judge, index) => {
                   const seed = index + 1;
-                  const tx = ((seed * 456) % 100) - 50; // -50 to 50 px
-                  let ty = ((seed * 789) % 140) - 70; // -70 to 70 px
+
+                  // Randomly push to left, right, up, or down (reduced magnitude)
+                  let tx = ((seed * 456) % 50) - 25; // -25 to 25 px
+                  let ty = ((seed * 789) % 50) - 25; // -25 to 25 px
+
                   const zIndex = (seed * 345) % 30;
                   const duration = 5 + (index % 4) * 1.2;
                   const delay = -(index % 5) * 0.8;
@@ -689,9 +692,9 @@ function SponsorsContent() {
                   return (
                     <div
                       key={index}
-                      className="w-full max-w-[320px] relative flex flex-col items-center justify-center -my-8 sm:-my-16 shrink-0 transition-transform duration-500 hover:scale-110 hover:z-[100]"
+                      className="w-full max-w-[320px] relative flex flex-col items-center justify-center my-0 sm:-my-14 shrink-0 transition-transform duration-500 hover:scale-110 hover:z-[100]"
                       style={{
-                        minHeight: "320px",
+                        minHeight: "clamp(200px, 50vw, 320px)",
                         transform: `translate(${tx}px, ${ty}px)`,
                         zIndex: zIndex,
                       }}
