@@ -98,6 +98,7 @@ const bronzeBlocks: SponsorBlock[] = [
   { name: "GitHub", logo: "/sponsors/github.png" },
   { name: "pure buttons", logo: "/sponsors/PureButtons.png" },
   { name: "redbull", logo: "/sponsors/redbull.png" },
+  { name: "MEF", logo: "/sponsors/MEFLOGO.png" },
 
 ];
 
