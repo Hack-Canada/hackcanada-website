@@ -692,7 +692,7 @@ function SponsorsContent() {
                   return (
                     <div
                       key={index}
-                      className="w-full max-w-[320px] relative flex flex-col items-center justify-center my-0 sm:-my-14 shrink-0 transition-transform duration-500 hover:scale-110 hover:z-[100]"
+                      className="w-full max-w-[320px] relative flex flex-col items-center justify-center my-0 sm:-my-14 shrink-0 transition-transform duration-500 hover:z-[100]"
                       style={{
                         minHeight: "clamp(200px, 50vw, 320px)",
                         transform: `translate(${tx}px, ${ty}px)`,
