@@ -114,7 +114,7 @@ const partners: Partner[] = [
     blurb: "Waterloo.dev is a nonprofit that supports underserved developer communities with free or low-cost education, events, mentorship, and training to advance learning and innovation in tech.",
     link: "https://waterloo.dev/",
   },
-{
+  {
     name: "GDG Laurier",
     logo: "/sponsors/gdg.jpeg",
     blurb: "Google Developer Group Laurier brings together developers and tech enthusiasts at Wilfrid Laurier University to learn, build, and connect.",
@@ -222,59 +222,7 @@ const judges: Judge[] = [
 ];
 
 function SponsorsContent() {
-  const [currentHighlight, setCurrentHighlight] = useState(1); // Start at 1 because we duplicate first slide
-  const [isTransitioning, setIsTransitioning] = useState(true);
-  const carouselRef = useRef<HTMLDivElement>(null);
-
-  // Create infinite loop by duplicating slides
-  const infiniteSlides = [
-    sponsorHighlights[sponsorHighlights.length - 1], // Last slide at beginning
-    ...sponsorHighlights,
-    sponsorHighlights[0], // First slide at end
-  ];
-
-  useEffect(() => {
-    if (!isTransitioning) {
-      setIsTransitioning(true);
-    }
-  }, [currentHighlight, isTransitioning]);
-
-  useEffect(() => {
-    const handleTransitionEnd = () => {
-      if (currentHighlight === 0) {
-        // Jump to real last slide (without transition)
-        setIsTransitioning(false);
-        setCurrentHighlight(sponsorHighlights.length);
-      } else if (currentHighlight === infiniteSlides.length - 1) {
-        // Jump to real first slide (without transition)
-        setIsTransitioning(false);
-        setCurrentHighlight(1);
-      }
-    };
-
-    const carousel = carouselRef.current;
-    if (carousel) {
-      carousel.addEventListener("transitionend", handleTransitionEnd);
-      return () =>
-        carousel.removeEventListener("transitionend", handleTransitionEnd);
-    }
-  }, [currentHighlight, infiniteSlides.length]);
-
-  const nextHighlight = () => {
-    if (currentHighlight < infiniteSlides.length - 1) {
-      setCurrentHighlight((prev) => prev + 1);
-    }
-  };
-
-  const prevHighlight = () => {
-    if (currentHighlight > 0) {
-      setCurrentHighlight((prev) => prev - 1);
-    }
-  };
-
-  const goToHighlight = (index: number) => {
-    setCurrentHighlight(index + 1); // +1 because of duplicate at start
-  };
+  
 
   return (
     <>
@@ -377,169 +325,8 @@ function SponsorsContent() {
             </p>
           </div>
 
-          {/* Sponsor Highlights Carousel */}
-          <div className="mb-20 hidden sm:block">
-            <h2
-              className="mb-8 text-center mx-auto text-xl sm:text-2xl md:text-3xl lg:text-4xl px-4 font-luckiest"
-              style={{
-                fontStyle: "italic",
-                fontWeight: 500,
-                fontSize: "clamp(20px, 3vw, 32px)",
-                lineHeight: "clamp(32px, 4vw, 60px)",
-                color: "#FBDCDC",
-                maxWidth: "1129px",
-                width: "100%",
-              }}
-            >
-              Sponsor Highlights
-            </h2>
-
-            <div className="relative max-w-[954.94px] mx-auto px-4">
-              {/* Carousel Container */}
-              <div
-                className="relative overflow-hidden"
-                style={{ minHeight: "clamp(400px, 50vw, 500px)" }}
-              >
-                <div
-                  ref={carouselRef}
-                  className="flex"
-                  style={{
-                    transform: `translateX(-${currentHighlight * 100}%)`,
-                    transition: isTransitioning
-                      ? "transform 0.5s ease-in-out"
-                      : "none",
-                  }}
-                >
-                  {infiniteSlides.map((sponsor, index) => (
-                    <div
-                      key={index}
-                      className="min-w-full flex justify-center px-4"
-                    >
-                      <div
-                        className="relative flex flex-col items-center w-full max-w-[953.54px] mx-auto"
-                        style={{
-                          width: "953.54px",
-                          height: "500px",
-                          maxWidth: "100%",
-                          aspectRatio: "953.54/638.36",
-                          background: "#FFFFFF",
-                          borderRadius: "20px",
-                          zIndex: index === currentHighlight ? 10 : 1,
-                        }}
-                      >
-                        <div
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            padding: "clamp(20px, 4vw, 40px)",
-                          }}
-                        >
-                          {sponsor.logo && (
-                            <div className="mb-8">
-                              <Image
-                                src={sponsor.logo}
-                                alt={sponsor.name}
-                                width={400}
-                                height={64}
-                                className="object-contain"
-                                style={{
-                                  width: "clamp(200px, 30vw, 400px)",
-                                  height: "auto",
-                                  maxWidth: "100%",
-                                }}
-                              />
-                            </div>
-                          )}
-                          <p
-                            className="text-center mb-8 text-sm sm:text-base md:text-lg lg:text-xl px-4 font-rubik"
-                            style={{
-                              fontWeight: 500,
-                              fontSize: "clamp(14px, 2vw, 20px)",
-                              lineHeight: "150%",
-                              color: "#282D5C",
-                              maxWidth: "708px",
-                              width: "100%",
-                            }}
-                          >
-                            {sponsor.description}
-                          </p>
-                          {sponsor.link && (
-                            <a
-                              href={sponsor.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-sm sm:text-base md:text-lg lg:text-xl font-rubik"
-                              style={{
-                                fontWeight: 500,
-                                fontSize: "clamp(14px, 2vw, 20px)",
-                                lineHeight: "150%",
-                                color: "#282D5C",
-                                textDecoration: "underline",
-                              }}
-                            >
-                              {sponsor.linkText || "Learn more →"}
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Navigation Arrows */}
-              <button
-                onClick={prevHighlight}
-                className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white border-2 border-gray-300 rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors z-20"
-                aria-label="Previous sponsor"
-                style={{ backgroundColor: "#FFFFFF", borderColor: "#D1D5DB" }}
-              >
-                <ChevronLeft className="w-6 h-6 text-gray-700" />
-              </button>
-              <button
-                onClick={nextHighlight}
-                className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white border-2 border-gray-300 rounded-full p-3 shadow-lg hover:bg-gray-100 transition-colors z-20"
-                aria-label="Next sponsor"
-                style={{ backgroundColor: "#FFFFFF", borderColor: "#D1D5DB" }}
-              >
-                <ChevronRight className="w-6 h-6 text-gray-700" />
-              </button>
-
-              {/* Pagination Dots */}
-              <div className="flex justify-center gap-2 mt-8 z-20 relative">
-                {sponsorHighlights.map((_, index) => {
-                  // Map the infinite carousel index to the real index for pagination
-                  const realIndex =
-                    currentHighlight === 0
-                      ? sponsorHighlights.length - 1
-                      : currentHighlight === infiniteSlides.length - 1
-                        ? 0
-                        : currentHighlight - 1;
-                  return (
-                    <button
-                      key={index}
-                      onClick={() => goToHighlight(index)}
-                      className={`rounded-full transition-all ${index === realIndex
-                        ? "bg-white w-8 h-2"
-                        : "bg-white/50 w-2 h-2 hover:bg-white/75"
-                        }`}
-                      style={{
-                        backgroundColor:
-                          index === realIndex
-                            ? "#FFFFFF"
-                            : "rgba(255, 255, 255, 0.5)",
-                      }}
-                      aria-label={`Go to sponsor ${index + 1}`}
-                    />
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+  
+        
 
           {/* Sponsor Blocks Grid */}
           <div className="max-w-6xl mx-auto px-4">
