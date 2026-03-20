@@ -29,7 +29,6 @@ interface Partner {
   name: string;
   logo: string;
   blurb: string;
-  team: string[];
   link?: string;
 }
 
@@ -104,12 +103,23 @@ const bronzeBlocks: SponsorBlock[] = [
 
 const partners: Partner[] = [
   {
-    name: "GDG Laurier",
-    logo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4cfKyMJNFvwqJ1BbG51ld9i8BbTIqDc4z2A&s",
-    blurb: "Google Developer Group Laurier brings together developers and tech enthusiasts at Wilfrid Laurier University to learn, build, and connect.",
-    team: ["Abdul Aziz", "Yash Dave", "Khushi Patel", "Akif Rahman"],
-    link: "https://gdg.community.dev/gdg-on-campus-wilfrid-laurier-university-waterloo-canada/",
+    name: "CUTC Foundation",
+    logo: "/sponsors/CUTC.png",
+    blurb: "CUTC is Canada’s largest and longest running student run technology conference, founded in 1999 to connect thousands of delegates, speakers, and sponsors with the Canadian tech community.",
+    link: "https://www.cutc.ca/",
   },
+  {
+    name: "Waterloo.Dev",
+    logo: "/sponsors/WaterlooDev.png",
+    blurb: "Waterloo.dev is a nonprofit that supports underserved developer communities with free or low-cost education, events, mentorship, and training to advance learning and innovation in tech.",
+    link: "https://waterloo.dev/",
+  },
+{
+    name: "GDG Laurier",
+    logo: "/sponsors/gdg.jpeg",
+    blurb: "Google Developer Group Laurier brings together developers and tech enthusiasts at Wilfrid Laurier University to learn, build, and connect.",
+    link: "https://gdg.community.dev/gdg-on-campus-wilfrid-laurier-university-waterloo-canada/",
+  }
 ];
 
 interface Judge {
@@ -807,21 +817,7 @@ function SponsorsContent() {
                         >
                           {partner.blurb}
                         </p>
-                        <div
-                          className="pt-3 border-t border-gray-200 text-lg"
-                        >
-                          <span
-                            className="font-luckiest opacity-90"
-                          >
-                            Huge thank you to {" "}
-                          </span>
-                          <span >
-                            {partner.team.length > 0
-                              ? partner.team.join(", ")
-                              : "—"}
-                            !
-                          </span>
-                        </div>
+                  
                       </div>
                     </div>
                   );
