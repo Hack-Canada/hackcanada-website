@@ -22,7 +22,6 @@ export default function Hero() {
 
     try {
       const res = await fetch("https://app.hackcanada.org/api/mailing-list", {
-        // const res = await fetch("http://localhost:3001/api/mailing-list", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -32,7 +31,7 @@ export default function Hero() {
       if (!res.ok || !data.success) {
         setStatus("error");
         setErrorMessage(
-          data.message || "Something went wrong, please try again."
+          data.message || "Couldn’t join the list — try again in a moment.",
         );
         return;
       }
@@ -40,7 +39,7 @@ export default function Hero() {
       setStatus("success");
     } catch {
       setStatus("error");
-      setErrorMessage("Something went wrong, please try again.");
+      setErrorMessage("Couldn’t join the list — check your connection and try again.");
     }
   };
 
@@ -124,39 +123,60 @@ export default function Hero() {
         <h1 className="text-6xl lg:text-8xl text-[#441E0A] font-luckiest">
           Hack Canada
         </h1>
-        <p className="text-[#441E0A] text lg:text-2xl mt-2 lg:mt-0 font-rubik">
-          Sign up for our mailing list to hear what&apos;s next!
+        <p className="text-[#441E0A] text-lg lg:text-2xl mt-2 lg:mt-1 font-rubik">
+          Get notified when Hack Canada 2027 goes live.
         </p>
-        <div className="mt-4 lg:mt-6 flex flex-col items-center w-full max-w-md">
+        <div className="mt-4 lg:mt-5 flex flex-col items-center w-full max-w-md">
           {status === "success" ? (
-            <p className="bg-[#441E0A] text-white px-8 lg:px-10 py-3 rounded-lg font-semibold text-lg font-rubik">
-              You&apos;re on the list! We&apos;ll be in touch.
+            <p className="rounded-lg bg-[#441E0A] px-6 py-3 text-white font-rubik font-bold text-lg">
+              You&apos;re on the list.
             </p>
           ) : (
             <form
               onSubmit={handleMailingListSubmit}
               className="flex w-full flex-col sm:flex-row gap-2"
+              aria-label="Get notified when Hack Canada 2027 goes live"
             >
+              <label htmlFor="mailing-list-email" className="sr-only">
+                Email address
+              </label>
               <input
+                id="mailing-list-email"
                 type="email"
                 required
+                autoComplete="email"
+                inputMode="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@email.com"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (status === "error") {
+                    setStatus("idle");
+                    setErrorMessage("");
+                  }
+                }}
+                placeholder="you@school.ca"
                 disabled={status === "loading"}
-                className="flex-1 px-4 py-2 lg:py-3 rounded-lg border-2 border-[#441E0A] bg-white/80 text-[#441E0A] font-rubik placeholder:text-[#441E0A]/60 focus:outline-none focus:ring-2 focus:ring-[#EC294D]"
+                aria-invalid={status === "error"}
+                aria-describedby={
+                  status === "error" ? "mailing-list-error" : undefined
+                }
+                className="flex-1 min-w-0 px-4 py-2.5 lg:py-3 rounded-lg border-2 border-[#441E0A] bg-white/90 text-[#441E0A] font-rubik placeholder:text-[#441E0A]/50 focus:outline-none focus:ring-2 focus:ring-[#EC294D] focus:border-[#EC294D] disabled:opacity-60"
               />
               <button
                 type="submit"
-                disabled={status === "loading"}
-                className="bg-[#441E0A] text-white px-6 lg:px-8 py-2 lg:py-3 rounded-lg font-bold text-lg font-rubik hover:bg-[#5C2E0F] transition disabled:opacity-60"
+                disabled={status === "loading" || !email.trim()}
+                className="shrink-0 bg-[#EC294D] text-white px-6 lg:px-7 py-2.5 lg:py-3 rounded-lg font-bold text-base lg:text-lg font-rubik hover:bg-[#d12444] transition disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {status === "loading" ? "Signing up..." : "Sign Up"}
+                {status === "loading" ? "Joining..." : "Notify me"}
               </button>
             </form>
           )}
           {status === "error" && (
-            <p className="mt-2 text-[#EC294D] text-sm font-rubik font-semibold">
+            <p
+              id="mailing-list-error"
+              role="alert"
+              className="mt-2 text-[#EC294D] text-sm font-rubik font-semibold"
+            >
               {errorMessage}
             </p>
           )}
