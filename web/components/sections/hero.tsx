@@ -1,14 +1,48 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Parallax from "parallax-js";
 
 export default function Hero() {
   const [sectionHeight, setSectionHeight] = useState(1400);
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   const backgroundImgRef = useRef<HTMLImageElement>(null);
   const sceneRef = useRef<HTMLDivElement>(null);
   const parallaxRef = useRef<Parallax | null>(null);
+
+  const handleMailingListSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("https://app.hackcanada.org/api/mailing-list", {
+        // const res = await fetch("http://localhost:3001/api/mailing-list", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        setStatus("error");
+        setErrorMessage(
+          data.message || "Something went wrong, please try again."
+        );
+        return;
+      }
+
+      setStatus("success");
+    } catch {
+      setStatus("error");
+      setErrorMessage("Something went wrong, please try again.");
+    }
+  };
 
   const handleImageLoad = () => {
     if (backgroundImgRef.current)
@@ -91,23 +125,41 @@ export default function Hero() {
           Hack Canada
         </h1>
         <p className="text-[#441E0A] text lg:text-2xl mt-2 lg:mt-0 font-rubik">
-          March 6-8, 2026 | In-Person Event
+          Sign up for our mailing list to hear what&apos;s next!
         </p>
-        <div className="mt-4 lg:mt-6 flex flex-col items-center">
-          <div className="bg-[#441E0A] text-white px-8 lg:px-10 py-2 lg:py-3 rounded-t-lg lg:rounded-lg hover:bg-[#5C2E0F] transition">
-            <a
-              href="https://app.hackcanada.org"
-              target="_blank"
-              className="font-bold text-lg lg:text-2xl font-rubik"
+        <div className="mt-4 lg:mt-6 flex flex-col items-center w-full max-w-md">
+          {status === "success" ? (
+            <p className="bg-[#441E0A] text-white px-8 lg:px-10 py-3 rounded-lg font-semibold text-lg font-rubik">
+              You&apos;re on the list! We&apos;ll be in touch.
+            </p>
+          ) : (
+            <form
+              onSubmit={handleMailingListSubmit}
+              className="flex w-full flex-col sm:flex-row gap-2"
             >
-              Apply Now!
-            </a>
-          </div>
-          <div className="bg-[#EC294D] text-white px-8 lg:px-10 py-1 rounded-b-lg text-center flex items-center justify-center">
-            <span className="font-semibold text-sm font-rubik">
-              Due Feb 28, 2026!
-            </span>
-          </div>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@email.com"
+                disabled={status === "loading"}
+                className="flex-1 px-4 py-2 lg:py-3 rounded-lg border-2 border-[#441E0A] bg-white/80 text-[#441E0A] font-rubik placeholder:text-[#441E0A]/60 focus:outline-none focus:ring-2 focus:ring-[#EC294D]"
+              />
+              <button
+                type="submit"
+                disabled={status === "loading"}
+                className="bg-[#441E0A] text-white px-6 lg:px-8 py-2 lg:py-3 rounded-lg font-bold text-lg font-rubik hover:bg-[#5C2E0F] transition disabled:opacity-60"
+              >
+                {status === "loading" ? "Signing up..." : "Sign Up"}
+              </button>
+            </form>
+          )}
+          {status === "error" && (
+            <p className="mt-2 text-[#EC294D] text-sm font-rubik font-semibold">
+              {errorMessage}
+            </p>
+          )}
         </div>
       </div>
     </section>
